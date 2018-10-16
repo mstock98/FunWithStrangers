@@ -21,7 +21,11 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".opponentSearch"></activity>
+        <activity android:name=".opponentSearch" />
+        <activity
+            android:name=".ticTacToe"
+            android:label="@string/title_activity_tic_tac_toe"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-// This is a test comment, please ignore/remove me if you wish
 public class MainActivity extends AppCompatActivity {
     Button ticTacToeButton;
     @Override

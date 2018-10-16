@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">FunWithStrangers</string>
+    <string name="title_activity_tic_tac_toe">ticTacToe</string>
 </resources>
