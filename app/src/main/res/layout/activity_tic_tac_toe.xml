@@ -1,34 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ticTacToe">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appBarLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+    <Button
+        android:id="@+id/ttt10"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="42dp"
+        android:background="@android:color/transparent"
+        android:text="10"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/ttt20"
+        app:layout_constraintEnd_toStartOf="@+id/ttt11"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ttt00" />
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+    <Button
+        android:id="@+id/ttt00"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="133dp"
+        android:background="@android:color/transparent"
+        android:text="00"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/ttt10"
+        app:layout_constraintEnd_toStartOf="@+id/ttt01"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    </android.support.design.widget.AppBarLayout>
+    <Button
+        android:id="@+id/ttt01"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="133dp"
+        android:background="@android:color/transparent"
+        android:text="01"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/ttt11"
+        app:layout_constraintEnd_toStartOf="@+id/ttt02"
+        app:layout_constraintStart_toEndOf="@+id/ttt00"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <include layout="@layout/content_tic_tac_toe" />
+    <Button
+        android:id="@+id/ttt02"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="133dp"
+        android:layout_marginEnd="42dp"
+        android:background="@android:color/transparent"
+        android:text="02"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/ttt12"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ttt01"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+    <Button
+        android:id="@+id/ttt22"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginEnd="42dp"
+        android:layout_marginBottom="134dp"
+        android:background="@android:color/transparent"
+        android:text="22"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ttt21"
+        app:layout_constraintTop_toBottomOf="@+id/ttt12" />
 
-</android.support.design.widget.CoordinatorLayout>
+    <Button
+        android:id="@+id/ttt21"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="134dp"
+        android:background="@android:color/transparent"
+        android:text="21"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ttt22"
+        app:layout_constraintStart_toEndOf="@+id/ttt20"
+        app:layout_constraintTop_toBottomOf="@+id/ttt11" />
+
+    <Button
+        android:id="@+id/ttt20"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="42dp"
+        android:layout_marginBottom="134dp"
+        android:background="@android:color/transparent"
+        android:text="20"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ttt21"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ttt10" />
+
+    <Button
+        android:id="@+id/ttt11"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@android:color/transparent"
+        android:text="11"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/ttt21"
+        app:layout_constraintEnd_toStartOf="@+id/ttt12"
+        app:layout_constraintStart_toEndOf="@+id/ttt10"
+        app:layout_constraintTop_toBottomOf="@+id/ttt01" />
+
+    <Button
+        android:id="@+id/ttt12"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginEnd="42dp"
+        android:background="@android:color/transparent"
+        android:text="12"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/ttt22"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ttt11"
+        app:layout_constraintTop_toBottomOf="@+id/ttt02" />
+
+</android.support.constraint.ConstraintLayout>

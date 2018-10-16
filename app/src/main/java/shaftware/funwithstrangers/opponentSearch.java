@@ -8,7 +8,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 public class opponentSearch extends AppCompatActivity {
-    Button cancelButton;
+    Button cancelButton, playButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +23,16 @@ public class opponentSearch extends AppCompatActivity {
 
                 // Start NewActivity.class
                 Intent myIntent = new Intent(opponentSearch.this, MainActivity.class);
+                startActivity(myIntent);
+            }
+        });
+
+        playButton = findViewById(R.id.playButton);
+        playButton.setOnClickListener(new OnClickListener() {
+            public void onClick(View arg0) {
+
+                // Start NewActivity.class
+                Intent myIntent = new Intent(opponentSearch.this, ticTacToe.class);
                 startActivity(myIntent);
             }
         });
