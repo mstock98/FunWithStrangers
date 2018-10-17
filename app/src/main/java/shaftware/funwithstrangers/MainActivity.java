@@ -28,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
         // Capture button clicks
         ticTacToeButton.setOnClickListener(new OnClickListener() {
             public void onClick(View arg0) {
+                Globals g = (Globals)getApplication();
+                g.setMode(Globals.Mode.TICTACTOE);
                 switchToOpponentSearch();
             }
         });
@@ -35,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
         // Capture button clicks
         chessButton.setOnClickListener(new OnClickListener() {
             public void onClick(View arg0) {
+                Globals g = (Globals)getApplication();
+                g.setMode(Globals.Mode.CHESS);
                 switchToOpponentSearch();
             }
         });
@@ -42,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
         // Capture button clicks
         hangManButton.setOnClickListener(new OnClickListener() {
             public void onClick(View arg0) {
+                Globals g = (Globals)getApplication();
+                g.setMode(Globals.Mode.HANGMAN);
                 switchToOpponentSearch();
             }
         });
@@ -49,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
         // Capture button clicks
         checkersButton.setOnClickListener(new OnClickListener() {
             public void onClick(View arg0) {
+                Globals g = (Globals)getApplication();
+                g.setMode(Globals.Mode.CHECKERS);
                 switchToOpponentSearch();
             }
         });

@@ -1,5 +1,6 @@
 package shaftware.funwithstrangers;
 
+import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
@@ -13,7 +14,7 @@ public class opponentSearch extends AppCompatActivity {
     TextView gameTitle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Globals.Mode mode;
+        final Globals.Mode mode;
         Globals g = (Globals)getApplication();
         mode = g.getMode();
 
@@ -23,19 +24,19 @@ public class opponentSearch extends AppCompatActivity {
         cancelButton =  findViewById(R.id.cancelSearchButton);
         gameTitle = findViewById(R.id.gameTitle);
 
-        gameTitle.setText(0); // you need a res id to store the string values anyway
-        switch(mode){
+      switch(mode){
             case CHECKERS:
-                    gameTitle.setText(R.string.checkers_text);
+                    gameTitle.setText("Checkers");
                     break;
             case TICTACTOE:
-                    gameTitle.setText(R.string.TicTacToe_text);
+                    gameTitle.setText("Tic Tac Toe");
                     break;
             case CHESS:
-                    gameTitle.setText(R.string.chess_text);
+                    gameTitle.setText("Chess");
                     break;
             case HANGMAN:
-                    gameTitle.setText(R.string.hangMan_text);
+                    gameTitle.setText("Hang Man");
+                    break;
         }
 
 
@@ -52,9 +53,23 @@ public class opponentSearch extends AppCompatActivity {
         playButton = findViewById(R.id.playButton);
         playButton.setOnClickListener(new OnClickListener() {
             public void onClick(View arg0) {
+                Class next = MainActivity.class;
+                switch(mode){
+                    case CHECKERS:
+                        //switch to checkers activity, goes back to main by default
+                        break;
+                    case TICTACTOE:
+                        next = ticTacToe.class;
+                        break;
+                    case CHESS:
+                        //switch to chess activity, goes back to main by default
+                        break;
+                    case HANGMAN:
+                        //switch to HangMan activity, goes back to main by default
+                        break;
+                }
 
-                // Start NewActivity.class
-                Intent myIntent = new Intent(opponentSearch.this, ticTacToe.class);
+                Intent myIntent = new Intent(opponentSearch.this, next);
                 startActivity(myIntent);
             }
         });
