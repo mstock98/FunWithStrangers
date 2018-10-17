@@ -1,4 +1,7 @@
 <resources>
-    <string name="app_name">FunWithStrangers</string>
-    <string name="title_activity_tic_tac_toe">ticTacToe</string>
+    <string name="app_name">Fun With Strangers</string>
+    <string name="checkers_text" id = "0">Checkers</string>
+    <string name="TicTacToe_text" id = "1">Tic Tac Toe</string>
+    <string name="hangMan_text" id = "2">Hang Man</string>
+    <string name="chess_text" id = "3" >Chess</string>
 </resources>
