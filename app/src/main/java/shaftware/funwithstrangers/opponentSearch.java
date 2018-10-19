@@ -8,9 +8,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
-//import com.google.android.gms.games.multiplayer;
-//import com.google.android.gms.games.multipalyer.realtime;
-//import com.google.android.gms.games;
+import com.google.android.gms.games.multiplayer.turnbased.*;
+import com.google.android.gms.games.*;
+
 
 public class opponentSearch extends AppCompatActivity {
     Button cancelButton, playButton;
@@ -74,6 +74,10 @@ public class opponentSearch extends AppCompatActivity {
 
                 Intent myIntent = new Intent(opponentSearch.this, next);
                 startActivity(myIntent);
+
+
+
+
             }
         });
     }
