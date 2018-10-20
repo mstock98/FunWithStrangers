@@ -16,4 +16,7 @@ public class Globals extends Application {
     public Mode getMode(){
         return mode;
     }
+
+    // A value that uniquely identifies the app. Used for multiplayer functionality
+    public static String getServiceId() {return "shaftware.funwithstrangers";}
 }

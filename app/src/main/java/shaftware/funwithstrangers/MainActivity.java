@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
     Button chessButton;
     Button checkersButton;
     Button hangManButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
         chessButton =  findViewById(R.id.chessButton);
         hangManButton =  findViewById(R.id.hangManButton);
         checkersButton =  findViewById(R.id.checkersButton);
-
 
         // Capture button clicks
         ticTacToeButton.setOnClickListener(new OnClickListener() {
