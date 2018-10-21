@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.google.android.gms.games.multiplayer.turnbased.*;
 import com.google.android.gms.games.*;
 import com.google.android.gms.nearby.Nearby;
@@ -116,10 +117,14 @@ public class opponentSearch extends AppCompatActivity {
                     // We may want to make opponentList a list of key value pairs later
                     // (key = endpointId, value = discoveredEndpointInfo)
                     opponentList.add(endpointId);
+                    Toast toast = Toast.makeText(getApplicationContext(), "found endpoint", Toast.LENGTH_SHORT);
+                    toast.show();
                 }
 
                 @Override
                 public void onEndpointLost(String endpointId) {
+                    Toast toast = Toast.makeText(getApplicationContext(), "endpoint lost", Toast.LENGTH_SHORT);
+                    toast.show();
                     opponentList.remove(endpointId);
                 }
             };
@@ -134,6 +139,8 @@ public class opponentSearch extends AppCompatActivity {
                             @Override
                             public void onSuccess(Void unusedResult) {
                                 // We're discovering!
+                                Toast toast = Toast.makeText(getApplicationContext(), "discovering", Toast.LENGTH_SHORT);
+                                toast.show();
                             }
                         })
                 .addOnFailureListener(
@@ -141,6 +148,8 @@ public class opponentSearch extends AppCompatActivity {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 // We were unable to start discovering.
+                                Toast toast = Toast.makeText(getApplicationContext(), "can't discover", Toast.LENGTH_SHORT);
+                                toast.show();
                             }
                         });
     }
