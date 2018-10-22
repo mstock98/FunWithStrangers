@@ -11,9 +11,20 @@ public class TttLogic {
     public static final int O = 0;
 
     private int PIECE = OPEN;
+    private boolean MYTURN = false;
 
-    public TttLogic(/* Maybe something here for piece preference*/){
+    public TttLogic(int PIECE, boolean MYTURN){
         //Decide on PIECE (0 for O, 1 for X)
+        this.PIECE = PIECE;
+        //Decide on turn
+        this.MYTURN = MYTURN;
+    }
+
+    public void swapTurn(){
+        if (MYTURN)
+            MYTURN = false;
+        else
+            MYTURN = true;
     }
 
     public int getBoardPiece(int row, int col){
@@ -24,6 +35,8 @@ public class TttLogic {
         return PIECE;
     }
 
+    public boolean isTurn(){ return MYTURN; }
+
     public void clearBoard(){
         for (int i = 0; i < 3; i++){
             for (int j = 0; j < 3; j++){
@@ -32,10 +45,12 @@ public class TttLogic {
         }
     }
 
-    public void pickSpot(int PIECE, int row, int col){
+    public boolean pickSpot(int row, int col){
         if (row > -1 && row < 3 && col > -1 && col < 3 && board[row][col] == OPEN){
             board[row][col] = PIECE;
+            return true;
         }
+        return false;
     }
 
     //Return O: '0', X: '1', Tie: '2'

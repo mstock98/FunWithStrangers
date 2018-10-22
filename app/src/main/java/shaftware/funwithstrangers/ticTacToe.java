@@ -15,8 +15,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 public class ticTacToe extends AppCompatActivity {
 
     Button ttt00, ttt01, ttt02,
-           ttt10, ttt11, ttt12,
-           ttt20, ttt21, ttt22;
+            ttt10, ttt11, ttt12,
+            ttt20, ttt21, ttt22;
     Button[] buttons = {ttt00, ttt01, ttt02, ttt10, ttt11, ttt12,
             ttt20, ttt21, ttt22};
 
@@ -29,6 +29,7 @@ public class ticTacToe extends AppCompatActivity {
 
         startAdvertising();
 
+        //Creates on click listeners and everything for the TTT grid buttons
         for (int i = 0; i < buttons.length; i++) {
             int resID = getResources().getIdentifier(buttons[i].getText().toString(), "id", getPackageName());
             buttons[i] = findViewById(resID);
@@ -39,29 +40,82 @@ public class ticTacToe extends AppCompatActivity {
             });
         }
 
-        TttGame = new TttLogic();
+        //Initializing the TttGame
+        TttGame = new TttLogic(TttLogic.X, true);
         TttGame.clearBoard();
         updateGameView(TttGame);
     }
 
     //Interface between button pressed and TttLogic
-    private void tttPressed(View v){
+    private void tttPressed(View v) {
 
         Button pressed = findViewById(v.getId());
 
+        boolean validSpot = false;
+
+        while (!validSpot) {
+            if (TttGame.isTurn()) {
+
+                int row = -1, col = -1;
+
+                switch (pressed.getId()) {
+                    case R.id.ttt00:
+                        row = 0;
+                        col = 0;
+                        break;
+                    case R.id.ttt01:
+                        row = 0;
+                        col = 1;
+                        break;
+                    case R.id.ttt02:
+                        row = 0;
+                        col = 2;
+                        break;
+                    case R.id.ttt10:
+                        row = 1;
+                        col = 0;
+                        break;
+                    case R.id.ttt11:
+                        row = 1;
+                        col = 1;
+                        break;
+                    case R.id.ttt12:
+                        row = 1;
+                        col = 2;
+                        break;
+                    case R.id.ttt20:
+                        row = 2;
+                        col = 0;
+                        break;
+                    case R.id.ttt21:
+                        row = 2;
+                        col = 1;
+                        break;
+                    case R.id.ttt22:
+                        row = 2;
+                        col = 2;
+                        break;
+                }
+
+                validSpot = TttGame.pickSpot(row, col);
+            }
+        }
+        //TttGame.swapTurn()
+        updateGameView(TttGame);
+
     }
 
-    private void updateGameView(TttLogic TttGame){
-        for (int i = 0; i < 3; i++){
-            for (int j = 0; j < 3; j++){
+    private void updateGameView(TttLogic TttGame) {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
                 int piece = TttGame.getBoardPiece(i, j);
-                if (piece == TttLogic.X){
+                if (piece == TttLogic.X) {
                     buttons[i].setText("X");
                 }
-                if (piece == TttLogic.O){
+                if (piece == TttLogic.O) {
                     buttons[i].setText("O");
                 }
-                if (piece == TttLogic.OPEN){
+                if (piece == TttLogic.OPEN) {
                     buttons[i].setText("");
                 }
             }
