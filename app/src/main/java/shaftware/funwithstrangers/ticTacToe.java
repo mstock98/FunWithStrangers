@@ -4,6 +4,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
+import android.view.View;
+import android.view.View.OnClickListener;
 
 import com.google.android.gms.nearby.Nearby;
 import com.google.android.gms.nearby.connection.*;
@@ -15,6 +17,10 @@ public class ticTacToe extends AppCompatActivity {
     Button ttt00, ttt01, ttt02,
            ttt10, ttt11, ttt12,
            ttt20, ttt21, ttt22;
+    Button[] buttons = {ttt00, ttt01, ttt02, ttt10, ttt11, ttt12,
+            ttt20, ttt21, ttt22};
+
+    TttLogic TttGame = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,18 +29,43 @@ public class ticTacToe extends AppCompatActivity {
 
         startAdvertising();
 
-        ttt00 = findViewById(R.id.ttt00);
-        ttt01 = findViewById(R.id.ttt01);
-        ttt02 = findViewById(R.id.ttt02);
+        for (int i = 0; i < buttons.length; i++) {
+            int resID = getResources().getIdentifier(buttons[i].getText().toString(), "id", getPackageName());
+            buttons[i] = findViewById(resID);
+            buttons[i].setOnClickListener(new OnClickListener() {
+                public void onClick(View v) {
+                    tttPressed(v);
+                }
+            });
+        }
 
-        ttt10 = findViewById(R.id.ttt10);
-        ttt11 = findViewById(R.id.ttt11);
-        ttt12 = findViewById(R.id.ttt12);
+        TttGame = new TttLogic();
+        TttGame.clearBoard();
+        updateGameView(TttGame);
+    }
 
-        ttt20 = findViewById(R.id.ttt20);
-        ttt21 = findViewById(R.id.ttt21);
-        ttt22 = findViewById(R.id.ttt22);
+    //Interface between button pressed and TttLogic
+    private void tttPressed(View v){
 
+        Button pressed = findViewById(v.getId());
+
+    }
+
+    private void updateGameView(TttLogic TttGame){
+        for (int i = 0; i < 3; i++){
+            for (int j = 0; j < 3; j++){
+                int piece = TttGame.getBoardPiece(i, j);
+                if (piece == TttLogic.X){
+                    buttons[i].setText("X");
+                }
+                if (piece == TttLogic.O){
+                    buttons[i].setText("O");
+                }
+                if (piece == TttLogic.OPEN){
+                    buttons[i].setText("");
+                }
+            }
+        }
     }
 
     // Local player advertisement code
