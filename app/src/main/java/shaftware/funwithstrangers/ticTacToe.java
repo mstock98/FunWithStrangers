@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Toast;
 
 import com.google.android.gms.nearby.Nearby;
 import com.google.android.gms.nearby.connection.*;
@@ -41,6 +42,7 @@ public class ticTacToe extends AppCompatActivity {
         }
 
         //Initializing the TttGame
+        //Who is X and who goes first must be decided at the constructor
         TttGame = new TttLogic(TttLogic.X, true);
         TttGame.clearBoard();
         updateGameView(TttGame);
@@ -101,7 +103,17 @@ public class ticTacToe extends AppCompatActivity {
             }
         }
         //TttGame.swapTurn()
+        TttGame.swapPiece();
         updateGameView(TttGame);
+        int winner = TttGame.checkWinner();
+        if (winner == TttLogic.O){
+            Toast.makeText(getApplicationContext(), "O Won!", Toast.LENGTH_LONG).show();
+        } else if (winner == TttLogic.X){
+            Toast.makeText(getApplicationContext(), "X Won!", Toast.LENGTH_LONG).show();
+        } else if (winner == TttLogic.TIE){
+            Toast.makeText(getApplicationContext(), "Tie!", Toast.LENGTH_LONG);
+        }
+
 
     }
 

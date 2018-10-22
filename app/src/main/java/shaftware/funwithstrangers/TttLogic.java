@@ -4,8 +4,8 @@ public class TttLogic {
 
     private int[][] board = new int[3][3];
 
-    private static final int TIE = 2;
-    private static final int IN_PROGRESS = -1;
+    public static final int TIE = 2;
+    public  static final int IN_PROGRESS = -1;
     public static final int OPEN = -1;
     public static final int X = 1;
     public static final int O = 0;
@@ -20,6 +20,15 @@ public class TttLogic {
         this.MYTURN = MYTURN;
     }
 
+    //TEMPORARY method until multiplayer and correct AI implemented.
+    @Deprecated
+    public void swapPiece(){
+        if (PIECE == X)
+            PIECE = O;
+        else
+            PIECE = X;
+    }
+
     public void swapTurn(){
         if (MYTURN)
             MYTURN = false;
@@ -29,10 +38,6 @@ public class TttLogic {
 
     public int getBoardPiece(int row, int col){
         return board[row][col];
-    }
-
-    public int getPiece(){
-        return PIECE;
     }
 
     public boolean isTurn(){ return MYTURN; }
