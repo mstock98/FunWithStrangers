@@ -154,12 +154,18 @@ public class ticTacToe extends AppCompatActivity {
                     switch (result.getStatus().getStatusCode()) {
                         case ConnectionsStatusCodes.STATUS_OK:
                             // We're connected! Can now start sending and receiving data.
+                            Toast toast = Toast.makeText(getApplicationContext(), "Connection Established", Toast.LENGTH_SHORT);
+                            toast.show();
                             break;
                         case ConnectionsStatusCodes.STATUS_CONNECTION_REJECTED:
                             // The connection was rejected by one or both sides.
+                            Toast toast1 = Toast.makeText(getApplicationContext(), "Rejected Connection", Toast.LENGTH_SHORT);
+                            toast1.show();
                             break;
                         case ConnectionsStatusCodes.STATUS_ERROR:
                             // The connection broke before it was able to be accepted.
+                            Toast toast2 = Toast.makeText(getApplicationContext(), "Broken Connection", Toast.LENGTH_SHORT);
+                            toast2.show();
                             break;
                     }
                 }
@@ -181,14 +187,16 @@ public class ticTacToe extends AppCompatActivity {
                         new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unusedResult) {
-                                // We're advertising!
+                                Toast toast = Toast.makeText(getApplicationContext(), "Successful Advert", Toast.LENGTH_SHORT);
+                                toast.show();
                             }
                         })
                 .addOnFailureListener(
                         new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                // We were unable to start advertising.
+                                Toast toast = Toast.makeText(getApplicationContext(), "Unsuccessful Advert", Toast.LENGTH_SHORT);
+                                toast.show();
                             }
                         });
     }
