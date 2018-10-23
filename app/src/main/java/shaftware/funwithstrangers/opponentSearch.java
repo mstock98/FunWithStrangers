@@ -65,42 +65,12 @@ public class opponentSearch extends AppCompatActivity {
                     break;
         }
 
-
-        // Capture button clicks
         cancelButton.setOnClickListener(new OnClickListener() {
             public void onClick(View arg0) {
 
-                // Start NewActivity.class
-                Intent myIntent = new Intent(opponentSearch.this, MainActivity.class);
+                //head back to title screen of game
+                Intent myIntent = new Intent(opponentSearch.this, titleScreen.class);
                 startActivity(myIntent);
-            }
-        });
-
-        playButton = findViewById(R.id.playButton);
-        playButton.setOnClickListener(new OnClickListener() {
-            public void onClick(View arg0) {
-                Class next = MainActivity.class;
-                switch(mode){
-                    case CHECKERS:
-                        //switch to checkers activity, goes back to main by default
-                        break;
-                    case TICTACTOE:
-                        next = ticTacToe.class;
-                        break;
-                    case CHESS:
-                        //switch to chess activity, goes back to main by default
-                        break;
-                    case HANGMAN:
-                        //switch to HangMan activity, goes back to main by default
-                        break;
-                }
-
-                Intent myIntent = new Intent(opponentSearch.this, next);
-                startActivity(myIntent);
-
-
-
-
             }
         });
     }
