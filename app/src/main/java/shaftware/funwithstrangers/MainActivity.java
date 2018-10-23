@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View arg0) {
                 Globals g = (Globals)getApplication();
                 g.setMode(Globals.Mode.TICTACTOE);
-                switchToOpponentSearch();
+                switchToTitleScreen();
             }
         });
 
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View arg0) {
                 Globals g = (Globals)getApplication();
                 g.setMode(Globals.Mode.CHESS);
-                switchToOpponentSearch();
+                switchToTitleScreen();
             }
         });
 
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View arg0) {
                 Globals g = (Globals)getApplication();
                 g.setMode(Globals.Mode.HANGMAN);
-                switchToOpponentSearch();
+                switchToTitleScreen();
             }
         });
 
@@ -58,14 +58,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View arg0) {
                 Globals g = (Globals)getApplication();
                 g.setMode(Globals.Mode.CHECKERS);
-                switchToOpponentSearch();
+                switchToTitleScreen();
             }
         });
     }
 
-    private void switchToOpponentSearch(){
+    private void switchToTitleScreen(){
         // Start NewActivity.class
-        Intent myIntent = new Intent(MainActivity.this, opponentSearch.class);
+        Intent myIntent = new Intent(MainActivity.this, titleScreen.class);
         startActivity(myIntent);
     }
 }
