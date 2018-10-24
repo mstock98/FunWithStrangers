@@ -1,11 +1,9 @@
 package shaftware.funwithstrangers;
 
-import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.content.Intent;
-import android.util.AttributeSet;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
@@ -13,19 +11,23 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.google.android.gms.games.multiplayer.turnbased.*;
-import com.google.android.gms.games.*;
+
 import com.google.android.gms.nearby.Nearby;
-import com.google.android.gms.nearby.connection.*;
+import com.google.android.gms.nearby.connection.ConnectionInfo;
+import com.google.android.gms.nearby.connection.ConnectionLifecycleCallback;
+import com.google.android.gms.nearby.connection.ConnectionResolution;
+import com.google.android.gms.nearby.connection.DiscoveredEndpointInfo;
+import com.google.android.gms.nearby.connection.DiscoveryOptions;
+import com.google.android.gms.nearby.connection.EndpointDiscoveryCallback;
+import com.google.android.gms.nearby.connection.Strategy;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
-import java.security.acl.Permission;
 import java.util.ArrayList;
 
 
 public class opponentSearch extends AppCompatActivity {
-    Button cancelButton, playButton;
+    Button cancelButton;
     TextView gameTitle;
     ListView opponentListView;
     ArrayList<String> opponentList;
@@ -94,11 +96,25 @@ public class opponentSearch extends AppCompatActivity {
                     opponentListView.setAdapter(adapter);
 
 
-                    Toast toast = Toast.makeText(getApplicationContext(), "found endpoint", Toast.LENGTH_SHORT);
-                    toast.show();
+                    Toast.makeText(getApplicationContext(), "found endpoint", Toast.LENGTH_SHORT).show();
 
 
+                    ConnectionLifecycleCallback mConnectionLifecycleCallback = new ConnectionLifecycleCallback() {
+                        @Override
+                        public void onConnectionInitiated(@NonNull String s, @NonNull ConnectionInfo connectionInfo) {
 
+                        }
+
+                        @Override
+                        public void onConnectionResult(@NonNull String s, @NonNull ConnectionResolution connectionResolution) {
+
+                        }
+
+                        @Override
+                        public void onDisconnected(@NonNull String s) {
+
+                        }
+                    };
 
 
                     Nearby.getConnectionsClient(opponentSearch.this).requestConnection("swag", endpointId, mConnectionLifecycleCallback)
@@ -121,8 +137,7 @@ public class opponentSearch extends AppCompatActivity {
 
                 @Override
                 public void onEndpointLost(String endpointId) {
-                    Toast toast = Toast.makeText(getApplicationContext(), "endpoint lost", Toast.LENGTH_SHORT);
-                    toast.show();
+                    Toast.makeText(getApplicationContext(), "endpoint lost", Toast.LENGTH_SHORT).show();
                     opponentList.remove(endpointId);
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(opponentSearch.this,
                             android.R.layout.simple_list_item_1, opponentList);
@@ -140,8 +155,7 @@ public class opponentSearch extends AppCompatActivity {
                             @Override
                             public void onSuccess(Void unusedResult) {
                                 // We're discovering!
-                                Toast toast = Toast.makeText(getApplicationContext(), "discovering", Toast.LENGTH_SHORT);
-                                toast.show();
+                                Toast.makeText(getApplicationContext(), "discovering", Toast.LENGTH_SHORT).show();
                             }
                         })
                 .addOnFailureListener(
@@ -149,8 +163,7 @@ public class opponentSearch extends AppCompatActivity {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 // We were unable to start discovering.
-                                Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT);
-                                toast.show();
+                                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });
     }
