@@ -88,8 +88,7 @@ public class opponentSearch extends AppCompatActivity {
                 public void onEndpointFound(String endpointId, DiscoveredEndpointInfo discoveredEndpointInfo) {
                     // We may want to make opponentList a list of key value pairs later
                     // (key = endpointId, value = discoveredEndpointInfo)
-                    opponentList.add(endpointId);
-
+                    opponentList.add(discoveredEndpointInfo.getEndpointName());
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(opponentSearch.this,
                             android.R.layout.simple_list_item_1, opponentList);
                     opponentListView.setAdapter(adapter);
@@ -97,6 +96,27 @@ public class opponentSearch extends AppCompatActivity {
 
                     Toast toast = Toast.makeText(getApplicationContext(), "found endpoint", Toast.LENGTH_SHORT);
                     toast.show();
+
+
+
+
+
+                    Nearby.getConnectionsClient(opponentSearch.this).requestConnection("swag", endpointId, mConnectionLifecycleCallback)
+                            .addOnSuccessListener(
+                                    new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void unusedResult) {
+                                            // We successfully requested a connection. Now both sides
+                                            // must accept before the connection is established.
+                                        }
+                                    })
+                            .addOnFailureListener(
+                                    new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            // Nearby Connections failed to request the connection.
+                                        }
+                                    });
                 }
 
                 @Override
@@ -104,6 +124,9 @@ public class opponentSearch extends AppCompatActivity {
                     Toast toast = Toast.makeText(getApplicationContext(), "endpoint lost", Toast.LENGTH_SHORT);
                     toast.show();
                     opponentList.remove(endpointId);
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(opponentSearch.this,
+                            android.R.layout.simple_list_item_1, opponentList);
+                    opponentListView.setAdapter(adapter);
                 }
             };
 
