@@ -51,8 +51,6 @@ public class ticTacToe extends AppCompatActivity {
     //Interface between button pressed and TttLogic
     private void tttPressed(View v) {
 
-        Button pressed = findViewById(v.getId());
-
         int row = -1, col = -1;
 
         if (TttGame.isTurn()) {
@@ -108,7 +106,7 @@ public class ticTacToe extends AppCompatActivity {
             } else if (winner == TttLogic.X) {
                 Toast.makeText(getApplicationContext(), "X Won!", Toast.LENGTH_LONG).show();
             } else if (winner == TttLogic.TIE) {
-                Toast.makeText(getApplicationContext(), "Tie!", Toast.LENGTH_LONG);
+                Toast.makeText(getApplicationContext(), "Tie!", Toast.LENGTH_LONG).show();
             }
         }
 
@@ -125,7 +123,7 @@ public class ticTacToe extends AppCompatActivity {
                 buttons[i].setText("O");
             }
             if (piece == TttLogic.OPEN) {
-                buttons[i].setText("-1");
+                buttons[i].setText("_");
             }
         }
     }
