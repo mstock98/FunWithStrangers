@@ -3,7 +3,6 @@ package shaftware.funwithstrangers;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Button;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
@@ -42,7 +41,7 @@ public class ticTacToe extends AppCompatActivity {
         }
 
         //Initializing the TttGame
-        //Who is X and who goes first must be decided at the constructor
+        //Who is x and who goes first must be decided at the constructor
         TttGame = new TttLogic(TttLogic.X, true);
         TttGame.clearBoard();
         updateGameView(TttGame);
@@ -120,13 +119,13 @@ public class ticTacToe extends AppCompatActivity {
         for (int i = 0; i < buttons.length; i++) {
             int piece = TttGame.getBoardPiece(i/3, i%3);
             if (piece == TttLogic.X) {
-                //buttons[i].setText("X");
+                buttons[i].setImageResource(R.drawable.x);
             }
             if (piece == TttLogic.O) {
-                //buttons[i].setText("O");
+                buttons[i].setImageResource(R.drawable.o);
             }
             if (piece == TttLogic.OPEN) {
-                //buttons[i].setText("_");
+                buttons[i].setImageResource(R.drawable.b);
             }
         }
     }
