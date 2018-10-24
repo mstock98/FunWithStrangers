@@ -18,8 +18,8 @@ public class ticTacToe extends AppCompatActivity {
     Button ttt00, ttt01, ttt02,
             ttt10, ttt11, ttt12,
             ttt20, ttt21, ttt22;
-    Button[] buttons = {ttt00, ttt01, ttt02, ttt10, ttt11, ttt12,
-            ttt20, ttt21, ttt22};
+    Button[] buttons = {ttt00, ttt01, ttt02, ttt10, ttt11, ttt12, ttt20, ttt21, ttt22};
+    String[] buttonsID = {"ttt00", "ttt01", "ttt02", "ttt10", "ttt11", "ttt12", "ttt20", "ttt21", "ttt22"};
 
     TttLogic TttGame = null;
 
@@ -27,12 +27,11 @@ public class ticTacToe extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tic_tac_toe);
-
         startAdvertising();
 
         //Creates on click listeners and everything for the TTT grid buttons
         for (int i = 0; i < buttons.length; i++) {
-            int resID = getResources().getIdentifier(buttons[i].getText().toString(), "id", getPackageName());
+            int resID = getResources().getIdentifier(buttonsID[i], "id", getPackageName());
             buttons[i] = findViewById(resID);
             buttons[i].setOnClickListener(new OnClickListener() {
                 public void onClick(View v) {
@@ -49,87 +48,84 @@ public class ticTacToe extends AppCompatActivity {
     }
 
     //Interface between button pressed and TttLogic
+    //Interface between button pressed and TttLogic
     private void tttPressed(View v) {
 
         Button pressed = findViewById(v.getId());
 
-        boolean validSpot = false;
+        int row = -1, col = -1;
 
-        while (!validSpot) {
-            if (TttGame.isTurn()) {
+        if (TttGame.isTurn()) {
 
-                int row = -1, col = -1;
-
-                switch (pressed.getId()) {
-                    case R.id.ttt00:
-                        row = 0;
-                        col = 0;
-                        break;
-                    case R.id.ttt01:
-                        row = 0;
-                        col = 1;
-                        break;
-                    case R.id.ttt02:
-                        row = 0;
-                        col = 2;
-                        break;
-                    case R.id.ttt10:
-                        row = 1;
-                        col = 0;
-                        break;
-                    case R.id.ttt11:
-                        row = 1;
-                        col = 1;
-                        break;
-                    case R.id.ttt12:
-                        row = 1;
-                        col = 2;
-                        break;
-                    case R.id.ttt20:
-                        row = 2;
-                        col = 0;
-                        break;
-                    case R.id.ttt21:
-                        row = 2;
-                        col = 1;
-                        break;
-                    case R.id.ttt22:
-                        row = 2;
-                        col = 2;
-                        break;
-                }
-
-                validSpot = TttGame.pickSpot(row, col);
+            switch (v.getId()) {
+                case R.id.ttt00:
+                    row = 0;
+                    col = 0;
+                    break;
+                case R.id.ttt01:
+                    row = 0;
+                    col = 1;
+                    break;
+                case R.id.ttt02:
+                    row = 0;
+                    col = 2;
+                    break;
+                case R.id.ttt10:
+                    row = 1;
+                    col = 0;
+                    break;
+                case R.id.ttt11:
+                    row = 1;
+                    col = 1;
+                    break;
+                case R.id.ttt12:
+                    row = 1;
+                    col = 2;
+                    break;
+                case R.id.ttt20:
+                    row = 2;
+                    col = 0;
+                    break;
+                case R.id.ttt21:
+                    row = 2;
+                    col = 1;
+                    break;
+                case R.id.ttt22:
+                    row = 2;
+                    col = 2;
+                    break;
             }
         }
+        boolean validSpot = TttGame.pickSpot(row, col);
+
         //TttGame.swapTurn()
-        TttGame.swapPiece();
-        updateGameView(TttGame);
-        int winner = TttGame.checkWinner();
-        if (winner == TttLogic.O){
-            Toast.makeText(getApplicationContext(), "O Won!", Toast.LENGTH_LONG).show();
-        } else if (winner == TttLogic.X){
-            Toast.makeText(getApplicationContext(), "X Won!", Toast.LENGTH_LONG).show();
-        } else if (winner == TttLogic.TIE){
-            Toast.makeText(getApplicationContext(), "Tie!", Toast.LENGTH_LONG);
+        if (validSpot) {
+            TttGame.swapPiece();
+            updateGameView(TttGame);
+            int winner = TttGame.checkWinner();
+            if (winner == TttLogic.O) {
+                Toast.makeText(getApplicationContext(), "O Won!", Toast.LENGTH_LONG).show();
+            } else if (winner == TttLogic.X) {
+                Toast.makeText(getApplicationContext(), "X Won!", Toast.LENGTH_LONG).show();
+            } else if (winner == TttLogic.TIE) {
+                Toast.makeText(getApplicationContext(), "Tie!", Toast.LENGTH_LONG);
+            }
         }
 
 
     }
 
     private void updateGameView(TttLogic TttGame) {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                int piece = TttGame.getBoardPiece(i, j);
-                if (piece == TttLogic.X) {
-                    buttons[i].setText("X");
-                }
-                if (piece == TttLogic.O) {
-                    buttons[i].setText("O");
-                }
-                if (piece == TttLogic.OPEN) {
-                    buttons[i].setText("");
-                }
+        for (int i = 0; i < buttons.length; i++) {
+            int piece = TttGame.getBoardPiece(i/3, i%3);
+            if (piece == TttLogic.X) {
+                buttons[i].setText("X");
+            }
+            if (piece == TttLogic.O) {
+                buttons[i].setText("O");
+            }
+            if (piece == TttLogic.OPEN) {
+                buttons[i].setText("-1");
             }
         }
     }
