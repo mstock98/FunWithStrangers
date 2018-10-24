@@ -20,6 +20,14 @@ public class TttLogic {
         this.MYTURN = MYTURN;
     }
 
+    public int getPIECE(){
+        return PIECE;
+    }
+
+    public void recieveBoard(int[][] board){
+        this.board = board;
+    }
+
     //TEMPORARY method until multiplayer and correct AI implemented.
     @Deprecated
     public void swapPiece(){
@@ -34,6 +42,10 @@ public class TttLogic {
             MYTURN = false;
         else
             MYTURN = true;
+    }
+
+    public int[][] getBoard(){
+        return board;
     }
 
     public int getBoardPiece(int row, int col){

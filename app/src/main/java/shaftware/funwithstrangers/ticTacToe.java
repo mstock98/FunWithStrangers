@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ public class ticTacToe extends AppCompatActivity {
     String[] buttonsID = {"ttt00", "ttt01", "ttt02", "ttt10", "ttt11", "ttt12", "ttt20", "ttt21", "ttt22"};
 
     TttLogic TttGame = null;
+    TttAi ai = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +44,15 @@ public class ticTacToe extends AppCompatActivity {
 
         //Initializing the TttGame
         //Who is x and who goes first must be decided at the constructor
-        TttGame = new TttLogic(TttLogic.X, true);
+        TttGame = new TttLogic(TttLogic.O, true);
         TttGame.clearBoard();
         updateGameView(TttGame);
+        ai = new TttAi(TttLogic.X, true);
+        //ai.game.recieveBoard(TttGame.getBoard());
+        //ai.TttAiTurn();
+        //TttGame.recieveBoard(ai.game.getBoard());
+        //updateGameView(TttGame);
+        //TttGame.swapTurn();
     }
 
     //Interface between button pressed and TttLogic
@@ -96,9 +104,11 @@ public class ticTacToe extends AppCompatActivity {
         }
         boolean validSpot = TttGame.pickSpot(row, col);
 
-        //TttGame.swapTurn()
         if (validSpot) {
-            TttGame.swapPiece();
+            TttGame.swapTurn();
+            ai.game.recieveBoard(TttGame.getBoard());
+            ai.TttAiTurn();
+            TttGame.recieveBoard(ai.game.getBoard());
             updateGameView(TttGame);
             int winner = TttGame.checkWinner();
             if (winner != TttLogic.IN_PROGRESS)
@@ -110,14 +120,15 @@ public class ticTacToe extends AppCompatActivity {
             } else if (winner == TttLogic.TIE) {
                 Toast.makeText(getApplicationContext(), "Tie!", Toast.LENGTH_LONG).show();
             }
+            TttGame.swapTurn();
         }
 
 
     }
 
-    private void updateGameView(TttLogic TttGame) {
+    private void updateGameView(TttLogic game) {
         for (int i = 0; i < buttons.length; i++) {
-            int piece = TttGame.getBoardPiece(i/3, i%3);
+            int piece = game.getBoardPiece(i/3, i%3);
             if (piece == TttLogic.X) {
                 buttons[i].setImageResource(R.drawable.x);
             }
