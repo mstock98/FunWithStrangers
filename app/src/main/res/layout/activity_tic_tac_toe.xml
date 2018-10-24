@@ -6,133 +6,123 @@
     android:layout_height="match_parent"
     tools:context=".ticTacToe">
 
-    <Button
-        android:id="@+id/ttt10"
-        style="@style/Widget.AppCompat.Button"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="42dp"
-        android:background="@android:color/transparent"
-        android:text="10"
-        android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/ttt20"
-        app:layout_constraintEnd_toStartOf="@+id/ttt11"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ttt00" />
-
-    <Button
-        android:id="@+id/ttt00"
-        style="@style/Widget.AppCompat.Button"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+    <TableLayout
+        android:layout_width="300dp"
+        android:layout_height="300dp"
         android:layout_marginStart="42dp"
         android:layout_marginTop="133dp"
-        android:background="@android:color/transparent"
-        android:text="00"
-        android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/ttt10"
-        app:layout_constraintEnd_toStartOf="@+id/ttt01"
+        android:layout_marginEnd="42dp"
+        android:layout_marginBottom="134dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <Button
-        android:id="@+id/ttt01"
-        style="@style/Widget.AppCompat.Button"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="133dp"
-        android:background="@android:color/transparent"
-        android:text="01"
-        android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/ttt11"
-        app:layout_constraintEnd_toStartOf="@+id/ttt02"
-        app:layout_constraintStart_toEndOf="@+id/ttt00"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/ttt02"
-        style="@style/Widget.AppCompat.Button"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="133dp"
-        android:layout_marginEnd="42dp"
-        android:background="@android:color/transparent"
-        android:text="02"
-        android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/ttt12"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ttt01"
-        app:layout_constraintTop_toTopOf="parent" />
+            <ImageButton
+                android:id="@+id/ttt00"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
 
-    <Button
-        android:id="@+id/ttt22"
-        style="@style/Widget.AppCompat.Button"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginEnd="42dp"
-        android:layout_marginBottom="134dp"
-        android:background="@android:color/transparent"
-        android:text="22"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ttt21"
-        app:layout_constraintTop_toBottomOf="@+id/ttt12" />
+            <ImageButton
+                android:id="@+id/ttt01"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
 
-    <Button
-        android:id="@+id/ttt21"
-        style="@style/Widget.AppCompat.Button"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginBottom="134dp"
-        android:background="@android:color/transparent"
-        android:text="21"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/ttt22"
-        app:layout_constraintStart_toEndOf="@+id/ttt20"
-        app:layout_constraintTop_toBottomOf="@+id/ttt11" />
+            <ImageButton
+                android:id="@+id/ttt02"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+        </TableRow>
 
-    <Button
-        android:id="@+id/ttt20"
-        style="@style/Widget.AppCompat.Button"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="42dp"
-        android:layout_marginBottom="134dp"
-        android:background="@android:color/transparent"
-        android:text="20"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/ttt21"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ttt10" />
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/ttt11"
-        style="@style/Widget.AppCompat.Button"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:background="@android:color/transparent"
-        android:text="11"
-        android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/ttt21"
-        app:layout_constraintEnd_toStartOf="@+id/ttt12"
-        app:layout_constraintStart_toEndOf="@+id/ttt10"
-        app:layout_constraintTop_toBottomOf="@+id/ttt01" />
+            <ImageButton
+                android:id="@+id/ttt10"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
 
-    <Button
-        android:id="@+id/ttt12"
-        style="@style/Widget.AppCompat.Button"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginEnd="42dp"
-        android:background="@android:color/transparent"
-        android:text="12"
-        android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/ttt22"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ttt11"
-        app:layout_constraintTop_toBottomOf="@+id/ttt02" />
+            <ImageButton
+                android:id="@+id/ttt11"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/ttt12"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/ttt20"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/ttt21"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/ttt22"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+        </TableRow>
+
+    </TableLayout>
 
 </android.support.constraint.ConstraintLayout>

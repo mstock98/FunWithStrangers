@@ -14,7 +14,7 @@ public class TttLogic {
     private boolean MYTURN = false;
 
     public TttLogic(int PIECE, boolean MYTURN){
-        //Decide on PIECE (0 for O, 1 for X)
+        //Decide on PIECE (0 for o, 1 for x)
         this.PIECE = PIECE;
         //Decide on turn
         this.MYTURN = MYTURN;
@@ -58,7 +58,7 @@ public class TttLogic {
         return false;
     }
 
-    //Return O: '0', X: '1', Tie: '2'
+    //Return o: '0', x: '1', Tie: '2'
     public int checkWinner(){
 
         //Cols
