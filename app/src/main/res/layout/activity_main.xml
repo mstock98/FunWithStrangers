@@ -70,4 +70,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ToggleButton
+        android:id="@+id/onlineButton"
+        style="@style/Base.Widget.AppCompat.Button"
+        android:layout_width="225dp"
+        android:layout_height="62dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="38dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginBottom="28dp"
+        android:textAlignment="center"
+        android:textOff="Offline"
+        android:textOn="Online"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkersButton" />
+
 </android.support.constraint.ConstraintLayout>

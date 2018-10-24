@@ -9,6 +9,16 @@ public class Globals extends Application {
     }
     private Mode mode;
 
+    private static boolean online; //permission for ACCESS_COARSE_LOCATION has been granted
+
+    public static void setOnline(boolean s){
+        online = s;
+    }
+
+    public static Boolean getOnline(){
+        return online;
+    }
+
     public void setMode(Mode s){
        mode = s;
     }

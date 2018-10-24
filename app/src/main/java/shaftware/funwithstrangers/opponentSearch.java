@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
+import android.util.AttributeSet;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
@@ -19,6 +20,7 @@ import com.google.android.gms.nearby.connection.*;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import java.security.acl.Permission;
 import java.util.ArrayList;
 
 
@@ -87,6 +89,12 @@ public class opponentSearch extends AppCompatActivity {
                     // We may want to make opponentList a list of key value pairs later
                     // (key = endpointId, value = discoveredEndpointInfo)
                     opponentList.add(endpointId);
+
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(opponentSearch.this,
+                            android.R.layout.simple_list_item_1, opponentList);
+                    opponentListView.setAdapter(adapter);
+
+
                     Toast toast = Toast.makeText(getApplicationContext(), "found endpoint", Toast.LENGTH_SHORT);
                     toast.show();
                 }
@@ -118,7 +126,7 @@ public class opponentSearch extends AppCompatActivity {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 // We were unable to start discovering.
-                                Toast toast = Toast.makeText(getApplicationContext(), "can't discover", Toast.LENGTH_SHORT);
+                                Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT);
                                 toast.show();
                             }
                         });
