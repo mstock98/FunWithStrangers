@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.gms.nearby.Nearby;
@@ -15,10 +16,10 @@ import com.google.android.gms.tasks.OnSuccessListener;
 
 public class ticTacToe extends AppCompatActivity {
 
-    Button ttt00, ttt01, ttt02,
+    ImageButton ttt00, ttt01, ttt02,
             ttt10, ttt11, ttt12,
             ttt20, ttt21, ttt22;
-    Button[] buttons = {ttt00, ttt01, ttt02, ttt10, ttt11, ttt12, ttt20, ttt21, ttt22};
+    ImageButton[] buttons = {ttt00, ttt01, ttt02, ttt10, ttt11, ttt12, ttt20, ttt21, ttt22};
     String[] buttonsID = {"ttt00", "ttt01", "ttt02", "ttt10", "ttt11", "ttt12", "ttt20", "ttt21", "ttt22"};
 
     TttLogic TttGame = null;
@@ -101,6 +102,8 @@ public class ticTacToe extends AppCompatActivity {
             TttGame.swapPiece();
             updateGameView(TttGame);
             int winner = TttGame.checkWinner();
+            if (winner != TttLogic.IN_PROGRESS)
+                TttGame.swapTurn();
             if (winner == TttLogic.O) {
                 Toast.makeText(getApplicationContext(), "O Won!", Toast.LENGTH_LONG).show();
             } else if (winner == TttLogic.X) {
@@ -117,13 +120,13 @@ public class ticTacToe extends AppCompatActivity {
         for (int i = 0; i < buttons.length; i++) {
             int piece = TttGame.getBoardPiece(i/3, i%3);
             if (piece == TttLogic.X) {
-                buttons[i].setText("X");
+                //buttons[i].setText("X");
             }
             if (piece == TttLogic.O) {
-                buttons[i].setText("O");
+                //buttons[i].setText("O");
             }
             if (piece == TttLogic.OPEN) {
-                buttons[i].setText("_");
+                //buttons[i].setText("_");
             }
         }
     }

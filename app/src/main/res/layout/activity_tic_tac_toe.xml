@@ -8,7 +8,7 @@
 
     <Button
         android:id="@+id/ttt10"
-        style="@style/Widget.AppCompat.Button"
+        style="@style/Widget.AppCompat.ImageButton"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginStart="42dp"
@@ -22,7 +22,7 @@
 
     <Button
         android:id="@+id/ttt00"
-        style="@style/Widget.AppCompat.Button"
+        style="@style/Widget.AppCompat.ImageButton"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginStart="42dp"
@@ -37,7 +37,7 @@
 
     <Button
         android:id="@+id/ttt01"
-        style="@style/Widget.AppCompat.Button"
+        style="@style/Widget.AppCompat.ImageButton"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="133dp"
@@ -51,7 +51,7 @@
 
     <Button
         android:id="@+id/ttt02"
-        style="@style/Widget.AppCompat.Button"
+        style="@style/Widget.AppCompat.ImageButton"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="133dp"
@@ -66,7 +66,7 @@
 
     <Button
         android:id="@+id/ttt22"
-        style="@style/Widget.AppCompat.Button"
+        style="@style/Widget.AppCompat.ImageButton"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginEnd="42dp"
@@ -81,7 +81,7 @@
 
     <Button
         android:id="@+id/ttt21"
-        style="@style/Widget.AppCompat.Button"
+        style="@style/Widget.AppCompat.ImageButton"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginBottom="134dp"
@@ -95,7 +95,7 @@
 
     <Button
         android:id="@+id/ttt20"
-        style="@style/Widget.AppCompat.Button"
+        style="@style/Widget.AppCompat.ImageButton"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginStart="42dp"
@@ -110,7 +110,7 @@
 
     <Button
         android:id="@+id/ttt11"
-        style="@style/Widget.AppCompat.Button"
+        style="@style/Widget.AppCompat.ImageButton"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:background="@android:color/transparent"
@@ -123,7 +123,7 @@
 
     <Button
         android:id="@+id/ttt12"
-        style="@style/Widget.AppCompat.Button"
+        style="@style/Widget.AppCompat.ImageButton"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginEnd="42dp"
