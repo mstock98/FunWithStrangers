@@ -28,7 +28,7 @@ public class TttLogic {
         this.board = board;
     }
 
-    //TEMPORARY method until multiplayer and correct AI implemented.
+    //Method only used for in progress builds and testing purposes.
     @Deprecated
     public void swapPiece(){
         if (PIECE == X)
@@ -37,6 +37,7 @@ public class TttLogic {
             PIECE = X;
     }
 
+    //Turns turn on and off
     public void swapTurn(){
         if (MYTURN)
             MYTURN = false;
@@ -54,6 +55,7 @@ public class TttLogic {
 
     public boolean isTurn(){ return MYTURN; }
 
+    //Sets board to OPEN
     public void clearBoard(){
         for (int i = 0; i < 3; i++){
             for (int j = 0; j < 3; j++){
@@ -62,6 +64,7 @@ public class TttLogic {
         }
     }
 
+    //Tries to place a move, returns false if invalid and if it failed
     public boolean pickSpot(int row, int col){
         if (row > -1 && row < 3 && col > -1 && col < 3 && board[row][col] == OPEN){
             board[row][col] = PIECE;
@@ -70,7 +73,7 @@ public class TttLogic {
         return false;
     }
 
-    //Return o: '0', x: '1', Tie: '2'
+    //Return O: '0', X: '1', Tie: '2'
     public int checkWinner(){
 
         //Cols
@@ -101,6 +104,7 @@ public class TttLogic {
         return IN_PROGRESS;
     }
 
+    //Returns true if the board runs out of possible moves
     private boolean checkTie(){
 
         for (int i = 0; i < 3; i++){

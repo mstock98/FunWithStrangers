@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
             public void onClick(View arg0) {
                 ActivityCompat.requestPermissions(MainActivity.this,
                         new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
-                        7485648);
+                        42069);
             }
         });
 

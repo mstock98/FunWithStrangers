@@ -42,27 +42,45 @@ public class ticTacToe extends AppCompatActivity {
             });
         }
 
+        //****These are the two variables to be chosen in the UI******
+        boolean playerFirst = true;
+        int difficulty = TttAi.IMPOSSIBLE;
+
+        //By default whoever goes first gets X
+        int playerPIECE = TttLogic.OPEN;
+        int aiPIECE = TttLogic.OPEN;
+
+        if (playerFirst){
+            playerPIECE = TttLogic.X;
+            aiPIECE = TttLogic.O;
+        } else{
+            playerPIECE = TttLogic.O;
+            aiPIECE = TttLogic.X;
+        }
         //Initializing the TttGame
         //Who is x and who goes first must be decided at the constructor
-        TttGame = new TttLogic(TttLogic.O, true);
+        TttGame = new TttLogic(playerPIECE, playerFirst);
         TttGame.clearBoard();
         updateGameView(TttGame);
-        ai = new TttAi(TttLogic.X, true);
-        //ai.game.recieveBoard(TttGame.getBoard());
-        //ai.TttAiTurn();
-        //TttGame.recieveBoard(ai.game.getBoard());
-        //updateGameView(TttGame);
-        //TttGame.swapTurn();
+        //MyTurn always set to true for AI, even though it doesn't mean anything to the AI.
+        ai = new TttAi(aiPIECE, true, difficulty, !playerFirst);
+        //AI takes its turn here if it is going first
+        if (!playerFirst) {
+            ai.game.recieveBoard(TttGame.getBoard());
+            ai.TttAiTurn();
+            TttGame.recieveBoard(ai.game.getBoard());
+            updateGameView(TttGame);
+            TttGame.swapTurn();
+        }
     }
 
-    //Interface between button pressed and TttLogic
     //Interface between button pressed and TttLogic
     private void tttPressed(View v) {
 
         int row = -1, col = -1;
 
         if (TttGame.isTurn()) {
-
+            //Button locations
             switch (v.getId()) {
                 case R.id.ttt00:
                     row = 0;
@@ -102,33 +120,49 @@ public class ticTacToe extends AppCompatActivity {
                     break;
             }
         }
+        //Game does not accept an invalid input and will wait for player to enter in something that is valid
         boolean validSpot = TttGame.pickSpot(row, col);
 
         if (validSpot) {
             TttGame.swapTurn();
             ai.game.recieveBoard(TttGame.getBoard());
-            ai.TttAiTurn();
-            TttGame.recieveBoard(ai.game.getBoard());
             updateGameView(TttGame);
-            int winner = TttGame.checkWinner();
-            if (winner != TttLogic.IN_PROGRESS)
-                TttGame.swapTurn();
-            if (winner == TttLogic.O) {
-                Toast.makeText(getApplicationContext(), "O Won!", Toast.LENGTH_LONG).show();
-            } else if (winner == TttLogic.X) {
-                Toast.makeText(getApplicationContext(), "X Won!", Toast.LENGTH_LONG).show();
-            } else if (winner == TttLogic.TIE) {
-                Toast.makeText(getApplicationContext(), "Tie!", Toast.LENGTH_LONG).show();
+
+            //If someone has one stop the AI from playing
+            if (!checkWinner()) {
+                ai.TttAiTurn();
+                TttGame.recieveBoard(ai.game.getBoard());
+                updateGameView(TttGame);
             }
-            TttGame.swapTurn();
+
+            //Disable player from doing anything if someone has won
+            if (!checkWinner())
+                TttGame.swapTurn();
         }
 
 
     }
 
+    //Toasts if someone has won / tied and returns true if the game has ended, false otherwise
+    private boolean checkWinner() {
+        int winner = TttGame.checkWinner();
+        if (winner == TttLogic.O) {
+            Toast.makeText(getApplicationContext(), "O Won!", Toast.LENGTH_LONG).show();
+            return true;
+        } else if (winner == TttLogic.X) {
+            Toast.makeText(getApplicationContext(), "X Won!", Toast.LENGTH_LONG).show();
+            return true;
+        } else if (winner == TttLogic.TIE) {
+            Toast.makeText(getApplicationContext(), "Tie!", Toast.LENGTH_LONG).show();
+            return true;
+        }
+        return false;
+    }
+
+    //Refreshes every button's image to correspond with the gameboard
     private void updateGameView(TttLogic game) {
         for (int i = 0; i < buttons.length; i++) {
-            int piece = game.getBoardPiece(i/3, i%3);
+            int piece = game.getBoardPiece(i / 3, i % 3);
             if (piece == TttLogic.X) {
                 buttons[i].setImageResource(R.drawable.x);
             }
