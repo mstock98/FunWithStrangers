@@ -2,6 +2,7 @@ package shaftware.funwithstrangers;
 
 import android.app.Application;
 
+
 public class Globals extends Application {
     enum Mode
     {
@@ -27,6 +28,17 @@ public class Globals extends Application {
         return mode;
     }
 
+    private static String endppointID;
+
+    public static void setEndPointID(String s){
+        endppointID = s;
+    }
+
+    public static String getEndPointID(){ return endppointID; }
+
+
     // A value that uniquely identifies the app. Used for multiplayer functionality
     public static String getServiceId() {return "shaftware.funwithstrangers";}
+
+
 }

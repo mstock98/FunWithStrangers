@@ -40,6 +40,8 @@ public class opponentSearch extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_opponent_search);
+
+
         // Locate the button in activity_main.xml
         cancelButton =  findViewById(R.id.cancelSearchButton);
         gameTitle = findViewById(R.id.gameTitle);
@@ -53,6 +55,9 @@ public class opponentSearch extends AppCompatActivity {
         opponentListView.setAdapter(opponentArrayAdapter);
 
         startDiscovery();
+
+
+
 
       switch(mode){
             case CHECKERS:
@@ -167,4 +172,6 @@ public class opponentSearch extends AppCompatActivity {
                             }
                         });
     }
+
+
 }

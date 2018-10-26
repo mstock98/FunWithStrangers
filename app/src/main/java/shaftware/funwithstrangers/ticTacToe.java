@@ -122,39 +122,34 @@ public class ticTacToe extends AppCompatActivity {
             }
         }
         //Game does not accept an invalid input and will wait for player to enter in something that is valid
-        boolean validSpot = TttGame.pickSpot(row, col);
-
-        offlineMove(validSpot);
-
-        onlineMove(validSpot);
-
-
-    }
-
-    private void onlineMove(boolean validSpot){
-
-
-
-    }
-
-    private void offlineMove(boolean validSpot){
-        if (validSpot) {
-            TttGame.swapTurn();
-            ai.game.recieveBoard(TttGame.getBoard());
-            updateGameView(TttGame);
-
-            //If someone has one stop the AI from playing
-            if (!checkWinner()) {
-                ai.TttAiTurn();
-                TttGame.recieveBoard(ai.game.getBoard());
-                updateGameView(TttGame);
-            }
-
-            //Disable player from doing anything if someone has won
-            if (!checkWinner())
+        boolean validSpot = TttGame.pickSpot(row, col);// choose a location
+        if(Globals.getOnline()){
+            if (validSpot) {
                 TttGame.swapTurn();
+                if(checkWinner());
+                sendBoard();
+            }
+        }else{
+            if (validSpot) {
+                TttGame.swapTurn();
+                ai.game.recieveBoard(TttGame.getBoard());
+                updateGameView(TttGame);
+
+                //If someone has won stop the AI from playing
+                if (!checkWinner()) {
+                    ai.TttAiTurn();
+                    TttGame.recieveBoard(ai.game.getBoard());
+                    updateGameView(TttGame);
+                }
+
+                //Disable player from doing anything if someone has won
+                if (!checkWinner())
+                    TttGame.swapTurn();
+            }
         }
     }
+
+
 
     //Toasts if someone has won / tied and returns true if the game has ended, false otherwise
     private boolean checkWinner() {
@@ -192,6 +187,34 @@ public class ticTacToe extends AppCompatActivity {
     // See: https://developers.google.com/nearby/connections/android/discover-devices
     // We may want to make a separate class for this later
 
+    private final PayloadCallback mPayloadCallback = new PayloadCallback() {
+        @Override
+        public void onPayloadReceived(@NonNull String s, @NonNull Payload payload) {
+            byte[] b = payload.asBytes();
+            if(payload.getType() == Payload.Type.BYTES && b.length == 9){
+                int[][] board = new int[3][3];
+                board[0][0] = (int) b[0] & 0xFF;
+                board[0][1] = (int) b[1] & 0xFF;
+                board[0][2] = (int) b[2] & 0xFF;
+                board[1][0] = (int) b[3] & 0xFF;
+                board[1][1] = (int) b[4] & 0xFF;
+                board[1][2] = (int) b[5] & 0xFF;
+                board[2][0] = (int) b[6] & 0xFF;
+                board[2][1] = (int) b[7] & 0xFF;
+                board[2][2] = (int) b[8] & 0xFF;
+                TttGame.recieveBoard(board);
+                updateGameView(TttGame);
+                //Disable player from doing anything if someone has won
+                if (!checkWinner())
+                    TttGame.swapTurn();
+            }
+        }
+
+        @Override
+        public void onPayloadTransferUpdate(@NonNull String s, @NonNull PayloadTransferUpdate payloadTransferUpdate) {
+            //don't need to track byte progress
+        }
+    };
 
     private final ConnectionLifecycleCallback mConnectionLifecycleCallback =
             new ConnectionLifecycleCallback() {
@@ -200,7 +223,7 @@ public class ticTacToe extends AppCompatActivity {
                 public void onConnectionInitiated(
                         String endpointId, ConnectionInfo connectionInfo) {
                     // Automatically accept the connection on both sides.
-                    //Nearby.getConnectionsClient(this).acceptConnection(endpointId, mPayloadCallback);
+                    Nearby.getConnectionsClient(ticTacToe.this).acceptConnection(endpointId, mPayloadCallback);
                 }
 
                 @Override
@@ -254,4 +277,28 @@ public class ticTacToe extends AppCompatActivity {
                             }
                         });
     }
-}
+
+    private void sendBoard(){
+        int[][] board = TttGame.getBoard();
+        byte[] b = new byte[9];
+        b[0] = (byte)board[0][0];
+        b[1] = (byte)board[0][1];
+        b[2] = (byte)board[0][2];
+        b[3] = (byte)board[1][0];
+        b[4] = (byte)board[1][1];
+        b[5] = (byte)board[1][2];
+        b[6] = (byte)board[2][0];
+        b[7] = (byte)board[2][1];
+        b[8] = (byte)board[2][2];
+        Payload p = Payload.fromBytes(b);
+        sendPayload(Globals.getEndPointID(), p);
+    }
+
+    private void sendPayload(String endpointId, Payload payload) {
+        if (payload.getType() == Payload.Type.BYTES) {
+            // Not 100% sure how this works as of yet, the API says do this to send the payload, not actually sure how it does that though
+            return;
+        }
+    }
+
+    }
