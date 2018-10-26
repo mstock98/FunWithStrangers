@@ -1,7 +1,5 @@
 package shaftware.funwithstrangers;
 
-import android.widget.Toast;
-
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 
@@ -72,7 +70,7 @@ public class TttAi {
 
     private int minimax(int[][] board, int depth, boolean isMax) {
 
-        int score = evaluate(board);
+        int score = checkWinner(board);
 
         if (score == 10)
             return score;
@@ -114,7 +112,7 @@ public class TttAi {
         }
     }
 
-    private int evaluate(int[][] board) {
+    private int checkWinner(int[][] board) {
         int OPEN = TttLogic.OPEN;
         //Cols
         for (int i = 0; i < 3; i++){

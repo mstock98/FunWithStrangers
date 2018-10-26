@@ -18,7 +18,7 @@ public class TttAiUnitTest {
 
     @Test
     public void ExampleGame(){
-        TttAi ai = new TttAi(TttLogic.X, true, TttAi.EZ, false);
+        TttAi ai = new TttAi(TttLogic.X, true, TttAi.IMPOSSIBLE, false);
 
         //Prepare game state
         int[][] board = {{1, 0, 1}, {0, 0, 1}, {-1, -1, -1}};
@@ -54,7 +54,7 @@ public class TttAiUnitTest {
         int x = 0;
         int o = 0;
         int tie = 0;
-        for (int i = 0; i < 1000; i++){
+        for (int i = 0; i < 100; i++){
             int result = aiHardVsAiImpossible();
             if (result == 1)
                 x++;
