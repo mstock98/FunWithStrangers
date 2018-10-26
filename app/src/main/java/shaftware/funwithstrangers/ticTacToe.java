@@ -50,6 +50,7 @@ public class ticTacToe extends AppCompatActivity {
         int playerPIECE = TttLogic.OPEN;
         int aiPIECE = TttLogic.OPEN;
 
+        //Configure pieces for AI and Player
         if (playerFirst){
             playerPIECE = TttLogic.X;
             aiPIECE = TttLogic.O;
@@ -123,6 +124,20 @@ public class ticTacToe extends AppCompatActivity {
         //Game does not accept an invalid input and will wait for player to enter in something that is valid
         boolean validSpot = TttGame.pickSpot(row, col);
 
+        offlineMove(validSpot);
+
+        onlineMove(validSpot);
+
+
+    }
+
+    private void onlineMove(boolean validSpot){
+
+
+
+    }
+
+    private void offlineMove(boolean validSpot){
         if (validSpot) {
             TttGame.swapTurn();
             ai.game.recieveBoard(TttGame.getBoard());
@@ -139,8 +154,6 @@ public class ticTacToe extends AppCompatActivity {
             if (!checkWinner())
                 TttGame.swapTurn();
         }
-
-
     }
 
     //Toasts if someone has won / tied and returns true if the game has ended, false otherwise
