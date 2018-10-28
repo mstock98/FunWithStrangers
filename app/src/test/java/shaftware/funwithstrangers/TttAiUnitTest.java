@@ -22,7 +22,7 @@ public class TttAiUnitTest {
 
         //Prepare game state
         int[][] board = {{1, 0, 1}, {0, 0, 1}, {-1, -1, -1}};
-        ai.game.recieveBoard(board);
+        ai.game.receiveBoard(board);
         ai.TttAiTurn();
         int[][] temp = ai.game.getBoard();
         printBoard(temp);
@@ -33,7 +33,7 @@ public class TttAiUnitTest {
     public void ExampleFirstTurn(){
         TttAi ai = new TttAi(TttLogic.X, true, TttAi.EZ, false);
         int[][] board = {{-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}};
-        ai.game.recieveBoard(board);
+        ai.game.receiveBoard(board);
         ai.TttAiTurn();
         int[][] temp = ai.game.getBoard();
         boolean val = false;
@@ -87,7 +87,7 @@ public class TttAiUnitTest {
         int result = -1;
         do{
             aiH.TttAiTurn();
-            aiI.game.recieveBoard(aiH.game.getBoard());
+            aiI.game.receiveBoard(aiH.game.getBoard());
 
             if ((result = aiH.game.checkWinner()) != TttLogic.IN_PROGRESS) {
                 inProgress = false;
@@ -95,7 +95,7 @@ public class TttAiUnitTest {
             }
 
             aiI.TttAiTurn();
-            aiH.game.recieveBoard(aiI.game.getBoard());
+            aiH.game.receiveBoard(aiI.game.getBoard());
 
             if ((result = aiH.game.checkWinner()) != TttLogic.IN_PROGRESS) {
                 inProgress = false;

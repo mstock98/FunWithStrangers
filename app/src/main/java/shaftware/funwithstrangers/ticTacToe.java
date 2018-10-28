@@ -67,9 +67,9 @@ public class ticTacToe extends AppCompatActivity {
         ai = new TttAi(aiPIECE, true, difficulty, !playerFirst);
         //AI takes its turn here if it is going first
         if (!playerFirst) {
-            ai.game.recieveBoard(TttGame.getBoard());
+            ai.game.receiveBoard(TttGame.getBoard());
             ai.TttAiTurn();
-            TttGame.recieveBoard(ai.game.getBoard());
+            TttGame.receiveBoard(ai.game.getBoard());
             updateGameView(TttGame);
             TttGame.swapTurn();
         }
@@ -132,13 +132,13 @@ public class ticTacToe extends AppCompatActivity {
         }else{
             if (validSpot) {
                 TttGame.swapTurn();
-                ai.game.recieveBoard(TttGame.getBoard());
+                ai.game.receiveBoard(TttGame.getBoard());
                 updateGameView(TttGame);
 
                 //If someone has won stop the AI from playing
                 if (!checkWinner()) {
                     ai.TttAiTurn();
-                    TttGame.recieveBoard(ai.game.getBoard());
+                    TttGame.receiveBoard(ai.game.getBoard());
                     updateGameView(TttGame);
                 }
 
@@ -202,7 +202,7 @@ public class ticTacToe extends AppCompatActivity {
                 board[2][0] = (int) b[6] & 0xFF;
                 board[2][1] = (int) b[7] & 0xFF;
                 board[2][2] = (int) b[8] & 0xFF;
-                TttGame.recieveBoard(board);
+                TttGame.receiveBoard(board);
                 updateGameView(TttGame);
                 //Disable player from doing anything if someone has won
                 if (!checkWinner())

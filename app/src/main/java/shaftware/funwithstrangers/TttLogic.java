@@ -24,7 +24,7 @@ public class TttLogic {
         return PIECE;
     }
 
-    public void recieveBoard(int[][] board){
+    public void receiveBoard(int[][] board){
         this.board = board;
     }
 
