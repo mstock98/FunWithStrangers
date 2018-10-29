@@ -60,7 +60,6 @@ public class TttAi {
                     col = 2;
                     break;
             }
-            //randomMove();
             game.pickSpot(row, col);
         } else{
             TttAiTurn();
@@ -171,11 +170,7 @@ public class TttAi {
         boolean valid = game.pickSpot(row, col);
         while (!valid && DIFFICULTY == HARD) { //Loop and pick random
             valid = randomMove();
-            //System.out.println("random");
         }
-//        if (!valid && DIFFICULTY == IMPOSSIBLE){
-//            valid = randomMove();
-//        }
     }
 
     public boolean randomMove(){

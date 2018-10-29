@@ -126,8 +126,8 @@ public class ticTacToe extends AppCompatActivity {
         if(Globals.getOnline()){
             if (validSpot) {
                 TttGame.swapTurn();
-                if(checkWinner());
-                sendBoard();
+                if(checkWinner())
+                    sendBoard();
             }
         }else{
             if (validSpot) {
