@@ -1,7 +1,6 @@
 package shaftware.funwithstrangers;
 
-public class TttLogic extends TttLogicBase {
-
+public abstract class TttLogicBase {
     private int[][] board = new int[3][3];
 
     public static final int TIE = 2;
@@ -13,12 +12,12 @@ public class TttLogic extends TttLogicBase {
     private int PIECE = OPEN;
     private boolean MYTURN = false;
 
-    public TttLogic(int PIECE, boolean MYTURN){
+    /*public TttLogicBase(int PIECE, boolean MYTURN){
         //Decide on PIECE (0 for o, 1 for x)
         this.PIECE = PIECE;
         //Decide on turn
         this.MYTURN = MYTURN;
-    }
+    }*/
 
     public int getPIECE(){
         return PIECE;
