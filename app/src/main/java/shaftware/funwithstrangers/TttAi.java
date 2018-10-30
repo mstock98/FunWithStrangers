@@ -8,15 +8,15 @@ public class TttAi {
     TttLogic game = null;
     int oppPIECE = TttLogic.OPEN;
 
-    public static final int EZ = 0;
-    public static final int HARD = 1;
-    public static final int IMPOSSIBLE = 2;
+    public enum Difficulty {
+        EZ, HARD, IMPOSSIBLE, DEBUG;
+    }
 
-    public int DIFFICULTY = -1;
+    public Difficulty DIFFICULTY = Difficulty.DEBUG;
 
     private boolean takeFirstTurn = false;
 
-    public TttAi(int PIECE, boolean MYTURN, int DIFFICULTY, boolean takeFirstTurn) {
+    public TttAi(int PIECE, boolean MYTURN, Difficulty DIFFICULTY, boolean takeFirstTurn) {
         this.takeFirstTurn = takeFirstTurn;
         game = new TttLogic(PIECE, MYTURN);
         this.DIFFICULTY = DIFFICULTY;
@@ -30,16 +30,16 @@ public class TttAi {
     public void TttAiTurn() {
         if (takeFirstTurn) {
             TttAiTurnFirst();
-        } else if (DIFFICULTY == HARD || DIFFICULTY == IMPOSSIBLE) {
+        } else if (DIFFICULTY == Difficulty.HARD || DIFFICULTY == Difficulty.IMPOSSIBLE) {
             findBestMove(game.getBoard());
-        } else if (DIFFICULTY == EZ){
+        } else if (DIFFICULTY == Difficulty.EZ){
             while (!randomMove());
         }
     }
 
     private void TttAiTurnFirst(){
          takeFirstTurn = false;
-        if (DIFFICULTY == IMPOSSIBLE){
+        if (DIFFICULTY == Difficulty.IMPOSSIBLE){
             int ran = (int)(Math.random()*4) + 1;
             int row = -1, col = -1;
             switch(ran){
@@ -94,7 +94,7 @@ public class TttAi {
         }
         else{
             int best = Integer.MIN_VALUE;
-            if (DIFFICULTY == IMPOSSIBLE)
+            if (DIFFICULTY == Difficulty.IMPOSSIBLE)
                 best = Integer.MAX_VALUE;
 
             for (int i = 0; i < 3; i++) {
@@ -168,7 +168,7 @@ public class TttAi {
         }
 
         boolean valid = game.pickSpot(row, col);
-        while (!valid && DIFFICULTY == HARD) { //Loop and pick random
+        while (!valid && DIFFICULTY == Difficulty.HARD) { //Loop and pick random
             valid = randomMove();
         }
     }
