@@ -1,6 +1,7 @@
 package shaftware.funwithstrangers;
 
 public abstract class TttLogicBase {
+
     private int[][] board = new int[3][3];
 
     public static final int TIE = 2;
@@ -63,7 +64,7 @@ public abstract class TttLogicBase {
         }
     }
 
-    //Tries to place a move, returns false if invalid and if it failed
+    //Tries to square a move, returns false if invalid and if it failed
     public boolean pickSpot(int row, int col){
         if (row > -1 && row < 3 && col > -1 && col < 3 && board[row][col] == OPEN){
             board[row][col] = PIECE;
