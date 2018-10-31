@@ -35,18 +35,25 @@ public class checkers extends AppCompatActivity {
             "c70", "c71", "c72", "c73", "c74", "c75", "c76", "c77"};
     CheckersLogic.square[] pieces;
 
+    CheckersLogic game;
+    Move selectedMove, destinationMove;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkers);
 
-        createMovesArray();
+        //TODO
+        //Configure
+        game = new CheckersLogic(CheckersLogic.square.OPEN, false);
+
+        createPiecesArray();
         initializeButtons();
 
     }
 
 
-    private void createMovesArray() {
+    private void createPiecesArray() {
         pieces = new CheckersLogic.square[64];
         for (int i = 0; i < 8; i++){
             for (int j = 0; j < 8; j++){
@@ -74,11 +81,53 @@ public class checkers extends AppCompatActivity {
             if (buttons[i].getId() == v.getId()){
                 b = buttons[i];
                 piece = pieces[i];
+                if (selectedMove == null)
+                    selectedMove = new Move(i / 8, i % 8);
+                else if (selectedMove != null && destinationMove == null){
+                    destinationMove = new Move(i / 8, i % 8);
+                }
             }
         }
+        //Exits if button isn't found or piece hasn't been configured. Should never get here
         if (b == null || piece == CheckersLogic.square.OPEN) {
             return;
         }
 
+        //TODO
+        //if valid move...
+        if (game.validMove(selectedMove, destinationMove)){
+
+            //reset variables after valid move
+            selectedMove = null;
+            destinationMove = null;
+
+            //if turn can end... e.i. no more available moves that have to be made
+            if (game.checkEndTurn()){
+                game.swapTurn();
+            }
+
+            //make sure no one has won
+            if (game.checkWinner() != CheckersLogic.outcome.IN_PROGRESS){
+                //TODO
+                //Do something if someone has won
+            }
+        }
+
+    }
+
+    class Move{
+        private int row, col;
+        private int id;
+        public Move(int row, int col){
+            setLocation(row, col);
+            id = (row * 8) + col;
+        }
+        public void setLocation(int row, int col){
+            this.row = row;
+            this.col = col;
+        }
+        public int getRow(){ return row; }
+        public int getCol(){ return col; }
+        public int getId(){ return id; }
     }
 }
