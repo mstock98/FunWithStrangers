@@ -1,40 +1,22 @@
 package shaftware.funwithstrangers;
 
-public class TttLogic extends TttLogicBase {
+import static shaftware.funwithstrangers.TttLogicBase.Piece;
 
-    private int[][] board = new int[3][3];
+public class TttLogic extends TttLogicBase {
 
     public static final int TIE = 2;
     public static final int IN_PROGRESS = -1;
-    public static final int OPEN = -1;
-    public static final int X = 1;
-    public static final int O = 0;
 
-    private int PIECE = OPEN;
+    private Piece PIECE = Piece.OPEN;
     private boolean MYTURN = false;
 
-    public TttLogic(int PIECE, boolean MYTURN){
+    public TttLogic(Piece PIECE, boolean MYTURN){
         //Decide on PIECE (0 for o, 1 for x)
         this.PIECE = PIECE;
         //Decide on turn
         this.MYTURN = MYTURN;
-    }
 
-    public int getPIECE(){
-        return PIECE;
-    }
-
-    public void receiveBoard(int[][] board){
-        this.board = board;
-    }
-
-    //Method only used for in progress builds and testing purposes.
-    @Deprecated
-    public void swapPiece(){
-        if (PIECE == X)
-            PIECE = O;
-        else
-            PIECE = X;
+        board = new Piece[3][3];
     }
 
     //Turns turn on and off
@@ -45,11 +27,11 @@ public class TttLogic extends TttLogicBase {
             MYTURN = true;
     }
 
-    public int[][] getBoard(){
+    public Piece[][] getBoard(){
         return board;
     }
 
-    public int getBoardPiece(int row, int col){
+    public Piece getBoardPiece(int row, int col){
         return board[row][col];
     }
 
@@ -59,14 +41,14 @@ public class TttLogic extends TttLogicBase {
     public void clearBoard(){
         for (int i = 0; i < 3; i++){
             for (int j = 0; j < 3; j++){
-                board[i][j] = OPEN;
+                board[i][j] = Piece.OPEN;
             }
         }
     }
 
     //Tries to square a move, returns false if invalid and if it failed
     public boolean pickSpot(int row, int col){
-        if (row > -1 && row < 3 && col > -1 && col < 3 && board[row][col] == OPEN){
+        if (row > -1 && row < 3 && col > -1 && col < 3 && board[row][col] == Piece.OPEN){
             board[row][col] = PIECE;
             return true;
         }
@@ -78,30 +60,30 @@ public class TttLogic extends TttLogicBase {
 
         //Cols
         for (int i = 0; i < 3; i++){
-            int col = board[i][0];
-            if (col != OPEN && col == board[i][1] && col == board[i][2]){
-                return col;
+            Piece col = board[i][0];
+            if (col != Piece.OPEN && col == board[i][1] && col == board[i][2]){
+                return col.ordinal();
             }
         }
 
         //Rows
         for (int i = 0; i < 3; i++){
-            int row = board[0][i];
-            if (row != OPEN && row == board[1][i] && row == board[2][i]){
-                return row;
+            Piece row = board[0][i];
+            if (row != Piece.OPEN && row == board[1][i] && row == board[2][i]){
+                return row.ordinal();
             }
         }
 
         //Diagonals
-        int middle = board[1][1];
-        if (middle != OPEN && ((middle == board[0][0] && middle == board[2][2]) || (middle == board[0][2] && middle == board[2][0]))){
-            return middle;
+        Piece middle = board[1][1];
+        if (middle != Piece.OPEN && ((middle == board[0][0] && middle == board[2][2]) || (middle == board[0][2] && middle == board[2][0]))){
+            return middle.ordinal();
         }
 
         if (checkTie())
-            return TIE;
+            return 2;
 
-        return IN_PROGRESS;
+        return -1;
     }
 
     //Returns true if the board runs out of possible pieces
@@ -109,7 +91,7 @@ public class TttLogic extends TttLogicBase {
 
         for (int i = 0; i < 3; i++){
             for (int j = 0; j < 3; j++){
-                if (board[i][j] == OPEN){
+                if (board[i][j] == Piece.OPEN) {
                     return false;
                 }
             }
