@@ -94,17 +94,17 @@ public class CheckersLogic {
                     //TODO
                     //if jumping over a piece...
                     //Calculate that piece's coordinates
-                    int rowDiff = 0, colDiff = 0;
+                    int rowShift = 0, colShift = 0;
                     if (selectedMove.getRow() > destinationMove.getRow())
-                        rowDiff = -1;
+                        rowShift = -1;
                     else if (destinationMove.getRow() > selectedMove.getRow())
-                        rowDiff = 1;
+                        rowShift = 1;
                     if (selectedMove.getCol() > destinationMove.getCol())
-                        colDiff = -1;
+                        colShift = -1;
                     else if (destinationMove.getCol() > selectedMove.getCol())
-                        colDiff = 1;
+                        colShift = 1;
 
-                    board[rowDiff + selectedMove.getRow()][colDiff + selectedMove.getCol()] = square.OPEN;
+                    board[rowShift + selectedMove.getRow()][colShift + selectedMove.getCol()] = square.OPEN;
 
                     board[selectedMove.getRow()][selectedMove.getCol()] = square.OPEN;
                     board[destinationMove.getRow()][destinationMove.getCol()] = piece;
