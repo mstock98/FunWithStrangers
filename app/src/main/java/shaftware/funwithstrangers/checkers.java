@@ -1,6 +1,5 @@
 package shaftware.funwithstrangers;
 
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -34,7 +33,7 @@ public class checkers extends AppCompatActivity {
             "c50", "c51", "c52", "c53", "c54", "c55", "c56", "c57",
             "c60", "c61", "c62", "c63", "c64", "c65", "c66", "c67",
             "c70", "c71", "c72", "c73", "c74", "c75", "c76", "c77"};
-    Move[] moves;
+    CheckersLogic.square[] pieces;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +45,12 @@ public class checkers extends AppCompatActivity {
 
     }
 
+
     private void createMovesArray() {
-        moves = new Move[64];
+        pieces = new CheckersLogic.square[64];
         for (int i = 0; i < 8; i++){
             for (int j = 0; j < 8; j++){
-                moves[i+j] = new Move(i, j);
+                pieces[i+j] = CheckersLogic.square.OPEN;
             }
         }
     }
@@ -69,14 +69,14 @@ public class checkers extends AppCompatActivity {
 
     private void onImageButtonPressed(View v) {
         ImageButton b = null;
-        Move move = null;
+        CheckersLogic.square piece = CheckersLogic.square.OPEN;
         for (int i = 0; i < buttons.length; i++){
             if (buttons[i].getId() == v.getId()){
                 b = buttons[i];
-                move = moves[i];
+                piece = pieces[i];
             }
         }
-        if (b == null || move == null) {
+        if (b == null || piece == CheckersLogic.square.OPEN) {
             return;
         }
 

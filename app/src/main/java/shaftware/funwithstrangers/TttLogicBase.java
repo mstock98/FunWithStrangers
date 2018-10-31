@@ -104,7 +104,7 @@ public abstract class TttLogicBase {
         return IN_PROGRESS;
     }
 
-    //Returns true if the board runs out of possible moves
+    //Returns true if the board runs out of possible pieces
     private boolean checkTie(){
 
         for (int i = 0; i < 3; i++){
