@@ -4,9 +4,9 @@ public class CheckersLogic {
 
     private square[][] board = new square[8][8];
 
-    enum square {OPEN, RED, BLACK}
+    enum square {OPEN, WHITE, BLACK}
 
-    enum outcome {TIE, RED, BLACK, IN_PROGRESS}
+    enum outcome {TIE, WHITE, BLACK, IN_PROGRESS}
 
     private square piece = square.OPEN;
     private square opPiece = square.OPEN;
@@ -15,10 +15,10 @@ public class CheckersLogic {
     public CheckersLogic(square piece, boolean turn) {
         this.piece = piece;
         this.turn = turn;
-        if (piece == square.RED)
+        if (piece == square.WHITE)
             opPiece = square.BLACK;
         else
-            opPiece = square.RED;
+            opPiece = square.WHITE;
         initializeBoard();
     }
 
@@ -30,29 +30,26 @@ public class CheckersLogic {
         return piece;
     }
 
+    public square[][] getBoard(){ return board; }
+
+    public void setTurn(boolean turn) { this.turn = turn; }
+
     //Method only used for testing purposes
     @Deprecated
     public void swapPiece() {
         if (piece == square.BLACK)
-            piece = square.RED;
+            piece = square.WHITE;
         else
-            piece = square.RED;
+            piece = square.BLACK;
     }
 
-    public void swapTurn() {
-        if (turn)
-            turn = false;
-        else
-            turn = true;
-    }
 
     //Sets board to OPEN
     private void initializeBoard() {
         for (int i = 0; i < 8; i++) {
-            boolean skip = true;
             for (int j = 0; j < 8; j++) {
-                if (skip)
-                    board[i][j] = square.BLACK;
+                //TODO
+                //Set board to place initial pieces states
                 board[i][j] = square.OPEN;
             }
         }
@@ -67,7 +64,7 @@ public class CheckersLogic {
     //TODO
     //checks to see if the new move is valid
     //checks everything: jumps, whether the opposing piece is jumped over, etc
-    public boolean validMove(checkers.Move selectedMove, checkers.Move destinationMove) {
+    public boolean validMove(Checkers.Move selectedMove, Checkers.Move destinationMove) {
 
         //checks to see if the coordinates are even on the board. Should never reach here
         if (!validCoordinates(selectedMove.getRow(), selectedMove.getCol()))
@@ -125,19 +122,19 @@ public class CheckersLogic {
     }
 
     public outcome checkWinner() {
-        int black = 0, red = 0;
+        int black = 0, white = 0;
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if (board[i][j] == square.BLACK) {
                     black++;
-                } else if (board[i][j] == square.RED) {
-                    red++;
+                } else if (board[i][j] == square.WHITE) {
+                    white++;
                 }
             }
         }
         if (black == 0)
-            return outcome.RED;
-        if (red == 0)
+            return outcome.WHITE;
+        if (white == 0)
             return outcome.BLACK;
         return outcome.IN_PROGRESS;
     }

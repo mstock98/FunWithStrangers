@@ -43,10 +43,10 @@ public class titleScreen extends AppCompatActivity {
                 Class next = titleScreen.class;
                 switch(mode){
                     case CHECKERS:
-                        //switch to checkers activity, goes no where
+                        next = Checkers.class;
                         break;
                     case TICTACTOE:
-                        next = ticTacToe.class;
+                        next = TicTacToe.class;
                         break;
                     case CHESS:
                         //switch to chess activity, goes no where

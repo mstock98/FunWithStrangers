@@ -16,7 +16,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 
 import static shaftware.funwithstrangers.TttLogicBase.Piece.X;
 
-public class ticTacToe extends AppCompatActivity {
+public class TicTacToe extends AppCompatActivity {
 
     ImageButton ttt00, ttt01, ttt02,
             ttt10, ttt11, ttt12,
@@ -52,7 +52,7 @@ public class ticTacToe extends AppCompatActivity {
         TttLogic.Piece playerPIECE = TttLogic.Piece.OPEN;
         TttLogic.Piece aiPIECE = TttLogic.Piece.OPEN;
 
-        //Configure pieces for AI and Player
+        //Configure board for AI and Player
         if (playerFirst){
             playerPIECE = X;
             aiPIECE = TttLogic.Piece.O;
@@ -225,7 +225,7 @@ public class ticTacToe extends AppCompatActivity {
                 public void onConnectionInitiated(
                         String endpointId, ConnectionInfo connectionInfo) {
                     // Automatically accept the connection on both sides.
-                    Nearby.getConnectionsClient(ticTacToe.this).acceptConnection(endpointId, mPayloadCallback);
+                    Nearby.getConnectionsClient(TicTacToe.this).acceptConnection(endpointId, mPayloadCallback);
                 }
 
                 @Override

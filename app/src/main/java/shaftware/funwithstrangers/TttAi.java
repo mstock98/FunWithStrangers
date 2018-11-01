@@ -9,7 +9,7 @@ public class TttAi {
     TttLogic.Piece oppPIECE = TttLogic.Piece.OPEN;
 
     public enum Difficulty {
-        EZ, HARD, IMPOSSIBLE, DEBUG;
+        EZ, HARD, IMPOSSIBLE, DEBUG
     }
 
     public Difficulty DIFFICULTY = Difficulty.DEBUG;

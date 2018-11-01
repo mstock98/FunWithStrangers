@@ -6,7 +6,7 @@ import android.app.Application;
 public class Globals extends Application {
     enum Mode
     {
-        CHESS, CHECKERS, HANGMAN, TICTACTOE;
+        CHESS, CHECKERS, HANGMAN, TICTACTOE
     }
     private Mode mode;
 

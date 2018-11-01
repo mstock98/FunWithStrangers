@@ -86,7 +86,7 @@ public class TttLogic extends TttLogicBase {
         return -1;
     }
 
-    //Returns true if the board runs out of possible pieces
+    //Returns true if the board runs out of possible board
     private boolean checkTie(){
 
         for (int i = 0; i < 3; i++){

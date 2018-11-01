@@ -47,7 +47,7 @@
             android:name=".opponentSearch"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ticTacToe"
+            android:name=".TicTacToe"
             android:screenOrientation="portrait">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -56,7 +56,7 @@
         <activity
             android:name=".titleScreen"
             android:screenOrientation="portrait" />
-        <activity android:name=".checkers"></activity>
+        <activity android:name=".Checkers"></activity>
     </application>
 
 </manifest>
