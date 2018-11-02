@@ -93,9 +93,10 @@ public class TttAi {
             return best;
         }
         else{
-            int best = Integer.MIN_VALUE;
-            if (DIFFICULTY == Difficulty.IMPOSSIBLE)
-                best = Integer.MAX_VALUE;
+            int best = Integer.MAX_VALUE;
+            //if difficulty is hard, remove min
+            if (DIFFICULTY == Difficulty.HARD)
+                best = Integer.MIN_VALUE;
 
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {

@@ -45,7 +45,7 @@ public class TicTacToe extends AppCompatActivity {
         }
 
         //****These are the two variables to be chosen in the UI******
-        boolean playerFirst = true;
+        boolean playerFirst = false;
         TttAi.Difficulty difficulty = TttAi.Difficulty.IMPOSSIBLE;
 
         //By default whoever goes first gets X

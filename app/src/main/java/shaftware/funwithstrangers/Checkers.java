@@ -1,9 +1,12 @@
 package shaftware.funwithstrangers;
 
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 
@@ -43,29 +46,39 @@ public class Checkers extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkers);
-
         //TODO
         //Configure
-        game = new CheckersLogic(CheckersLogic.square.OPEN, false);
+        game = new CheckersLogic(CheckersLogic.square.WHITE, true);
 
-        createPiecesArray();
+
+        createBoard();
         initializeButtons();
+        initializeBoard();
+
+        syncBoards();
+        updateGameView();
+
 
     }
 
-    private void createPiecesArray() {
+    private void createBoard() {
         board = new CheckersLogic.square[64];
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                board[i + j] = CheckersLogic.square.OPEN;
-            }
+        for (int i = 0; i < board.length; i++) {
+            board[i] = CheckersLogic.square.OPEN;
+
         }
+    }
+
+    private ImageButton getButton(int i){
+        int resID = getResources().getIdentifier(buttonsID[i], "id", getPackageName());
+        return findViewById(resID);
     }
 
     private void initializeButtons() {
         for (int i = 0; i < buttons.length; i++) {
-            int resID = getResources().getIdentifier(buttonsID[i], "id", getPackageName());
-            buttons[i] = findViewById(resID);
+            buttons[i] = getButton(i);
+            buttons[i].setBackgroundColor(Color.TRANSPARENT);
+            buttons[i].setScaleType(ImageView.ScaleType.CENTER_CROP);
             buttons[i].setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     onImageButtonPressed(v);
@@ -76,61 +89,111 @@ public class Checkers extends AppCompatActivity {
 
     //TODO
     //Syncs UIs single dimension board with logic's multidimensional board
-    private void syncBoards(){
-        for (int i = 0; i < board.length; i++){
+    private void syncBoards() {
+        for (int i = 0; i < board.length; i++) {
             board[i] = game.getBoard()[i / 8][i % 8];
         }
     }
 
+    private void initializeBoard() {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (i % 2 == j % 2) {
+                    buttons[i * 8 + j].setImageResource(R.drawable.boardlight);
+                }
+                else {
+                    buttons[i * 8 + j].setImageResource(R.drawable.boarddark);
+                }
+            }
+        }
+    }
+
+    //TODO
+    //Set pieces to their correct color
     private void updateGameView() {
         for (int i = 0; i < board.length; i++) {
             CheckersLogic.square square = board[i];
+            buttons[i].setColorFilter(Color.TRANSPARENT);
             if (square == CheckersLogic.square.BLACK)
                 buttons[i].setImageResource(R.drawable.black);
             else if (square == CheckersLogic.square.WHITE)
                 buttons[i].setImageResource(R.drawable.white);
-            else if (square == CheckersLogic.square.OPEN)
-                buttons[i].setImageResource(R.drawable.b);
+            else if (square == CheckersLogic.square.OPEN) {
+                //TODO
+                //Need to pick the correct light or dark
+                if ((i / 8) % 2 == (i % 8) % 2)
+                    buttons[i].setImageResource(R.drawable.boardlight);
+                else
+                    buttons[i].setImageResource(R.drawable.boarddark);
+            }
         }
     }
 
     private void onImageButtonPressed(View v) {
-        ImageButton b = null;
-        CheckersLogic.square piece = CheckersLogic.square.OPEN;
+        //do nothing if it isn't your turn
+        if (!game.getTurn())
+            return;
+
+        CheckersLogic.square piece = null;
+        int id = -1;
         for (int i = 0; i < buttons.length; i++) {
             if (buttons[i].getId() == v.getId()) {
-                b = buttons[i];
                 piece = board[i];
-                if (selectedMove == null)
-                    selectedMove = new Move(i / 8, i % 8);
-                else if (selectedMove != null && destinationMove == null) {
-                    destinationMove = new Move(i / 8, i % 8);
-                }
+                id = i;
             }
         }
-        //Exits if button isn't found or piece hasn't been configured. Should never get here
-        if (b == null || piece == CheckersLogic.square.OPEN) {
+
+        //if buttons ins't found return
+        if (piece == null || id == -1)
+            return;
+
+        if (selectedMove == null) {
+            //if the selected piece is an empty square return
+            if (piece == CheckersLogic.square.OPEN)
+                return;
+            Move move = new Move(id / 8, id % 8);
+            selectedMove = move;
+            highlightSquare(move);
             return;
         }
+        else if (destinationMove == null) {
+            Move move = new Move(id / 8, id % 8);
+            destinationMove = move;
+            highlightSquare(move);
+        }
+
 
         //TODO
         //if valid move...
-        if (game.validMove(selectedMove, destinationMove)) {
-
-            //reset variables after valid move
-            selectedMove = null;
-            destinationMove = null;
+        if (selectedMove != null && destinationMove != null && game.validMove(selectedMove, destinationMove, true)) {
 
             //if turn can end... e.i. no more available moves that have to be made
-            if (game.checkEndTurn()) {
-                game.setTurn(false);
+            if (game.checkEndTurn(destinationMove)) {
+                //game.setTurn(false);
+                //TODO
+                game.swapPiece();
             }
 
             //checks and handles winning situations
             checkWinner();
 
+            syncBoards();
+            updateGameView();
         }
 
+
+        if (selectedMove != null && destinationMove != null){
+            //reset variables after valid move
+            selectedMove = null;
+            destinationMove = null;
+            updateGameView();
+        }
+
+    }
+
+    private void highlightSquare(Move move){
+        ImageButton b = getButton(move.getRow() * 8 + move.getCol());
+        b.setColorFilter(Color.argb(100, 255, 255, 255));
     }
 
     private void checkWinner() {
@@ -143,18 +206,20 @@ public class Checkers extends AppCompatActivity {
         if (outcome == outcome.BLACK) {
             Toast.makeText(getApplicationContext(), "Black Won!", Toast.LENGTH_LONG).show();
         } else if (outcome == outcome.WHITE) {
-            Toast.makeText(getApplicationContext(), "Red Won!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "White Won!", Toast.LENGTH_LONG).show();
         }
 
     }
 
-    class Move {
+    static class Move {
         private int row, col;
         private int id;
+        private String cid;
 
         public Move(int row, int col) {
             setLocation(row, col);
             id = (row * 8) + col;
+            cid = "c" + row + "" + col;
         }
 
         public void setLocation(int row, int col) {
@@ -172,6 +237,10 @@ public class Checkers extends AppCompatActivity {
 
         public int getId() {
             return id;
+        }
+
+        public String getCid(){
+            return cid;
         }
     }
 }
