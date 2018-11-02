@@ -85,16 +85,16 @@ public class CheckersLogic {
     }
 
     //checks whether there are any more valid moves available e.g. another jump that could be made
-    public boolean checkEndTurn(Checkers.Move selectedMove) {
+    public boolean checkEndTurn(Move selectedMove) {
         if (!lastMoveJump)
             return true;
-        if (validMove(selectedMove, new Checkers.Move(selectedMove.getRow() + 2, selectedMove.getCol() + 2), false)) {
+        if (validMove(selectedMove, new Move(selectedMove.getRow() + 2, selectedMove.getCol() + 2), false)) {
             return false;
-        } else if (validMove(selectedMove, new Checkers.Move(selectedMove.getRow() + 2, selectedMove.getCol() - 2), false)) {
+        } else if (validMove(selectedMove, new Move(selectedMove.getRow() + 2, selectedMove.getCol() - 2), false)) {
             return false;
-        } else if (validMove(selectedMove, new Checkers.Move(selectedMove.getRow() - 2, selectedMove.getCol() + 2), false)) {
+        } else if (validMove(selectedMove, new Move(selectedMove.getRow() - 2, selectedMove.getCol() + 2), false)) {
             return false;
-        } else if (validMove(selectedMove, new Checkers.Move(selectedMove.getRow() - 2, selectedMove.getCol() - 2), false)) {
+        } else if (validMove(selectedMove, new Move(selectedMove.getRow() - 2, selectedMove.getCol() - 2), false)) {
             return false;
         }
         return true;
@@ -103,7 +103,7 @@ public class CheckersLogic {
     //TODO
 //checks to see if the new move is valid
 //checks everything: jumps, whether the opposing piece is jumped over, etc
-    public boolean validMove(Checkers.Move selectedMove, Checkers.Move destinationMove, boolean initiateMove) {
+    public boolean validMove(Move selectedMove, Move destinationMove, boolean initiateMove) {
         if (selectedMove == null || destinationMove == null)
             return false;
         //checks to see if the coordinates are even on the board. Should never reach here
@@ -190,7 +190,7 @@ public class CheckersLogic {
         return false;
     }
 
-    private void makeKing(Checkers.Move move) {
+    private void makeKing(Move move) {
         if (piece == square.WHITE) {
             if (move.getRow() == 0)
                 board[move.getRow()][move.getCol()] = square.WKING;
@@ -199,7 +199,7 @@ public class CheckersLogic {
                 board[move.getRow()][move.getCol()] = square.BKING;
     }
 
-    private boolean correctMoveDirection(Checkers.Move selectedMove, Checkers.Move destinationMove) {
+    private boolean correctMoveDirection(Move selectedMove, Move destinationMove) {
         if (board[selectedMove.getRow()][selectedMove.getCol()] == square.WKING || board[selectedMove.getRow()][selectedMove.getCol()] == square.BKING)
             return true;
         if (piece == square.WHITE) {
@@ -240,11 +240,39 @@ public class CheckersLogic {
         //checks for tie
         for (int i = 0; i < 64; i++){
             for (int j = 0; j < 64; j++){
-                if (validMove(new Checkers.Move(i / 8, i % 8), new Checkers.Move(j / 8, j % 8), false))
+                if (validMove(new Move(i / 8, i % 8), new Move(j / 8, j % 8), false))
                     return outcome.IN_PROGRESS;
             }
         }
         return outcome.TIE;
+    }
+
+    static class Move {
+        private int row, col;
+        private int id;
+
+        public Move(int row, int col) {
+            setLocation(row, col);
+            id = (row * 8) + col;
+        }
+
+        public void setLocation(int row, int col) {
+            this.row = row;
+            this.col = col;
+        }
+
+        public int getRow() {
+            return row;
+        }
+
+        public int getCol() {
+            return col;
+        }
+
+        public int getId() {
+            return id;
+        }
+
     }
 
 }

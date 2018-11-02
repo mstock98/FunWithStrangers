@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import shaftware.funwithstrangers.CheckersLogic.Move;
 
 public class Checkers extends AppCompatActivity {
 
@@ -215,38 +216,5 @@ public class Checkers extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Tie!", Toast.LENGTH_LONG).show();
         }
 
-    }
-
-    static class Move {
-        private int row, col;
-        private int id;
-        private String cid;
-
-        public Move(int row, int col) {
-            setLocation(row, col);
-            id = (row * 8) + col;
-            cid = "c" + row + "" + col;
-        }
-
-        public void setLocation(int row, int col) {
-            this.row = row;
-            this.col = col;
-        }
-
-        public int getRow() {
-            return row;
-        }
-
-        public int getCol() {
-            return col;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public String getCid(){
-            return cid;
-        }
     }
 }
