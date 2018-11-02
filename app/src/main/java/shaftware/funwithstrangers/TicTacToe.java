@@ -1,20 +1,25 @@
 package shaftware.funwithstrangers;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-
 import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.gms.nearby.Nearby;
-import com.google.android.gms.nearby.connection.*;
+import com.google.android.gms.nearby.connection.AdvertisingOptions;
+import com.google.android.gms.nearby.connection.ConnectionInfo;
+import com.google.android.gms.nearby.connection.ConnectionLifecycleCallback;
+import com.google.android.gms.nearby.connection.ConnectionResolution;
+import com.google.android.gms.nearby.connection.ConnectionsStatusCodes;
+import com.google.android.gms.nearby.connection.Payload;
+import com.google.android.gms.nearby.connection.PayloadCallback;
+import com.google.android.gms.nearby.connection.PayloadTransferUpdate;
+import com.google.android.gms.nearby.connection.Strategy;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-
-import static shaftware.funwithstrangers.TttLogicBase.Piece.X;
 
 public class TicTacToe extends AppCompatActivity {
 
@@ -45,20 +50,20 @@ public class TicTacToe extends AppCompatActivity {
         }
 
         //****These are the two variables to be chosen in the UI******
-        boolean playerFirst = false;
-        TttAi.Difficulty difficulty = TttAi.Difficulty.IMPOSSIBLE;
+        boolean playerFirst = true;
+        int difficulty = TttAi.IMPOSSIBLE;
 
         //By default whoever goes first gets X
-        TttLogic.Piece playerPIECE = TttLogic.Piece.OPEN;
-        TttLogic.Piece aiPIECE = TttLogic.Piece.OPEN;
+        int playerPIECE;
+        int aiPIECE;
 
         //Configure board for AI and Player
         if (playerFirst){
-            playerPIECE = X;
-            aiPIECE = TttLogic.Piece.O;
+            playerPIECE = TttLogic.X;
+            aiPIECE = TttLogic.O;
         } else{
-            playerPIECE = TttLogic.Piece.O;
-            aiPIECE = X;
+            playerPIECE = TttLogic.O;
+            aiPIECE = TttLogic.X;
         }
         //Initializing the TttGame
         //Who is x and who goes first must be decided at the constructor
@@ -156,13 +161,13 @@ public class TicTacToe extends AppCompatActivity {
     //Toasts if someone has won / tied and returns true if the game has ended, false otherwise
     private boolean checkWinner() {
         int winner = TttGame.checkWinner();
-        if (winner == TttLogic.Piece.O.ordinal()) {
+        if (winner == TttLogic.O) {
             Toast.makeText(getApplicationContext(), "O Won!", Toast.LENGTH_LONG).show();
             return true;
-        } else if (winner == X.ordinal()) {
+        } else if (winner == TttLogic.X) {
             Toast.makeText(getApplicationContext(), "X Won!", Toast.LENGTH_LONG).show();
             return true;
-        } else if (winner == 2) {
+        } else if (winner == TttLogic.TIE) {
             Toast.makeText(getApplicationContext(), "Tie!", Toast.LENGTH_LONG).show();
             return true;
         }
@@ -172,14 +177,14 @@ public class TicTacToe extends AppCompatActivity {
     //Refreshes every button's image to correspond with the gameboard
     private void updateGameView(TttLogic game) {
         for (int i = 0; i < buttons.length; i++) {
-            TttLogic.Piece piece = game.getBoardPiece(i / 3, i % 3);
-            if (piece == TttLogic.Piece.X) {
+            int piece = game.getBoardPiece(i / 3, i % 3);
+            if (piece == TttLogic.X) {
                 buttons[i].setImageResource(R.drawable.x);
             }
-            if (piece == TttLogic.Piece.O) {
+            if (piece == TttLogic.O) {
                 buttons[i].setImageResource(R.drawable.o);
             }
-            if (piece == TttLogic.Piece.OPEN) {
+            if (piece == TttLogic.OPEN) {
                 buttons[i].setImageResource(R.drawable.b);
             }
         }
@@ -194,16 +199,10 @@ public class TicTacToe extends AppCompatActivity {
         public void onPayloadReceived(@NonNull String s, @NonNull Payload payload) {
             byte[] b = payload.asBytes();
             if(payload.getType() == Payload.Type.BYTES && b.length == 9){
-                TttLogic.Piece[][] board = new TttLogic.Piece[3][3];
-                board[0][0] = TttLogic.Piece.values()[(int) b[0] & 0xFF];
-                board[0][1] = TttLogic.Piece.values()[(int) b[1] & 0xFF];
-                board[0][2] = TttLogic.Piece.values()[(int) b[2] & 0xFF];
-                board[1][0] = TttLogic.Piece.values()[(int) b[3] & 0xFF];
-                board[1][1] = TttLogic.Piece.values()[(int) b[4] & 0xFF];
-                board[1][2] = TttLogic.Piece.values()[(int) b[5] & 0xFF];
-                board[2][0] = TttLogic.Piece.values()[(int) b[6] & 0xFF];
-                board[2][1] = TttLogic.Piece.values()[(int) b[7] & 0xFF];
-                board[2][2] = TttLogic.Piece.values()[(int) b[8] & 0xFF];
+                int[][] board = new int[3][3];
+                for (int i = 0; i < 9; i++){
+                    board[i/2][i%2] = payload.asBytes()[i];
+                }
                 TttGame.receiveBoard(board);
                 updateGameView(TttGame);
                 //Disable player from doing anything if someone has won
@@ -281,17 +280,11 @@ public class TicTacToe extends AppCompatActivity {
     }
 
     private void sendBoard(){
-        TttLogic.Piece[][] board = TttGame.getBoard();
+        int[][] board = TttGame.getBoard();
         byte[] b = new byte[9];
-        b[0] = (byte)board[0][0].ordinal();
-        b[1] = (byte)board[0][1].ordinal();
-        b[2] = (byte)board[0][2].ordinal();
-        b[3] = (byte)board[1][0].ordinal();
-        b[4] = (byte)board[1][1].ordinal();
-        b[5] = (byte)board[1][2].ordinal();
-        b[6] = (byte)board[2][0].ordinal();
-        b[7] = (byte)board[2][1].ordinal();
-        b[8] = (byte)board[2][2].ordinal();
+        for (int i = 0; i < 9; i++){
+            b[i] = (byte)board[i/2][i%2];
+        }
         Payload p = Payload.fromBytes(b);
         sendPayload(Globals.getEndPointID(), p);
     }

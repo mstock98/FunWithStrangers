@@ -1,7 +1,5 @@
 package shaftware.funwithstrangers;
 
-import java.nio.file.StandardWatchEventKinds;
-
 public class CheckersLogic {
 
     private square[][] board = new square[8][8];
@@ -10,18 +8,25 @@ public class CheckersLogic {
 
     enum outcome {TIE, WHITE, BLACK, IN_PROGRESS}
 
-    private square piece = square.OPEN;
-    private square opPiece = square.OPEN;
-    private boolean turn = false;
+    private square piece;
+    private square kPiece;
+    private square opPiece;
+    private square opkPiece;
+    private boolean turn;
     private boolean lastMoveJump = false;
 
     public CheckersLogic(square piece, boolean turn) {
         this.piece = piece;
         this.turn = turn;
-        if (piece == square.WHITE)
+        if (piece == square.WHITE) {
             opPiece = square.BLACK;
-        else
+            opkPiece = square.BKING;
+            kPiece = square.WKING;
+        } else {
             opPiece = square.WHITE;
+            opkPiece = square.WKING;
+            kPiece = square.BKING;
+        }
         initializeBoard();
     }
 
@@ -51,9 +56,13 @@ public class CheckersLogic {
         if (piece == square.BLACK) {
             piece = square.WHITE;
             opPiece = square.BLACK;
+            kPiece = square.WKING;
+            opkPiece = square.BKING;
         } else {
             piece = square.BLACK;
             opPiece = square.WHITE;
+            kPiece = square.BKING;
+            opkPiece = square.WKING;
         }
     }
 
@@ -104,9 +113,11 @@ public class CheckersLogic {
             return false;
 
         //if the selected piece is the players...
-        if (board[selectedMove.getRow()][selectedMove.getCol()] == piece) {
+        square selected = board[selectedMove.getRow()][selectedMove.getCol()];
+        square destination = board[destinationMove.getRow()][destinationMove.getCol()];
+        if (selected == piece || selected == kPiece) {
             //if the destination piece is open...
-            if (board[destinationMove.getRow()][destinationMove.getCol()] == square.OPEN) {
+            if (destination == square.OPEN) {
                 //TODO
                 //Check if jumps and if over opponent piece
                 int rowDiff = Math.abs(selectedMove.getRow() - destinationMove.getRow());
@@ -118,8 +129,14 @@ public class CheckersLogic {
                     if (!correctMoveDirection(selectedMove, destinationMove))
                         return false;
                     if (initiateMove) {
-                        board[selectedMove.getRow()][selectedMove.getCol()] = square.OPEN;
-                        board[destinationMove.getRow()][destinationMove.getCol()] = piece;
+                        if (selected == kPiece) {
+                            board[selectedMove.getRow()][selectedMove.getCol()] = square.OPEN;
+                            board[destinationMove.getRow()][destinationMove.getCol()] = kPiece;
+                        } else {
+                            board[selectedMove.getRow()][selectedMove.getCol()] = square.OPEN;
+                            board[destinationMove.getRow()][destinationMove.getCol()] = piece;
+                        }
+                        makeKing(destinationMove);
                     }
                     lastMoveJump = false;
                     return true;
@@ -149,21 +166,37 @@ public class CheckersLogic {
 
 
                     //check if the middle piece is opponents piece
-                    if (board[rowShift + selectedMove.getRow()][colShift + selectedMove.getCol()] != opPiece)
+                    int middleRow = rowShift + selectedMove.getRow();
+                    int middleCol = colShift + selectedMove.getCol();
+                    if (board[middleRow][middleCol] != opPiece && board[middleRow][middleCol] != opkPiece)
                         return false;
 
                     if (initiateMove) {
-                        board[rowShift + selectedMove.getRow()][colShift + selectedMove.getCol()] = square.OPEN;
+                        board[middleRow][middleCol] = square.OPEN;
 
-                        board[selectedMove.getRow()][selectedMove.getCol()] = square.OPEN;
-                        board[destinationMove.getRow()][destinationMove.getCol()] = piece;
+                        if (board[selectedMove.getRow()][selectedMove.getCol()] == kPiece) {
+                            board[selectedMove.getRow()][selectedMove.getCol()] = square.OPEN;
+                            board[destinationMove.getRow()][destinationMove.getCol()] = kPiece;
+                        } else {
+                            board[selectedMove.getRow()][selectedMove.getCol()] = square.OPEN;
+                            board[destinationMove.getRow()][destinationMove.getCol()] = piece;
+                        }
+                        makeKing(destinationMove);
                     }
-
                     return true;
                 }
             }
         }
         return false;
+    }
+
+    private void makeKing(Checkers.Move move) {
+        if (piece == square.WHITE) {
+            if (move.getRow() == 0)
+                board[move.getRow()][move.getCol()] = square.WKING;
+        } else if (piece == square.BLACK)
+            if (move.getRow() == 7)
+                board[move.getRow()][move.getCol()] = square.BKING;
     }
 
     private boolean correctMoveDirection(Checkers.Move selectedMove, Checkers.Move destinationMove) {
@@ -201,7 +234,17 @@ public class CheckersLogic {
             return outcome.WHITE;
         if (white == 0)
             return outcome.BLACK;
-        return outcome.IN_PROGRESS;
+
+        //TODO
+        //make efficient
+        //checks for tie
+        for (int i = 0; i < 64; i++){
+            for (int j = 0; j < 64; j++){
+                if (validMove(new Checkers.Move(i / 8, i % 8), new Checkers.Move(j / 8, j % 8), false))
+                    return outcome.IN_PROGRESS;
+            }
+        }
+        return outcome.TIE;
     }
 
 }

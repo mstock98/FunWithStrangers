@@ -84,7 +84,7 @@ public class TttAiUnitTest {
         TttAi aiI = new TttAi(TttLogic.X, true, TttAi.IMPOSSIBLE, false);
 
         boolean inProgress = true;
-        int result = -1;
+        int result;
         do{
             aiH.TttAiTurn();
             aiI.game.receiveBoard(aiH.game.getBoard());
@@ -110,7 +110,7 @@ public class TttAiUnitTest {
     public int aiVsSelf(int difficulty, boolean print){
         TttAi ai = new TttAi(TttLogic.X, true, difficulty, true);
         boolean inProgress = true;
-        int result = -1;
+        int result;
         do {
             ai.TttAiTurn();
             ai.game.swapPiece();

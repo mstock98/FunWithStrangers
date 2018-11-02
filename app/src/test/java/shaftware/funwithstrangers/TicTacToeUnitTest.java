@@ -8,7 +8,7 @@ public class TicTacToeUnitTest {
 
     @Test
     public void ExampleGame(){
-        TttLogic game = new TttLogic(TttLogic.Piece.X, true);
+        TttLogic game = new TttLogic(TttLogic.X, true);
 
         game.clearBoard();
 
@@ -24,6 +24,6 @@ public class TicTacToeUnitTest {
         game.pickSpot(1, 0); //XOX, XO
         game.swapPiece();
         game.pickSpot(2, 1); //XOX, XO?, ?o
-        assertEquals(TttLogic.Piece.O, game.checkWinner());
+        assertEquals(TttLogic.O, game.checkWinner());
     }
 }

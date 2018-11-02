@@ -5,41 +5,41 @@ import static java.lang.Math.min;
 
 public class TttAi {
 
-    TttLogic game = null;
-    TttLogic.Piece oppPIECE = TttLogic.Piece.OPEN;
+    TttLogic game;
+    int oppPIECE;
 
-    public enum Difficulty {
-        EZ, HARD, IMPOSSIBLE, DEBUG
-    }
+    public static final int EZ = 0;
+    public static final int HARD = 1;
+    public static final int IMPOSSIBLE = 2;
 
-    public Difficulty DIFFICULTY = Difficulty.DEBUG;
+    public int DIFFICULTY;
 
-    private boolean takeFirstTurn = false;
+    private boolean takeFirstTurn;
 
-    public TttAi(TttLogic.Piece PIECE, boolean MYTURN, Difficulty DIFFICULTY, boolean takeFirstTurn) {
+    public TttAi(int PIECE, boolean MYTURN, int DIFFICULTY, boolean takeFirstTurn) {
         this.takeFirstTurn = takeFirstTurn;
         game = new TttLogic(PIECE, MYTURN);
         this.DIFFICULTY = DIFFICULTY;
-        if (game.getPIECE() == TttLogic.Piece.X)
-            oppPIECE = TttLogic.Piece.O;
+        if (game.getPIECE() == TttLogic.X)
+            oppPIECE = TttLogic.O;
         else
-            oppPIECE = TttLogic.Piece.X;
+            oppPIECE = TttLogic.X;
         game.clearBoard();
     }
 
     public void TttAiTurn() {
         if (takeFirstTurn) {
             TttAiTurnFirst();
-        } else if (DIFFICULTY == Difficulty.HARD || DIFFICULTY == Difficulty.IMPOSSIBLE) {
+        } else if (DIFFICULTY == HARD || DIFFICULTY == IMPOSSIBLE) {
             findBestMove(game.getBoard());
-        } else if (DIFFICULTY == Difficulty.EZ){
+        } else if (DIFFICULTY == EZ){
             while (!randomMove());
         }
     }
 
     private void TttAiTurnFirst(){
          takeFirstTurn = false;
-        if (DIFFICULTY == Difficulty.IMPOSSIBLE){
+        if (DIFFICULTY == IMPOSSIBLE){
             int ran = (int)(Math.random()*4) + 1;
             int row = -1, col = -1;
             switch(ran){
@@ -67,7 +67,7 @@ public class TttAi {
 
     }
 
-    private int minimax(TttLogic.Piece[][] board, int depth, boolean isMax) {
+    private int minimax(int[][] board, int depth, boolean isMax) {
 
         int score = checkWinner(board);
 
@@ -83,27 +83,26 @@ public class TttAi {
 
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
-                    if (board[i][j] == TttLogic.Piece.OPEN) {
+                    if (board[i][j] == TttLogic.OPEN) {
                         board[i][j] = game.getPIECE();
                         best = max(best, minimax(board, depth++, !isMax));
-                        board[i][j] = TttLogic.Piece.OPEN;
+                        board[i][j] = TttLogic.OPEN;
                     }
                 }
             }
             return best;
         }
         else{
-            int best = Integer.MAX_VALUE;
-            //if difficulty is hard, remove min
-            if (DIFFICULTY == Difficulty.HARD)
-                best = Integer.MIN_VALUE;
+            int best = Integer.MIN_VALUE;
+            if (DIFFICULTY == IMPOSSIBLE)
+                best = Integer.MAX_VALUE;
 
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
-                    if (board[i][j] == TttLogic.Piece.OPEN) {
+                    if (board[i][j] == TttLogic.OPEN) {
                         board[i][j] = oppPIECE;
                         best = min(best, minimax(board, depth++, !isMax));
-                        board[i][j] = TttLogic.Piece.OPEN;
+                        board[i][j] = TttLogic.OPEN;
                     }
                 }
             }
@@ -112,11 +111,12 @@ public class TttAi {
         }
     }
 
-    private int checkWinner(TttLogic.Piece[][] board) {
+    private int checkWinner(int[][] board) {
+        int OPEN = TttLogic.OPEN;
         //Cols
         for (int i = 0; i < 3; i++){
-            TttLogic.Piece col = board[i][0];
-            if (col != TttLogic.Piece.OPEN && col == board[i][1] && col == board[i][2]){
+            int col = board[i][0];
+            if (col != OPEN && col == board[i][1] && col == board[i][2]){
                 if (col == game.getPIECE())
                     return 10;
                 if (col == oppPIECE)
@@ -126,8 +126,8 @@ public class TttAi {
 
         //Rows
         for (int i = 0; i < 3; i++){
-            TttLogic.Piece row = board[0][i];
-            if (row != TttLogic.Piece.OPEN && row == board[1][i] && row == board[2][i]){
+            int row = board[0][i];
+            if (row != OPEN && row == board[1][i] && row == board[2][i]){
                 if (row == game.getPIECE())
                     return 10;
                 if (row == oppPIECE)
@@ -136,8 +136,8 @@ public class TttAi {
         }
 
         //Diagonals
-        TttLogic.Piece middle = board[1][1];
-        if (middle != TttLogic.Piece.OPEN && ((middle == board[0][0] && middle == board[2][2]) || (middle == board[0][2] && middle == board[2][0]))){
+        int middle = board[1][1];
+        if (middle != OPEN && ((middle == board[0][0] && middle == board[2][2]) || (middle == board[0][2] && middle == board[2][0]))){
             if (middle == game.getPIECE())
                 return 10;
             if (middle == oppPIECE)
@@ -147,17 +147,17 @@ public class TttAi {
         return 0;
     }
 
-    private void findBestMove(TttLogic.Piece[][] board){
+    private void findBestMove(int[][] board){
         int bestVal = Integer.MIN_VALUE;
         int row = -1;
         int col = -1;
 
         for (int i = 0; i < 3; i++){
             for (int j = 0; j < 3; j++){
-                if (board[i][j] == TttLogic.Piece.OPEN){
+                if (board[i][j] == TttLogic.OPEN){
                     board[i][j] = game.getPIECE();
                     int moveVal = minimax(board, 0, false);
-                    board[i][j] = TttLogic.Piece.OPEN;
+                    board[i][j] = TttLogic.OPEN;
                     if (moveVal > bestVal){
                         row = i;
                         col = j;
@@ -168,7 +168,7 @@ public class TttAi {
         }
 
         boolean valid = game.pickSpot(row, col);
-        while (!valid && DIFFICULTY == Difficulty.HARD) { //Loop and pick random
+        while (!valid && DIFFICULTY == HARD) { //Loop and pick random
             valid = randomMove();
         }
     }

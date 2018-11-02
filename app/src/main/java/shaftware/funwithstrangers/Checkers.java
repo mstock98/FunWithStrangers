@@ -118,6 +118,10 @@ public class Checkers extends AppCompatActivity {
                 buttons[i].setImageResource(R.drawable.black);
             else if (square == CheckersLogic.square.WHITE)
                 buttons[i].setImageResource(R.drawable.white);
+            else if (square == CheckersLogic.square.BKING)
+                buttons[i].setImageResource(R.drawable.blackk);
+            else if (square == CheckersLogic.square.WKING)
+                buttons[i].setImageResource(R.drawable.whitek);
             else if (square == CheckersLogic.square.OPEN) {
                 //TODO
                 //Need to pick the correct light or dark
@@ -207,6 +211,8 @@ public class Checkers extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Black Won!", Toast.LENGTH_LONG).show();
         } else if (outcome == outcome.WHITE) {
             Toast.makeText(getApplicationContext(), "White Won!", Toast.LENGTH_LONG).show();
+        } else if (outcome == outcome.TIE){
+            Toast.makeText(getApplicationContext(), "Tie!", Toast.LENGTH_LONG).show();
         }
 
     }
