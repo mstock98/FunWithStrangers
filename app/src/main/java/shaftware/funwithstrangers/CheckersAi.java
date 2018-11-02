@@ -30,7 +30,7 @@ public class CheckersAi {
     public void CheckersAiTurn(){
         if (takeFirstTurn){
             CheckersAiTurnFirst();
-        } else if (diff == difficulty.HARD|| diff = difficulty.IMPOSSIBLE){
+        } else if (diff == difficulty.HARD || diff == difficulty.IMPOSSIBLE){
             findBestMove(game.getBoard());
         } else if (diff == difficulty.EASY){
             while (!randomMove());
@@ -39,6 +39,7 @@ public class CheckersAi {
 
     //TODO
     private boolean randomMove() {
+        return true;
     }
 
     //TODO
