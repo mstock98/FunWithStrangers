@@ -21,6 +21,9 @@ import com.google.android.gms.nearby.connection.Strategy;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import static shaftware.funwithstrangers.TttLogicBase.Piece;
+import static shaftware.funwithstrangers.TttLogicBase.Winner;
+
 public class TicTacToe extends AppCompatActivity {
 
     ImageButton ttt00, ttt01, ttt02,
@@ -54,16 +57,16 @@ public class TicTacToe extends AppCompatActivity {
         int difficulty = TttAi.IMPOSSIBLE;
 
         //By default whoever goes first gets X
-        int playerPIECE;
-        int aiPIECE;
+        Piece playerPIECE;
+        Piece aiPIECE;
 
         //Configure board for AI and Player
         if (playerFirst){
-            playerPIECE = TttLogic.X;
-            aiPIECE = TttLogic.O;
+            playerPIECE = Piece.X;
+            aiPIECE = Piece.O;
         } else{
-            playerPIECE = TttLogic.O;
-            aiPIECE = TttLogic.X;
+            playerPIECE = Piece.O;
+            aiPIECE = Piece.X;
         }
         //Initializing the TttGame
         //Who is x and who goes first must be decided at the constructor
@@ -160,14 +163,14 @@ public class TicTacToe extends AppCompatActivity {
 
     //Toasts if someone has won / tied and returns true if the game has ended, false otherwise
     private boolean checkWinner() {
-        int winner = TttGame.checkWinner();
-        if (winner == TttLogic.O) {
+        Winner winner = TttGame.checkWinner();
+        if (winner == Winner.O) {
             Toast.makeText(getApplicationContext(), "O Won!", Toast.LENGTH_LONG).show();
             return true;
-        } else if (winner == TttLogic.X) {
+        } else if (winner == Winner.X) {
             Toast.makeText(getApplicationContext(), "X Won!", Toast.LENGTH_LONG).show();
             return true;
-        } else if (winner == TttLogic.TIE) {
+        } else if (winner == Winner.TIE) {
             Toast.makeText(getApplicationContext(), "Tie!", Toast.LENGTH_LONG).show();
             return true;
         }
@@ -177,14 +180,14 @@ public class TicTacToe extends AppCompatActivity {
     //Refreshes every button's image to correspond with the gameboard
     private void updateGameView(TttLogic game) {
         for (int i = 0; i < buttons.length; i++) {
-            int piece = game.getBoardPiece(i / 3, i % 3);
-            if (piece == TttLogic.X) {
+            Piece piece = game.getBoardPiece(i / 3, i % 3);
+            if (piece == Piece.X) {
                 buttons[i].setImageResource(R.drawable.x);
             }
-            if (piece == TttLogic.O) {
+            if (piece == Piece.O) {
                 buttons[i].setImageResource(R.drawable.o);
             }
-            if (piece == TttLogic.OPEN) {
+            if (piece == Piece.OPEN) {
                 buttons[i].setImageResource(R.drawable.b);
             }
         }
@@ -199,9 +202,11 @@ public class TicTacToe extends AppCompatActivity {
         public void onPayloadReceived(@NonNull String s, @NonNull Payload payload) {
             byte[] b = payload.asBytes();
             if(payload.getType() == Payload.Type.BYTES && b.length == 9){
-                int[][] board = new int[3][3];
+                //int[][] board = new int[3][3];
+                Piece[][] board = new Piece[3][3];
                 for (int i = 0; i < 9; i++){
-                    board[i/2][i%2] = payload.asBytes()[i];
+                    //board[i/2][i%2] = payload.asBytes()[i];
+                    board[i/2][i%2] = Piece.values()[payload.asBytes()[i]];
                 }
                 TttGame.receiveBoard(board);
                 updateGameView(TttGame);
@@ -280,7 +285,7 @@ public class TicTacToe extends AppCompatActivity {
     }
 
     private void sendBoard(){
-        int[][] board = TttGame.getBoard();
+        int[][] board = TttGame.getIntBoard();
         byte[] b = new byte[9];
         for (int i = 0; i < 9; i++){
             b[i] = (byte)board[i/2][i%2];

@@ -2,15 +2,17 @@ package shaftware.funwithstrangers;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static shaftware.funwithstrangers.TttLogicBase.Piece;
+import static shaftware.funwithstrangers.TttLogicBase.Winner;
 
 import org.junit.Test;
 
 public class TttAiUnitTest {
 
-    private void printBoard(int[][] board){
+    private void printBoard(Piece[][] board){
         for(int i = 0; i < 3; i++){
             for (int j = 0; j < 3; j++){
-                System.out.print(board[i][j] + " ");
+                System.out.print(board[i][j].ordinal() + " ");
             }
             System.out.print("\n");
         }
@@ -18,24 +20,34 @@ public class TttAiUnitTest {
 
     @Test
     public void ExampleGame(){
-        TttAi ai = new TttAi(TttLogic.X, true, TttAi.IMPOSSIBLE, false);
+        TttAi ai = new TttAi(Piece.X, true, TttAi.IMPOSSIBLE, false);
 
         //Prepare game state
-        int[][] board = {{1, 0, 1}, {0, 0, 1}, {-1, -1, -1}};
+        Piece[][] board = {{Piece.X, Piece.O, Piece.X},
+                           {Piece.O, Piece.O, Piece.X},
+                           {Piece.OPEN, Piece.OPEN, Piece.OPEN}};
         ai.game.receiveBoard(board);
         ai.TttAiTurn();
-        int[][] temp = ai.game.getBoard();
+        Piece[][] temp = ai.game.getBoard();
         printBoard(temp);
-        assertEquals(1, temp[2][2]);
+        assertEquals(Piece.X, temp[2][2]);
     }
 
     @Test
     public void ExampleFirstTurn(){
-        TttAi ai = new TttAi(TttLogic.X, true, TttAi.EZ, false);
-        int[][] board = {{-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}};
+        TttAi ai = new TttAi(Piece.X, true, TttAi.EZ, false);
+
+        // Create a new board with all positions open
+        Piece[][] board = new Piece[3][3];
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                board[i][j] = Piece.OPEN;
+            }
+        }
+
         ai.game.receiveBoard(board);
         ai.TttAiTurn();
-        int[][] temp = ai.game.getBoard();
+        Piece[][] temp = ai.game.getBoard();
         boolean val = false;
         for(int i = 0; i < 3; i++){
             for (int j = 0; j < 3; j++){
@@ -55,12 +67,12 @@ public class TttAiUnitTest {
         int o = 0;
         int tie = 0;
         for (int i = 0; i < 100; i++){
-            int result = aiHardVsAiImpossible();
-            if (result == 1)
+            Winner result = aiHardVsAiImpossible();
+            if (result == Winner.X)
                 x++;
-            else if (result == 0)
+            else if (result == Winner.O)
                 o++;
-            else if (result == 2)
+            else if (result == Winner.TIE)
                 tie++;
             else
                 System.out.println("error");
@@ -79,17 +91,17 @@ public class TttAiUnitTest {
         aiHardVsAiImpossible();
     }
 
-    public int aiHardVsAiImpossible(){
-        TttAi aiH = new TttAi(TttLogic.O, true, TttAi.HARD, true);
-        TttAi aiI = new TttAi(TttLogic.X, true, TttAi.IMPOSSIBLE, false);
+    public Winner aiHardVsAiImpossible(){
+        TttAi aiH = new TttAi(Piece.O, true, TttAi.HARD, true);
+        TttAi aiI = new TttAi(Piece.X, true, TttAi.IMPOSSIBLE, false);
 
         boolean inProgress = true;
-        int result;
+        Winner result;
         do{
             aiH.TttAiTurn();
             aiI.game.receiveBoard(aiH.game.getBoard());
 
-            if ((result = aiH.game.checkWinner()) != TttLogic.IN_PROGRESS) {
+            if ((result = aiH.game.checkWinner()) != Winner.IN_PROGRESS) {
                 inProgress = false;
                 continue;
             }
@@ -97,7 +109,7 @@ public class TttAiUnitTest {
             aiI.TttAiTurn();
             aiH.game.receiveBoard(aiI.game.getBoard());
 
-            if ((result = aiH.game.checkWinner()) != TttLogic.IN_PROGRESS) {
+            if ((result = aiH.game.checkWinner()) != Winner.IN_PROGRESS) {
                 inProgress = false;
                 continue;
             }
@@ -107,14 +119,14 @@ public class TttAiUnitTest {
         return result;
     }
 
-    public int aiVsSelf(int difficulty, boolean print){
-        TttAi ai = new TttAi(TttLogic.X, true, difficulty, true);
+    public Winner aiVsSelf(int difficulty, boolean print){
+        TttAi ai = new TttAi(Piece.X, true, difficulty, true);
         boolean inProgress = true;
-        int result;
+        Winner result;
         do {
             ai.TttAiTurn();
             ai.game.swapPiece();
-            if ((result = ai.game.checkWinner()) != TttLogic.IN_PROGRESS)
+            if ((result = ai.game.checkWinner()) != Winner.IN_PROGRESS)
                 inProgress = false;
         }while(inProgress);
 

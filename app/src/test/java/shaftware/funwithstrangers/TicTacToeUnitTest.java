@@ -3,12 +3,15 @@ package shaftware.funwithstrangers;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static shaftware.funwithstrangers.TttLogicBase.Piece;
+import static shaftware.funwithstrangers.TttLogicBase.Winner;
+
 
 public class TicTacToeUnitTest {
 
     @Test
     public void ExampleGame(){
-        TttLogic game = new TttLogic(TttLogic.X, true);
+        TttLogic game = new TttLogic(Piece.X, true);
 
         game.clearBoard();
 
@@ -24,6 +27,6 @@ public class TicTacToeUnitTest {
         game.pickSpot(1, 0); //XOX, XO
         game.swapPiece();
         game.pickSpot(2, 1); //XOX, XO?, ?o
-        assertEquals(TttLogic.O, game.checkWinner());
+        assertEquals(Winner.O, game.checkWinner());
     }
 }
