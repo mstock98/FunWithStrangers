@@ -23,6 +23,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 
 import static shaftware.funwithstrangers.TttLogicBase.Piece;
 import static shaftware.funwithstrangers.TttLogicBase.Winner;
+import static shaftware.funwithstrangers.TttAi.Difficulty;
 
 public class TicTacToe extends AppCompatActivity {
 
@@ -54,7 +55,7 @@ public class TicTacToe extends AppCompatActivity {
 
         //****These are the two variables to be chosen in the UI******
         boolean playerFirst = true;
-        int difficulty = TttAi.IMPOSSIBLE;
+        Difficulty difficulty = Difficulty.IMPOSSIBLE;
 
         //By default whoever goes first gets X
         Piece playerPIECE;

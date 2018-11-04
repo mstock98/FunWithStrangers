@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static shaftware.funwithstrangers.TttLogicBase.Piece;
 import static shaftware.funwithstrangers.TttLogicBase.Winner;
+import static shaftware.funwithstrangers.TttAi.Difficulty;
 
 import org.junit.Test;
 
@@ -20,7 +21,7 @@ public class TttAiUnitTest {
 
     @Test
     public void ExampleGame(){
-        TttAi ai = new TttAi(Piece.X, true, TttAi.IMPOSSIBLE, false);
+        TttAi ai = new TttAi(Piece.X, true, Difficulty.IMPOSSIBLE, false);
 
         //Prepare game state
         Piece[][] board = {{Piece.X, Piece.O, Piece.X},
@@ -35,7 +36,7 @@ public class TttAiUnitTest {
 
     @Test
     public void ExampleFirstTurn(){
-        TttAi ai = new TttAi(Piece.X, true, TttAi.EZ, false);
+        TttAi ai = new TttAi(Piece.X, true, Difficulty.EZ, false);
 
         // Create a new board with all positions open
         Piece[][] board = new Piece[3][3];
@@ -83,7 +84,7 @@ public class TttAiUnitTest {
     }
     @Test
     public void aiVsSelfTest(){
-        aiVsSelf(2, true);
+        aiVsSelf(Difficulty.IMPOSSIBLE, true);
     }
 
     @Test
@@ -92,8 +93,8 @@ public class TttAiUnitTest {
     }
 
     public Winner aiHardVsAiImpossible(){
-        TttAi aiH = new TttAi(Piece.O, true, TttAi.HARD, true);
-        TttAi aiI = new TttAi(Piece.X, true, TttAi.IMPOSSIBLE, false);
+        TttAi aiH = new TttAi(Piece.O, true, Difficulty.HARD, true);
+        TttAi aiI = new TttAi(Piece.X, true, Difficulty.IMPOSSIBLE, false);
 
         boolean inProgress = true;
         Winner result;
@@ -119,7 +120,7 @@ public class TttAiUnitTest {
         return result;
     }
 
-    public Winner aiVsSelf(int difficulty, boolean print){
+    public Winner aiVsSelf(Difficulty difficulty, boolean print){
         TttAi ai = new TttAi(Piece.X, true, difficulty, true);
         boolean inProgress = true;
         Winner result;
