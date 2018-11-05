@@ -1,13 +1,10 @@
 package shaftware.funwithstrangers;
 
 public class TttLogic extends SmallTTTLogic {
-    private Piece PIECE;
     private boolean MYTURN;
 
     public TttLogic(Piece PIECE, boolean MYTURN) {
-        super();
-        //Decide on PIECE (0 for o, 1 for x)
-        this.PIECE = PIECE;
+        super(PIECE);
         //Decide on turn
         this.MYTURN = MYTURN;
     }
@@ -18,15 +15,6 @@ public class TttLogic extends SmallTTTLogic {
 
     public void receiveBoard(Piece[][] board) {
         this.board = board;
-    }
-
-    //Method only used for in progress builds and testing purposes.
-    @Deprecated
-    public void swapPiece() {
-        if (PIECE == Piece.X)
-            PIECE = Piece.O;
-        else
-            PIECE = Piece.X;
     }
 
     //Turns turn on and off
@@ -52,15 +40,5 @@ public class TttLogic extends SmallTTTLogic {
 
     public boolean isTurn() {
         return MYTURN;
-    }
-
-    //Tries to place a move, returns false if invalid and if it failed
-    //TODO: Move method to superclass
-    public boolean pickSpot(int row, int col) {
-        if (row > -1 && row < 3 && col > -1 && col < 3 && board[row][col] == Piece.OPEN) {
-            board[row][col] = PIECE;
-            return true;
-        }
-        return false;
     }
 }
