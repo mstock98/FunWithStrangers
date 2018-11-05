@@ -1,13 +1,14 @@
 package shaftware.funwithstrangers;
 
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
+import shaftware.funwithstrangers.CheckersLogic.square;
+import shaftware.funwithstrangers.CheckersAi.difficulty;
 
 import shaftware.funwithstrangers.CheckersLogic.Move;
 
@@ -41,6 +42,8 @@ public class Checkers extends AppCompatActivity {
     CheckersLogic.square[] board;
 
     CheckersLogic game;
+    CheckersAi ai;
+
     Move selectedMove, destinationMove;
 
     @Override
@@ -49,17 +52,43 @@ public class Checkers extends AppCompatActivity {
         setContentView(R.layout.activity_checkers);
         //TODO
         //Configure
-        game = new CheckersLogic(CheckersLogic.square.WHITE, true);
+        boolean aiOn = true;
+        boolean playerFirst = true;
 
+        square piece, aiPiece;
+        if (playerFirst){
+            piece = square.WHITE;
+            aiPiece = square.BLACK;
+        } else {
+            piece = square.BLACK;
+            aiPiece = square.WHITE;
+        }
+
+        game = new CheckersLogic(piece, playerFirst);
+        if (playerFirst)
+            game.setTurn(true);
+        else
+            game.setTurn(false);
+
+        if (aiOn){
+            ai = new CheckersAi(aiPiece, difficulty.IMPOSSIBLE, !playerFirst);
+        }
 
         createBoard();
         initializeButtons();
         initializeBoard();
 
-        syncBoards();
+        if (aiOn && !playerFirst){
+            aiTurn();
+        }
+
         updateGameView();
-
-
+    }
+    private void aiTurn(){
+        ai.game.receiveBoard(game.getBoard());
+        ai.CheckersAiTurn();
+        game.receiveBoard(ai.game.getBoard());
+        game.setTurn(true);
     }
 
     private void createBoard() {
@@ -112,6 +141,7 @@ public class Checkers extends AppCompatActivity {
     //TODO
     //Set pieces to their correct color
     private void updateGameView() {
+        syncBoards();
         for (int i = 0; i < board.length; i++) {
             CheckersLogic.square square = board[i];
             buttons[i].setColorFilter(Color.TRANSPARENT);
@@ -174,16 +204,22 @@ public class Checkers extends AppCompatActivity {
 
             //if turn can end... e.i. no more available moves that have to be made
             if (game.checkEndTurn(destinationMove)) {
-                //game.setTurn(false);
+                game.setTurn(false);
                 //TODO
-                game.swapPiece();
+                //game.swapPiece();
+                checkWinner();
+                updateGameView();
+
+                aiTurn();
+                checkWinner();
+                updateGameView();
+
             }
 
             //checks and handles winning situations
-            checkWinner();
+            //checkWinner();
 
-            syncBoards();
-            updateGameView();
+            //updateGameView();
         }
 
 
