@@ -12,7 +12,6 @@ public class CheckersLogic {
     private square kPiece;
     private square opPiece;
     private square opkPiece;
-
     private boolean turn;
     private boolean lastMoveJump = false;
 
@@ -31,20 +30,12 @@ public class CheckersLogic {
         initializeBoard();
     }
 
-    public void receiveBoard(square[][] board) {
-        this.board = board;
-    }
-
     public void setBoard(square[][] board) {
         this.board = board;
     }
 
     public square getPiece() {
         return piece;
-    }
-
-    public square getOpPiece() {
-        return opPiece;
     }
 
     public square[][] getBoard() {
@@ -75,20 +66,6 @@ public class CheckersLogic {
         }
     }
 
-    @Deprecated
-    public void setPiece(square piece) {
-        this.piece = piece;
-        if (piece == square.WHITE) {
-            opPiece = square.BLACK;
-            opkPiece = square.BKING;
-            kPiece = square.WKING;
-        } else {
-            opPiece = square.WHITE;
-            opkPiece = square.WKING;
-            kPiece = square.BKING;
-        }
-    }
-
 
     //Sets board's initial piece placements
     private void initializeBoard() {
@@ -109,27 +86,22 @@ public class CheckersLogic {
 
     //checks whether there are any more valid moves available e.g. another jump that could be made
     public boolean checkEndTurn(Move selectedMove) {
-        //TODO
-        //Remove following if statement, temporarily disables this check.
-        if (selectedMove != null)
-            return true;
-
         if (!lastMoveJump)
             return true;
-        boolean king = (piece == square.BKING || piece == square.WKING);
-        if ((king || piece == square.BLACK) && validMove(selectedMove, new Move(selectedMove.getRow() + 2, selectedMove.getCol() + 2), false)) {
+        if (validMove(selectedMove, new Move(selectedMove.getRow() + 2, selectedMove.getCol() + 2), false)) {
             return false;
-        } else if ((king || piece == square.BLACK) && validMove(selectedMove, new Move(selectedMove.getRow() + 2, selectedMove.getCol() - 2), false)) {
+        } else if (validMove(selectedMove, new Move(selectedMove.getRow() + 2, selectedMove.getCol() - 2), false)) {
             return false;
-        } else if ((king || piece == square.WHITE) && validMove(selectedMove, new Move(selectedMove.getRow() - 2, selectedMove.getCol() + 2), false)) {
+        } else if (validMove(selectedMove, new Move(selectedMove.getRow() - 2, selectedMove.getCol() + 2), false)) {
             return false;
-        } else if ((king || piece == square.WHITE) && validMove(selectedMove, new Move(selectedMove.getRow() - 2, selectedMove.getCol() - 2), false)) {
+        } else if (validMove(selectedMove, new Move(selectedMove.getRow() - 2, selectedMove.getCol() - 2), false)) {
             return false;
         }
         return true;
     }
 
-    //checks to see if the new move is valid
+    //TODO
+//checks to see if the new move is valid
 //checks everything: jumps, whether the opposing piece is jumped over, etc
     public boolean validMove(Move selectedMove, Move destinationMove, boolean initiateMove) {
         if (selectedMove == null || destinationMove == null)
@@ -146,6 +118,7 @@ public class CheckersLogic {
         if (selected == piece || selected == kPiece) {
             //if the destination piece is open...
             if (destination == square.OPEN) {
+                //TODO
                 //Check if jumps and if over opponent piece
                 int rowDiff = Math.abs(selectedMove.getRow() - destinationMove.getRow());
                 int colDiff = Math.abs(selectedMove.getCol() - destinationMove.getCol());
@@ -165,19 +138,17 @@ public class CheckersLogic {
                         }
                         makeKing(destinationMove);
                     }
-                    //TODO
                     lastMoveJump = false;
                     return true;
                 } else if (rowDiff == 2 && colDiff == 2) {
+                    //TODO
                     //if jumping over a piece...
 
                     //if wanting to move in wrong direction get out
                     if (!correctMoveDirection(selectedMove, destinationMove) && !lastMoveJump)
                         return false;
                     //Calculate that piece's coordinates
-                    //TODO
                     lastMoveJump = true;
-
                     int rowShift = 0, colShift = 0;
 
                     if (selectedMove.getRow() > destinationMove.getRow())
@@ -252,9 +223,9 @@ public class CheckersLogic {
         int black = 0, white = 0;
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                if (board[i][j] == square.BLACK || board[i][j] == square.BKING) {
+                if (board[i][j] == square.BLACK) {
                     black++;
-                } else if (board[i][j] == square.WHITE || board[i][j] == square.WKING) {
+                } else if (board[i][j] == square.WHITE) {
                     white++;
                 }
             }
@@ -267,8 +238,8 @@ public class CheckersLogic {
         //TODO
         //make efficient
         //checks for tie
-        for (int i = 0; i < 64; i++) {
-            for (int j = 0; j < 64; j++) {
+        for (int i = 0; i < 64; i++){
+            for (int j = 0; j < 64; j++){
                 if (validMove(new Move(i / 8, i % 8), new Move(j / 8, j % 8), false))
                     return outcome.IN_PROGRESS;
             }

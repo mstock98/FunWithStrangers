@@ -91,7 +91,8 @@ public class TttAi {
                 }
             }
             return best;
-        } else{
+        }
+        else{
             int best = Integer.MIN_VALUE;
             if (DIFFICULTY == IMPOSSIBLE)
                 best = Integer.MAX_VALUE;
