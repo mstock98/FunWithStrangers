@@ -2,6 +2,7 @@ package shaftware.funwithstrangers;
 
 public abstract class TttLogicBase {
     protected Piece[][] board;
+    protected Piece PIECE;
 
     public enum Piece {
         O, X, OPEN
@@ -21,4 +22,12 @@ public abstract class TttLogicBase {
 
     public Piece getBoardPiece(int row, int col) { return board[row][col]; }
 
+    //Method only used for in progress builds and testing purposes.
+    @Deprecated
+    public void swapPiece() {
+        if (PIECE == Piece.X)
+            PIECE = Piece.O;
+        else
+            PIECE = Piece.X;
+    }
 }
