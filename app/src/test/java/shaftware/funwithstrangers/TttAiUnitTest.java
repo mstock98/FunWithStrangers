@@ -67,7 +67,7 @@ public class TttAiUnitTest {
         int x = 0;
         int o = 0;
         int tie = 0;
-        for (int i = 0; i < 100; i++){
+        for (int i = 0; i < 10; i++){
             Winner result = aiHardVsAiImpossible();
             if (result == Winner.X)
                 x++;

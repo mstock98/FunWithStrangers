@@ -3,7 +3,7 @@ package shaftware.funwithstrangers;
 public class SmallTTTLogic extends TttLogicBase {
     public SmallTTTLogic(Piece PIECE) {
         this.PIECE = PIECE;
-        board = new  Piece[3][3];
+        board = new Piece[3][3];
     }
 
     @Override
