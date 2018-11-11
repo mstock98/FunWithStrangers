@@ -36,9 +36,15 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
 
         onlineButton.setOnClickListener(new OnClickListener() {
             public void onClick(View arg0) {
-                ActivityCompat.requestPermissions(MainActivity.this,
-                        new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
-                        42069);
+                if(Globals.getOnline()){
+                    onlineButton.setText("Offline");
+                    Globals.setOnline(false);
+                }else{
+                    ActivityCompat.requestPermissions(MainActivity.this,
+                            new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                            42069);
+                }
+
             }
         });
 
@@ -90,9 +96,6 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             onlineButton.setText("Online");
             Globals.setOnline(true);
-        } else {
-            onlineButton.setText("Offline");
-            Globals.setOnline(false);
         }
 
     }

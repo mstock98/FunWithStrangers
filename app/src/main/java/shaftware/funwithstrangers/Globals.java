@@ -28,17 +28,50 @@ public class Globals extends Application {
         return mode;
     }
 
-    private static String endppointID;
+    private static String endpointID = "";
 
     public static void setEndPointID(String s){
-        endppointID = s;
+        endpointID = s;
     }
 
-    public static String getEndPointID(){ return endppointID; }
-
+    public static String getEndPointID(){ return endpointID; }
 
     // A value that uniquely identifies the app. Used for multiplayer functionality
     public static String getServiceId() {return "shaftware.funwithstrangers";}
 
+    private static boolean host;
+
+    public static boolean getHost(){
+        return host;
+    }
+
+    public static void setHost(boolean b){
+        host = b;
+    }
+
+    private static String Usern = "Standard boi";
+
+    public static String getUsern(){
+        return Usern;
+    }
+
+    public static void setUsern(String s){
+        Usern = s;
+    }
+
+    private static boolean connected = false;
+
+    public static boolean getConnected(){
+        return connected;
+    }
+
+    public static void setConnected(boolean b){
+       connected = b;
+    }
+
+
+
+
+    //We need the connection life cycle call back to be global, this might change in the future
 
 }

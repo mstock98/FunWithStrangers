@@ -1,11 +1,14 @@
 package shaftware.funwithstrangers;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.nearby.Nearby;
@@ -21,6 +24,12 @@ import com.google.android.gms.nearby.connection.Strategy;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import java.util.Random;
+
+import static shaftware.funwithstrangers.TttLogicBase.Piece;
+import static shaftware.funwithstrangers.TttLogicBase.Winner;
+import static shaftware.funwithstrangers.TttAi.Difficulty;
+
 public class TicTacToe extends AppCompatActivity {
 
     ImageButton ttt00, ttt01, ttt02,
@@ -31,12 +40,20 @@ public class TicTacToe extends AppCompatActivity {
 
     TttLogic TttGame = null;
     TttAi ai = null;
-
+    boolean playerFirst; // who goes first, true is me, false is the other person
+    boolean begin; // can we start playing
+    Piece playerPIECE;
     @Override
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tic_tac_toe);
-        startAdvertising();
+    }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
 
         //Creates on click listeners and everything for the TTT grid buttons
         for (int i = 0; i < buttons.length; i++) {
@@ -48,38 +65,81 @@ public class TicTacToe extends AppCompatActivity {
                 }
             });
         }
-
-        //****These are the two variables to be chosen in the UI******
-        boolean playerFirst = true;
-        int difficulty = TttAi.IMPOSSIBLE;
-
-        //By default whoever goes first gets X
-        int playerPIECE;
-        int aiPIECE;
-
-        //Configure board for AI and Player
-        if (playerFirst){
-            playerPIECE = TttLogic.X;
-            aiPIECE = TttLogic.O;
-        } else{
-            playerPIECE = TttLogic.O;
-            aiPIECE = TttLogic.X;
-        }
         //Initializing the TttGame
         //Who is x and who goes first must be decided at the constructor
-        TttGame = new TttLogic(playerPIECE, playerFirst);
-        TttGame.clearBoard();
-        updateGameView(TttGame);
-        //MyTurn always set to true for AI, even though it doesn't mean anything to the AI.
-        ai = new TttAi(aiPIECE, true, difficulty, !playerFirst);
-        //AI takes its turn here if it is going first
-        if (!playerFirst) {
-            ai.game.receiveBoard(TttGame.getBoard());
-            ai.TttAiTurn();
-            TttGame.receiveBoard(ai.game.getBoard());
+
+
+        if(Globals.getOnline()){
+            if(Globals.getHost()){
+                playerFirst = (new Random()).nextBoolean();
+                if(playerFirst){
+                    playerPIECE = Piece.X;
+                }else{
+
+                    playerPIECE = Piece.O;
+                }
+                startAdvertising();
+
+            }else{
+                Nearby.getConnectionsClient(TicTacToe.this).requestConnection("swag", Globals.getEndPointID(), mConnectionLifecycleCallback)
+                        .addOnSuccessListener(
+                                new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unusedResult) {
+                                        // We successfully requested a connection. Now both sides
+                                        // must accept before the connection is established.
+                                    }
+                                })
+                        .addOnFailureListener(
+                                new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        // Nearby Connections failed to request the connection.
+                                    }
+                                });
+            }
+
+            TttGame = new TttLogic(playerPIECE, playerFirst);
+            TttGame.clearBoard();
             updateGameView(TttGame);
-            TttGame.swapTurn();
         }
+
+
+
+
+
+
+        //if we are offline, prepare for AI game
+        if(!Globals.getOnline()){
+            begin = true;
+            Piece aiPIECE;
+            playerFirst = (new Random()).nextBoolean(); // not chosen in the UI, randomly decided
+            //****These are the variables to be chosen in the UI******
+            Difficulty difficulty = Difficulty.IMPOSSIBLE;
+
+            //Configure board for AI and Player
+            if (playerFirst){
+                playerPIECE = Piece.X;
+                aiPIECE = Piece.O;
+            } else{
+                playerPIECE = Piece.O;
+                aiPIECE = Piece.X;
+            }
+            //MyTurn always set to true for AI, even though it doesn't mean anything to the AI.
+            ai = new TttAi(aiPIECE, true, difficulty, !playerFirst);
+            TttGame = new TttLogic(playerPIECE, playerFirst);
+            TttGame.clearBoard();
+            updateGameView(TttGame);
+            //AI takes its turn here if it is going first
+            if (!playerFirst) {
+                ai.game.receiveBoard(TttGame.getBoard());
+                ai.TttAiTurn();
+                TttGame.receiveBoard(ai.game.getBoard());
+                updateGameView(TttGame);
+                TttGame.swapTurn();
+            }
+        }
+
     }
 
     //Interface between button pressed and TttLogic
@@ -127,31 +187,38 @@ public class TicTacToe extends AppCompatActivity {
                     col = 2;
                     break;
             }
-        }
-        //Game does not accept an invalid input and will wait for player to enter in something that is valid
-        boolean validSpot = TttGame.pickSpot(row, col);// choose a location
-        if(Globals.getOnline()){
-            if (validSpot) {
-                TttGame.swapTurn();
-                if(checkWinner())
-                    sendBoard();
-            }
-        }else{
-            if (validSpot) {
-                TttGame.swapTurn();
-                ai.game.receiveBoard(TttGame.getBoard());
-                updateGameView(TttGame);
+            if(begin){
 
-                //If someone has won stop the AI from playing
-                if (!checkWinner()) {
-                    ai.TttAiTurn();
-                    TttGame.receiveBoard(ai.game.getBoard());
-                    updateGameView(TttGame);
+                //Game does not accept an invalid input and will wait for player to enter in something that is valid
+                boolean validSpot = TttGame.pickSpot(row, col);// choose a location
+                if(Globals.getConnected()){
+                    if (validSpot) {
+                        Toast toast = Toast.makeText(getApplicationContext(), "boop", Toast.LENGTH_SHORT);
+                        toast.show();
+                        TttGame.swapTurn();
+                        getWindow().getDecorView().setBackgroundColor(Color.RED);
+                        updateGameView(TttGame);
+                        checkWinner();
+                        sendBoard();
+                    }
+                }else{
+                    if (validSpot) {
+                        TttGame.swapTurn();
+                        ai.game.receiveBoard(TttGame.getBoard());
+                        updateGameView(TttGame);
+
+                        //If someone has won stop the AI from playing
+                        if (!checkWinner()) {
+                            ai.TttAiTurn();
+                            TttGame.receiveBoard(ai.game.getBoard());
+                            updateGameView(TttGame);
+                        }
+
+                        //Disable player from doing anything if someone has won
+                        if (!checkWinner())
+                            TttGame.swapTurn();
+                    }
                 }
-
-                //Disable player from doing anything if someone has won
-                if (!checkWinner())
-                    TttGame.swapTurn();
             }
         }
     }
@@ -160,14 +227,14 @@ public class TicTacToe extends AppCompatActivity {
 
     //Toasts if someone has won / tied and returns true if the game has ended, false otherwise
     private boolean checkWinner() {
-        int winner = TttGame.checkWinner();
-        if (winner == TttLogic.O) {
+        Winner winner = TttGame.checkWinner();
+        if (winner == Winner.O) {
             Toast.makeText(getApplicationContext(), "O Won!", Toast.LENGTH_LONG).show();
             return true;
-        } else if (winner == TttLogic.X) {
+        } else if (winner == Winner.X) {
             Toast.makeText(getApplicationContext(), "X Won!", Toast.LENGTH_LONG).show();
             return true;
-        } else if (winner == TttLogic.TIE) {
+        } else if (winner == Winner.TIE) {
             Toast.makeText(getApplicationContext(), "Tie!", Toast.LENGTH_LONG).show();
             return true;
         }
@@ -177,14 +244,14 @@ public class TicTacToe extends AppCompatActivity {
     //Refreshes every button's image to correspond with the gameboard
     private void updateGameView(TttLogic game) {
         for (int i = 0; i < buttons.length; i++) {
-            int piece = game.getBoardPiece(i / 3, i % 3);
-            if (piece == TttLogic.X) {
+            Piece piece = game.getBoardPiece(i / 3, i % 3);
+            if (piece == Piece.X) {
                 buttons[i].setImageResource(R.drawable.x);
             }
-            if (piece == TttLogic.O) {
+            if (piece == Piece.O) {
                 buttons[i].setImageResource(R.drawable.o);
             }
-            if (piece == TttLogic.OPEN) {
+            if (piece == Piece.OPEN) {
                 buttons[i].setImageResource(R.drawable.b);
             }
         }
@@ -197,18 +264,44 @@ public class TicTacToe extends AppCompatActivity {
     private final PayloadCallback mPayloadCallback = new PayloadCallback() {
         @Override
         public void onPayloadReceived(@NonNull String s, @NonNull Payload payload) {
+            Toast toast1 = Toast.makeText(getApplicationContext(),"got something", Toast.LENGTH_SHORT);
+            toast1.show();
             byte[] b = payload.asBytes();
-            if(payload.getType() == Payload.Type.BYTES && b.length == 9){
-                int[][] board = new int[3][3];
-                for (int i = 0; i < 9; i++){
-                    board[i/2][i%2] = payload.asBytes()[i];
+            if(begin){
+                if(payload.getType() == Payload.Type.BYTES && b.length == 9){
+
+                    Piece[][] board = new Piece[3][3];
+                    for (int i = 0; i < 9; i++){
+                        //board[i/2][i%2] = payload.asBytes()[i];
+                        board[i/3][i%3] = Piece.values()[payload.asBytes()[i]];
+                    }
+                    TttGame.receiveBoard(board);
+                    updateGameView(TttGame);
+                    //Disable player from doing anything if someone has won, if no one has won, its this players turn
+                    if (!checkWinner())
+                        TttGame.swapTurn();
+                        getWindow().getDecorView().setBackgroundColor(Color.GREEN);
                 }
-                TttGame.receiveBoard(board);
+            }else{
+                if(b.length == 1){
+                    if(b[0] == 1){
+                        playerFirst = true;
+                        TttGame.swapTurn(); // Host says we are to go first
+                    }
+                }
+                if(playerFirst){
+                    getWindow().getDecorView().setBackgroundColor(Color.GREEN);
+                    playerPIECE = Piece.X;
+                }else{
+                    getWindow().getDecorView().setBackgroundColor(Color.RED);
+                    playerPIECE = Piece.O;
+                }
+                begin = true;
+                TttGame = new TttLogic(playerPIECE, playerFirst);
+                TttGame.clearBoard();
                 updateGameView(TttGame);
-                //Disable player from doing anything if someone has won
-                if (!checkWinner())
-                    TttGame.swapTurn();
             }
+
         }
 
         @Override
@@ -224,7 +317,11 @@ public class TicTacToe extends AppCompatActivity {
                 public void onConnectionInitiated(
                         String endpointId, ConnectionInfo connectionInfo) {
                     // Automatically accept the connection on both sides.
-                    Nearby.getConnectionsClient(TicTacToe.this).acceptConnection(endpointId, mPayloadCallback);
+                    if(Globals.getHost()){
+                        Nearby.getConnectionsClient(getApplicationContext()).stopAdvertising();
+                        Globals.setEndPointID(endpointId);
+                    }
+                    Nearby.getConnectionsClient(getApplicationContext()).acceptConnection(endpointId, mPayloadCallback);
                 }
 
                 @Override
@@ -232,6 +329,20 @@ public class TicTacToe extends AppCompatActivity {
                     switch (result.getStatus().getStatusCode()) {
                         case ConnectionsStatusCodes.STATUS_OK:
                             // We're connected! Can now start sending and receiving data.
+                            Globals.setConnected(true);
+                            if(Globals.getHost()){
+                                byte[] b = new byte[1];
+                                if(playerFirst){
+                                    b[0] = 0;
+                                    getWindow().getDecorView().setBackgroundColor(Color.GREEN);
+                                }else{
+                                    b[0] = 1;
+                                    getWindow().getDecorView().setBackgroundColor(Color.RED);
+                                }
+                                Payload p = Payload.fromBytes(b);
+                                Nearby.getConnectionsClient(getApplicationContext()).sendPayload(Globals.getEndPointID(), p);
+                                begin = true;
+                            }
                             Toast toast = Toast.makeText(getApplicationContext(), "Connection Established", Toast.LENGTH_SHORT);
                             toast.show();
                             break;
@@ -250,14 +361,15 @@ public class TicTacToe extends AppCompatActivity {
 
                 @Override
                 public void onDisconnected(String endpointId) {
-                    // We've been disconnected from this endpoint. No more data can be
-                    // sent or received.
+                    Globals.setConnected(false);
+                    Intent myIntent = new Intent(getApplicationContext(), titleScreen.class);
+                    startActivity(myIntent);
                 }
             };
 
     private void startAdvertising() {
         Nearby.getConnectionsClient(this).startAdvertising(
-                "TestNicknameChangeLater",
+                Globals.getUsern(),
                 Globals.getServiceId(),
                 mConnectionLifecycleCallback,
                 new AdvertisingOptions(Strategy.P2P_CLUSTER))
@@ -273,27 +385,33 @@ public class TicTacToe extends AppCompatActivity {
                         new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Toast toast = Toast.makeText(getApplicationContext(), "Unsuccessful Advert", Toast.LENGTH_SHORT);
+                                Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT);
                                 toast.show();
                             }
                         });
     }
 
     private void sendBoard(){
-        int[][] board = TttGame.getBoard();
+
+        int[][] board = TttGame.getIntBoard();
         byte[] b = new byte[9];
         for (int i = 0; i < 9; i++){
-            b[i] = (byte)board[i/2][i%2];
+            b[i] = (byte)board[i/3][i%3];
         }
         Payload p = Payload.fromBytes(b);
-        sendPayload(Globals.getEndPointID(), p);
+        Nearby.getConnectionsClient(getApplicationContext()).sendPayload(Globals.getEndPointID(), p);
     }
 
-    private void sendPayload(String endpointId, Payload payload) {
-        if (payload.getType() == Payload.Type.BYTES) {
-            // Not 100% sure how this works as of yet, the API says do this to send the payload, not actually sure how it does that though
-            return;
+    @Override
+    protected void onStop(){
+        super.onStop();
+        Nearby.getConnectionsClient(this).stopAdvertising();
+
+        if(Globals.getEndPointID() != ""){
+            Nearby.getConnectionsClient(this).disconnectFromEndpoint(Globals.getEndPointID());
+            Globals.setEndPointID("");
         }
+        Nearby.getConnectionsClient(this).stopAllEndpoints();
     }
 
     }
