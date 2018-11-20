@@ -1,9 +1,14 @@
 package shaftware.funwithstrangers;
 
 public class SmallTTTLogic extends TttLogicBase {
-    public SmallTTTLogic(Piece PIECE) {
-        this.PIECE = PIECE;
+    public SmallTTTLogic() {
         board = new Piece[3][3];
+
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                board[i][j] = Piece.OPEN;
+            }
+        }
     }
 
     @Override
@@ -59,12 +64,15 @@ public class SmallTTTLogic extends TttLogicBase {
         }
     }
 
-    //Tries to place a move, returns false if invalid and if it failed
-    public boolean pickSpot(int row, int col) {
-        if (row > -1 && row < 3 && col > -1 && col < 3 && board[row][col] == Piece.OPEN) {
-            board[row][col] = PIECE;
+
+
+    // Set piece on the board regardless if its legal
+    public boolean setBoardPiece(Piece piece, int row, int col) {
+        if (((row > -1) && (row < 3)) && ((col > -1) && (col < 3))) {
+            board[row][col] = piece;
             return true;
+        } else {
+            return false;
         }
-        return false;
     }
 }
