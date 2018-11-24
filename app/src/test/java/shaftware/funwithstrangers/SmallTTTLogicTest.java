@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static shaftware.funwithstrangers.TttLogicBase.Piece;
+import static org.junit.Assert.assertNotEquals;
 
 public class SmallTTTLogicTest {
     @Test
@@ -31,4 +32,11 @@ public class SmallTTTLogicTest {
         assertEquals(Piece.X, testBoard.getBoardPiece(2,1));
         assertEquals(Piece.X, testBoard.getBoardPiece(2,2));
     }
+
+    /*@Test
+    public void TestingTestDeleteThisTest() {
+        SmallTTTLogic board = new SmallTTTLogic();
+
+        assertNotEquals(null, board.getBoardPiece(2,2));
+    }*/
 }

@@ -3,6 +3,7 @@ package shaftware.funwithstrangers;
 public class UltimateTTTLogic extends TttLogicBase {
     SmallTTTLogic[][] largeBoard;
     private Piece PIECE;
+    private boolean MYTURN;
 
     public UltimateTTTLogic(Piece PIECE) {
         this.PIECE = PIECE;
@@ -11,12 +12,66 @@ public class UltimateTTTLogic extends TttLogicBase {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 largeBoard[i][j] = new SmallTTTLogic();
+                disableGrid(i,j);
             }
         }
+
+        enableGrid(1,1);
+    }
+
+    public SmallTTTLogic[][] getBoard() { return largeBoard; }
+
+    public void swapTurn() {
+        if (MYTURN)
+            MYTURN = false;
+        else
+            MYTURN = true;
+    }
+
+    public boolean isTurn() {
+        return MYTURN;
     }
 
     public Winner checkWinner() {
-        return null;
+        //Rows
+        for (int i = 0; i < 3; i++) {
+            Winner row = largeBoard[i][0].checkWinner();
+            if ((row != Winner.IN_PROGRESS && row != Winner.TIE) && row == largeBoard[i][1].checkWinner() && row == largeBoard[i][2].checkWinner()) {
+                return row;
+            }
+        }
+
+        //Cols
+        for (int i = 0; i < 3; i++) {
+            Winner col = largeBoard[0][i].checkWinner();
+            if ((col != Winner.IN_PROGRESS && col != Winner.TIE) && col == largeBoard[1][i].checkWinner() && col == largeBoard[2][i].checkWinner()) {
+                return col;
+            }
+        }
+
+        //Diagonals
+        Winner middle = largeBoard[1][1].checkWinner();
+        if ((middle != Winner.IN_PROGRESS && middle != Winner.TIE) && ((middle == largeBoard[0][0].checkWinner() && middle == largeBoard[2][2].checkWinner()) || (middle == largeBoard[0][2].checkWinner() && middle == largeBoard[2][0].checkWinner()))) {
+            return Winner.values()[middle.ordinal()];
+        }
+
+        if (checkTie())
+            return Winner.TIE;
+
+        return Winner.IN_PROGRESS;
+    }
+
+    //Returns true if the board runs out of possible moves
+    private boolean checkTie() {
+
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (largeBoard[i][j].checkWinner() == Winner.IN_PROGRESS) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     public void clearBoard() {
@@ -27,12 +82,6 @@ public class UltimateTTTLogic extends TttLogicBase {
         }
     }
 
-    // TODO: Write unit test
-    public boolean pickSpot(int row, int col) {
-        return false;
-    }
-
-    @Override
     public Piece getBoardPiece(int row, int col) {
         return largeBoard[row / 3][col / 3].getBoardPiece(row % 3, col % 3);
     }
@@ -40,6 +89,33 @@ public class UltimateTTTLogic extends TttLogicBase {
     public boolean setBoardPiece(Piece piece, int row, int col) {
         if (((row > -1) && (row < 9)) && ((col > -1) && (col < 9))) {
             largeBoard[row / 3][col / 3].setBoardPiece(piece,row % 3, col % 3);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //Tries to place a move, returns false if invalid and if it failed
+    public boolean pickSpot(int row, int col) {
+        if (((row > - 1) && (row < 9)) && ((col > -1) && (col < 9)) && largeBoard[row / 3][col / 3].getBoardPiece(row % 3, col % 3) == Piece.OPEN) {
+            setBoardPiece(PIECE, row, col);
+
+            if (largeBoard[row % 3][col % 3].checkWinner() == Winner.IN_PROGRESS) {
+                for (int i = 0; i < 3; i++) {
+                    for (int j = 0; j < 3; j++) {
+                        disableGrid(i, j);
+                    }
+                }
+
+                enableGrid(row % 3, col % 3);
+            } else {
+                for (int i = 0; i < 3; i++) {
+                    for (int j = 0; j < 3; j++) {
+                        enableGrid(i, j);
+                    }
+                }
+            }
+
             return true;
         } else {
             return false;
@@ -88,5 +164,14 @@ public class UltimateTTTLogic extends TttLogicBase {
         }
 
         return changesMade;
+    }
+
+    //Method only used for in progress builds and testing purposes.
+    @Deprecated
+    public void swapPiece() {
+        if (PIECE == Piece.X)
+            PIECE = Piece.O;
+        else
+            PIECE = Piece.X;
     }
 }

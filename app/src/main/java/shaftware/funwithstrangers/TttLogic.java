@@ -8,6 +8,7 @@ public class TttLogic extends SmallTTTLogic {
         super();
         //Decide on turn
         this.MYTURN = MYTURN;
+        this.PIECE = PIECE;
     }
 
     public Piece getPIECE() {

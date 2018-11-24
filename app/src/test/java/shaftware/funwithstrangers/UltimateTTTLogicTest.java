@@ -3,7 +3,9 @@ package shaftware.funwithstrangers;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static shaftware.funwithstrangers.TttLogicBase.Piece;
+import static shaftware.funwithstrangers.TttLogicBase.Winner;
 
 public class UltimateTTTLogicTest {
     @Test
@@ -74,5 +76,190 @@ public class UltimateTTTLogicTest {
         board.setBoardPiece(Piece.DISABLED, 8, 4);
 
         board.enableGrid(0,0);
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                assertNotEquals(Piece.DISABLED, board.getBoardPiece(i, j));
+            }
+        }
+
+        board.enableGrid(1, 1);
+        for (int i = 3; i < 6; i++) {
+            for (int j = 3; j < 6; j++) {
+                assertNotEquals(Piece.DISABLED, board.getBoardPiece(i, j));
+            }
+        }
+
+        board.enableGrid(2, 2);
+        for (int i = 6; i < 9; i++) {
+            for (int j = 6; j < 9; j++) {
+                assertNotEquals(Piece.DISABLED, board.getBoardPiece(i, j));
+            }
+        }
+
+        assertEquals(false, board.enableGrid(0,0));
     }
+
+    @Test
+    public void shouldDisableGrid() {
+        UltimateTTTLogic board = new UltimateTTTLogic(Piece.X);
+
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                board.setBoardPiece(Piece.X, i, j);
+            }
+        }
+
+        board.setBoardPiece(Piece.O, 0, 0);
+        board.setBoardPiece(Piece.O, 1, 5);
+        board.setBoardPiece(Piece.O, 7, 0);
+        board.setBoardPiece(Piece.O, 8, 4);
+
+        board.setBoardPiece(Piece.OPEN, 2, 3);
+        board.setBoardPiece(Piece.OPEN, 1, 1);
+
+        board.setBoardPiece(Piece.OPEN, 4, 4);
+        board.setBoardPiece(Piece.OPEN, 5, 5);
+
+        board.setBoardPiece(Piece.OPEN, 7, 7);
+        board.setBoardPiece(Piece.OPEN, 8, 4);
+
+        board.disableGrid(0,0);
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                assertNotEquals(Piece.OPEN, board.getBoardPiece(i, j));
+            }
+        }
+
+        board.disableGrid(1, 1);
+        for (int i = 3; i < 6; i++) {
+            for (int j = 3; j < 6; j++) {
+                assertNotEquals(Piece.OPEN, board.getBoardPiece(i, j));
+            }
+        }
+
+        board.disableGrid(2, 2);
+        for (int i = 6; i < 9; i++) {
+            for (int j = 6; j < 9; j++) {
+                assertNotEquals(Piece.OPEN, board.getBoardPiece(i, j));
+            }
+        }
+
+        assertEquals(false, board.disableGrid(0,0));
+    }
+
+    @Test
+    public void shouldDetectDiagonalWinner() {
+        UltimateTTTLogic board = new UltimateTTTLogic(Piece.X);
+
+        board.setBoardPiece(Piece.X, 0, 0);
+        board.setBoardPiece(Piece.X, 1, 1);
+        board.setBoardPiece(Piece.X, 2, 2);
+
+        board.setBoardPiece(Piece.X, 4, 3);
+        board.setBoardPiece(Piece.X, 4, 4);
+        board.setBoardPiece(Piece.X, 4, 5);
+
+        board.setBoardPiece(Piece.X, 6, 6);
+        board.setBoardPiece(Piece.X, 7, 6);
+        board.setBoardPiece(Piece.X, 8, 6);
+
+        assertEquals(Winner.X, board.checkWinner());
+    }
+
+    @Test
+    public void shouldDetectRowWinner() {
+        UltimateTTTLogic board = new UltimateTTTLogic(Piece.X);
+
+        board.setBoardPiece(Piece.X, 0, 0);
+        board.setBoardPiece(Piece.X, 0, 1);
+        board.setBoardPiece(Piece.X, 0, 2);
+
+        board.setBoardPiece(Piece.X, 0, 5);
+        board.setBoardPiece(Piece.X, 1, 5);
+        board.setBoardPiece(Piece.X, 2, 5);
+
+        board.setBoardPiece(Piece.X, 0, 6);
+        board.setBoardPiece(Piece.X, 1, 7);
+        board.setBoardPiece(Piece.X, 2, 8);
+
+        assertEquals(Winner.X, board.checkWinner());
+    }
+
+    @Test
+    public void shouldDetectColWinner() {
+        UltimateTTTLogic board = new UltimateTTTLogic(Piece.X);
+
+        board.setBoardPiece(Piece.X, 0, 6);
+        board.setBoardPiece(Piece.X, 1, 6);
+        board.setBoardPiece(Piece.X, 2, 6);
+
+        board.setBoardPiece(Piece.X, 3, 7);
+        board.setBoardPiece(Piece.X, 4, 7);
+        board.setBoardPiece(Piece.X, 5, 7);
+
+        board.setBoardPiece(Piece.X, 6, 6);
+        board.setBoardPiece(Piece.X, 7, 7);
+        board.setBoardPiece(Piece.X, 8, 8);
+
+        assertEquals(Winner.X, board.checkWinner());
+    }
+
+    @Test
+    public void shouldPickSpot() {
+        UltimateTTTLogic board = new UltimateTTTLogic(Piece.X);
+
+        board.disableGrid(1,1);
+        board.enableGrid(1,0);
+
+        board.pickSpot(4,2);
+
+        // Assert that old grid (1, 0) is disabled
+        for (int i = 3; i < 6; i++) {
+            for (int j = 0; j < 3; j++) {
+                assertNotEquals(Piece.OPEN, board.getBoardPiece(i, j));
+            }
+        }
+
+        // Assert that new grid (1, 2) is enabled
+        for (int i = 3; i < 6; i++) {
+            for (int j = 6; j < 9; j++) {
+                assertNotEquals(Piece.DISABLED, board.getBoardPiece(i, j));
+            }
+        }
+    }
+
+    @Test
+    public void shouldPickSpotAndEnableAll() {
+        UltimateTTTLogic board = new UltimateTTTLogic(Piece.X);
+
+        // Claim all of the cells at grid (0, 1)
+        for (int i = 0; i < 3; i++) {
+            for (int j = 3; j < 6; j++) {
+                board.setBoardPiece(Piece.O, i, j);
+            }
+        }
+
+        board.pickSpot(3, 4);
+
+        // Assert that there are no disabled cells
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                assertNotEquals(Piece.DISABLED, board.getBoardPiece(i, j));
+            }
+        }
+    }
+
+    @Test
+    public void shouldFailToPickSpot() {
+        UltimateTTTLogic board = new UltimateTTTLogic(Piece.X);
+
+        board.setBoardPiece(Piece.O, 0, 0);
+        board.setBoardPiece(Piece.X, 0,1);
+        board.setBoardPiece(Piece.DISABLED, 0, 2);
+
+        assertEquals(false, board.pickSpot(0,0));
+        assertEquals(false, board.pickSpot(0,1));
+        assertEquals(false, board.pickSpot(0,2));
+    }
+
 }
