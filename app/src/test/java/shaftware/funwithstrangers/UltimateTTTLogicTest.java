@@ -262,4 +262,38 @@ public class UltimateTTTLogicTest {
         assertEquals(false, board.pickSpot(0,2));
     }
 
+    @Test
+    public void shouldGetIntBoard() {
+        UltimateTTTLogic board = new UltimateTTTLogic(Piece.X);
+        board.disableGrid(1,1);
+
+        board.setBoardPiece(Piece.X, 4, 0);
+        board.setBoardPiece(Piece.X, 4, 8);
+        board.setBoardPiece(Piece.O, 0, 4);
+        board.setBoardPiece(Piece.O, 8, 4);
+        board.setBoardPiece(Piece.OPEN, 4, 4);
+
+        int[][] intBoard = board.getIntBoard();
+
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (((i == 4) && (j == 0)) || ((i == 4) && (j == 8))) {
+                    assertEquals(1, intBoard[i][j]);
+                } else if (((i == 0) && (j == 4)) || ((i == 8) && (j == 4))) {
+                    assertEquals(0, intBoard[i][j]);
+                } else if ((i == 4) && (j == 4)) {
+                    assertEquals(2, intBoard[i][j]);
+                } else {
+                    assertEquals(3, intBoard[i][j]);
+                }
+            }
+        }
+    }
+
+    @Test
+    public void shouldReceiveBoard() {
+        UltimateTTTLogic board = new UltimateTTTLogic(Piece.X);
+
+
+    }
 }

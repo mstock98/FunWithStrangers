@@ -166,6 +166,26 @@ public class UltimateTTTLogic extends TttLogicBase {
         return changesMade;
     }
 
+    public int[][] getIntBoard() {
+        int[][] intBoard = new int[9][9];
+
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                intBoard[i][j] = getBoardPiece(i, j).ordinal();
+            }
+        }
+
+        return intBoard;
+    }
+
+    public void receiveBoard(int[][] incomingBoard) {
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                setBoardPiece(Piece.values()[incomingBoard[i][j]], i, j);
+            }
+        }
+    }
+
     //Method only used for in progress builds and testing purposes.
     @Deprecated
     public void swapPiece() {
