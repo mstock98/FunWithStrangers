@@ -293,7 +293,33 @@ public class UltimateTTTLogicTest {
     @Test
     public void shouldReceiveBoard() {
         UltimateTTTLogic board = new UltimateTTTLogic(Piece.X);
+        int[][] intBoard = new int[9][9];
 
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                intBoard[i][j] = 3;
+            }
+        }
+        intBoard[4][0] = 1;
+        intBoard[4][8] = 1;
+        intBoard[0][4] = 0;
+        intBoard[8][4] = 0;
+        intBoard[4][4] = 2;
 
+        board.receiveBoard(intBoard);
+
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (((i == 4) && (j == 0)) || ((i == 4) && (j == 8))) {
+                    assertEquals(Piece.X, board.getBoardPiece(i, j));
+                } else if (((i == 0) && (j == 4)) || ((i == 8) && (j == 4))) {
+                    assertEquals(Piece.O, board.getBoardPiece(i, j));
+                } else if ((i == 4) && (j == 4)) {
+                    assertEquals(Piece.OPEN, board.getBoardPiece(i, j));
+                } else {
+                    assertEquals(Piece.DISABLED, board.getBoardPiece(i, j));
+                }
+            }
+        }
     }
 }
