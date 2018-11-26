@@ -74,12 +74,15 @@ public class UltimateTTTLogic extends TttLogicBase {
         return true;
     }
 
+    // Resets board to starting state
     public void clearBoard() {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                largeBoard[i][j].clearBoard();
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                largeBoard[i / 3][j / 3].setBoardPiece(Piece.DISABLED, i % 3, j % 3);
             }
         }
+
+        enableGrid(1, 1);
     }
 
     public Piece getBoardPiece(int row, int col) {
