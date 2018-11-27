@@ -13,10 +13,11 @@ public class TttAiUnitTest {
     private void printBoard(Piece[][] board){
         for(int i = 0; i < 3; i++){
             for (int j = 0; j < 3; j++){
-                System.out.print(board[i][j].ordinal() + " ");
+                System.out.print(board[i][j] + " ");
             }
             System.out.print("\n");
         }
+
     }
 
     @Test

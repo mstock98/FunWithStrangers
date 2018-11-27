@@ -2,11 +2,13 @@ package shaftware.funwithstrangers;
 
 public class TttLogic extends SmallTTTLogic {
     private boolean MYTURN;
+    private Piece PIECE;
 
     public TttLogic(Piece PIECE, boolean MYTURN) {
-        super(PIECE);
+        super();
         //Decide on turn
         this.MYTURN = MYTURN;
+        this.PIECE = PIECE;
     }
 
     public Piece getPIECE() {
@@ -40,5 +42,23 @@ public class TttLogic extends SmallTTTLogic {
 
     public boolean isTurn() {
         return MYTURN;
+    }
+
+    //Tries to place a move, returns false if invalid and if it failed
+    public boolean pickSpot(int row, int col) {
+        if (row > -1 && row < 3 && col > -1 && col < 3 && board[row][col] == Piece.OPEN) {
+            board[row][col] = PIECE;
+            return true;
+        }
+        return false;
+    }
+
+    //Method only used for in progress builds and testing purposes.
+    @Deprecated
+    public void swapPiece() {
+        if (PIECE == Piece.X)
+            PIECE = Piece.O;
+        else
+            PIECE = Piece.X;
     }
 }

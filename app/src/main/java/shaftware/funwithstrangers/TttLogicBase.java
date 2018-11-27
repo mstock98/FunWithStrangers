@@ -1,11 +1,9 @@
 package shaftware.funwithstrangers;
 
 public abstract class TttLogicBase {
-    protected Piece[][] board;
-    protected Piece PIECE;
 
     public enum Piece {
-        O, X, OPEN
+        O, X, OPEN, DISABLED // Disabled state is used for UltimateTTT
     }
 
     public enum Winner {
@@ -18,16 +16,5 @@ public abstract class TttLogicBase {
     // Set all cells in the board to open
     public abstract void clearBoard();
 
-    public Piece[][] getBoard() { return board; }
-
-    public Piece getBoardPiece(int row, int col) { return board[row][col]; }
-
-    //Method only used for in progress builds and testing purposes.
-    @Deprecated
-    public void swapPiece() {
-        if (PIECE == Piece.X)
-            PIECE = Piece.O;
-        else
-            PIECE = Piece.X;
-    }
+    public abstract boolean setBoardPiece(Piece piece, int row, int col);
 }
