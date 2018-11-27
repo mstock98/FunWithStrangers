@@ -64,6 +64,7 @@ public class CheckersLogic {
             kPiece = square.BKING;
             opkPiece = square.WKING;
         }
+        lastMoveJump = false;
     }
 
 
@@ -122,7 +123,7 @@ public class CheckersLogic {
                 //Check if jumps and if over opponent piece
                 int rowDiff = Math.abs(selectedMove.getRow() - destinationMove.getRow());
                 int colDiff = Math.abs(selectedMove.getCol() - destinationMove.getCol());
-                if (rowDiff == 1 && colDiff == 1) {
+                if (rowDiff == 1 && colDiff == 1 && !lastMoveJump) {
                     //if only moving the piece without jumping...
 
                     //if wanting to move in wrong direction get out
@@ -137,8 +138,8 @@ public class CheckersLogic {
                             board[destinationMove.getRow()][destinationMove.getCol()] = piece;
                         }
                         makeKing(destinationMove);
+                        lastMoveJump = false;
                     }
-                    lastMoveJump = false;
                     return true;
                 } else if (rowDiff == 2 && colDiff == 2) {
                     //TODO
@@ -148,7 +149,6 @@ public class CheckersLogic {
                     if (!correctMoveDirection(selectedMove, destinationMove) && !lastMoveJump)
                         return false;
                     //Calculate that piece's coordinates
-                    lastMoveJump = true;
                     int rowShift = 0, colShift = 0;
 
                     if (selectedMove.getRow() > destinationMove.getRow())
@@ -182,6 +182,7 @@ public class CheckersLogic {
                             board[destinationMove.getRow()][destinationMove.getCol()] = piece;
                         }
                         makeKing(destinationMove);
+                        lastMoveJump = true;
                     }
                     return true;
                 }
@@ -223,9 +224,9 @@ public class CheckersLogic {
         int black = 0, white = 0;
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                if (board[i][j] == square.BLACK) {
+                if (board[i][j] == square.BLACK || board[i][j] == square.BKING) {
                     black++;
-                } else if (board[i][j] == square.WHITE) {
+                } else if (board[i][j] == square.WHITE || board[i][j] == square.WKING) {
                     white++;
                 }
             }

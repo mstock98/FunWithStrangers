@@ -139,6 +139,7 @@ public class Checkers extends AppCompatActivity {
         if (!game.getTurn())
             return;
 
+        //Look for button
         CheckersLogic.square piece = null;
         int id = -1;
         for (int i = 0; i < buttons.length; i++) {
