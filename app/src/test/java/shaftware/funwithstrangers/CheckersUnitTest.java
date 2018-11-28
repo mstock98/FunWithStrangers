@@ -1,5 +1,7 @@
 package shaftware.funwithstrangers;
 
+import android.os.Build;
+
 import org.junit.Test;
 import shaftware.funwithstrangers.CheckersLogic.square;
 import shaftware.funwithstrangers.CheckersLogic.Move;
@@ -31,18 +33,38 @@ public class CheckersUnitTest {
         board[4][4] = square.WHITE;
 
         game.setBoard(board);
-
+        game.setTurn(true);
         boolean result;
 
         Move selected = new Move(4, 4);
         Move destination = new Move(2, 2);
-        result = game.validMove(selected, destination, true);
+        game.validMove(selected, destination, true);
 
         selected = new Move(2, 2);
         destination = new Move(0, 0);
 
         result = game.validMove(selected, destination, true);
         assertEquals(true, result);
+    }
+
+    @Test
+    public void forcedJumpMoveTest(){
+        square[][] board = new square[8][8];
+        for (int i = 0; i < 64; i++){
+            board[i / 8][i % 8] = square.OPEN;
+        }
+
+        board[1][1] = square.BLACK;
+        board[3][3] = square.BLACK;
+        board[4][4] = square.WHITE;
+
+        boolean result;
+
+        Move selected = new Move(4, 4);
+        Move destination = new Move(3, 5);
+        result = game.validMove(selected, destination, true);
+
+        assertEquals(false, result);
     }
 
     @Test
