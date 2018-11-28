@@ -103,47 +103,6 @@ public class CheckersLogic {
         return true;
     }
 
-    private int getMoveShift(int sM, int dM) {
-        int shift = 0;
-        if (sM > dM)
-            shift = -1;
-        else if (sM < dM)
-            shift = 1;
-        return shift;
-    }
-
-    private boolean makeJumpMove(Move selectedMove, Move destinationMove, boolean initiateMove) {
-        int rowShift = 0, colShift = 0;
-
-        rowShift = getMoveShift(selectedMove.getRow(), destinationMove.getRow());
-        colShift = getMoveShift(selectedMove.getCol(), destinationMove.getCol());
-
-        if (Math.abs(rowShift) != 1 || Math.abs(colShift) != 1)
-            return false;
-
-        //check if the middle piece is opponents piece
-        int middleRow = rowShift + selectedMove.getRow();
-        int middleCol = colShift + selectedMove.getCol();
-
-        if (board[middleRow][middleCol] != opPiece && board[middleRow][middleCol] != opkPiece)
-            return false;
-
-        if (initiateMove) {
-            board[middleRow][middleCol] = square.OPEN;
-
-            if (board[selectedMove.getRow()][selectedMove.getCol()] == kPiece) {
-                board[selectedMove.getRow()][selectedMove.getCol()] = square.OPEN;
-                board[destinationMove.getRow()][destinationMove.getCol()] = kPiece;
-            } else {
-                board[selectedMove.getRow()][selectedMove.getCol()] = square.OPEN;
-                board[destinationMove.getRow()][destinationMove.getCol()] = piece;
-            }
-            makeKing(destinationMove);
-            lastMoveJump = true;
-        }
-        return true;
-    }
-
     //TODO
 //checks to see if the new move is valid
 //checks everything: jumps, whether the opposing piece is jumped over, etc
@@ -170,9 +129,36 @@ public class CheckersLogic {
 
                 //force jump
                 ArrayList<Move[]> moves = checkForJump();
-                for (int i = 0; i < moves.size(); i++) {
-                    if (moves.get(i)[0].equals(selectedMove) && moves.get(i)[1].equals(destinationMove)) {
-                        return makeJumpMove(selectedMove, destinationMove, initiateMove);
+                for (int i = 0; i < moves.size(); i++){
+                    if (moves.get(i)[0].equals(selectedMove) && moves.get(i)[1].equals(destinationMove)){
+                        if (initiateMove) {
+                            int rowShift = 0, colShift = 0;
+
+                            if (selectedMove.getRow() > destinationMove.getRow())
+                                rowShift = -1;
+                            else if (selectedMove.getRow() < destinationMove.getRow())
+                                rowShift = 1;
+
+                            if (selectedMove.getCol() > destinationMove.getCol())
+                                colShift = -1;
+                            else if (selectedMove.getCol() < destinationMove.getCol())
+                                colShift = 1;
+                            //check if the middle piece is opponents piece
+                            int middleRow = rowShift + selectedMove.getRow();
+                            int middleCol = colShift + selectedMove.getCol();
+                            board[middleRow][middleCol] = square.OPEN;
+
+                            if (board[selectedMove.getRow()][selectedMove.getCol()] == kPiece) {
+                                board[selectedMove.getRow()][selectedMove.getCol()] = square.OPEN;
+                                board[destinationMove.getRow()][destinationMove.getCol()] = kPiece;
+                            } else {
+                                board[selectedMove.getRow()][selectedMove.getCol()] = square.OPEN;
+                                board[destinationMove.getRow()][destinationMove.getCol()] = piece;
+                            }
+                            makeKing(destinationMove);
+                            lastMoveJump = true;
+                        }
+                        return true;
                     }
                 }
                 if (moves.size() != 0)
@@ -204,27 +190,86 @@ public class CheckersLogic {
                     if (!correctMoveDirection(selectedMove, destinationMove) && !lastMoveJump)
                         return false;
                     //Calculate that piece's coordinates
-                    return makeJumpMove(selectedMove, destinationMove, initiateMove);
+                    int rowShift = 0, colShift = 0;
+
+                    if (selectedMove.getRow() > destinationMove.getRow())
+                        rowShift = -1;
+                    else if (selectedMove.getRow() < destinationMove.getRow())
+                        rowShift = 1;
+
+                    if (selectedMove.getCol() > destinationMove.getCol())
+                        colShift = -1;
+                    else if (selectedMove.getCol() < destinationMove.getCol())
+                        colShift = 1;
+
+                    if (Math.abs(rowShift) != 1 || Math.abs(colShift) != 1)
+                        return false;
+
+
+                    //check if the middle piece is opponents piece
+                    int middleRow = rowShift + selectedMove.getRow();
+                    int middleCol = colShift + selectedMove.getCol();
+                    if (board[middleRow][middleCol] != opPiece && board[middleRow][middleCol] != opkPiece)
+                        return false;
+
+                    if (initiateMove) {
+                        board[middleRow][middleCol] = square.OPEN;
+
+                        if (board[selectedMove.getRow()][selectedMove.getCol()] == kPiece) {
+                            board[selectedMove.getRow()][selectedMove.getCol()] = square.OPEN;
+                            board[destinationMove.getRow()][destinationMove.getCol()] = kPiece;
+                        } else {
+                            board[selectedMove.getRow()][selectedMove.getCol()] = square.OPEN;
+                            board[destinationMove.getRow()][destinationMove.getCol()] = piece;
+                        }
+                        makeKing(destinationMove);
+                        lastMoveJump = true;
+                    }
+                    return true;
                 }
             }
         }
         return false;
     }
 
-    private ArrayList<Move[]> checkForJump() {
+    private ArrayList<Move[]> checkForJump(){
         ArrayList<Move[]> moves = new ArrayList<>();
 
-        for (int i = 0; i < 64; i++) {
-            for (int j = 0; j < 64; j++) {
+        for (int i = 0; i < 64; i++){
+            for (int j = 0; j < 64; j++){
                 if ((board[i / 8][i % 8] == piece || board[i / 8][i % 8] == kPiece) && board[j / 8][j % 8] == square.OPEN) {
 
                     Move moveI = new Move(i / 8, i % 8);
                     Move moveJ = new Move(j / 8, j % 8);
 
-                    if (makeJumpMove(moveI, moveJ, true)) {
-                        moves.add(new Move[]{moveI, moveJ});
-                        System.out.println("\nmoveI: " + moveI.row + ", " + moveI.col);
-                        System.out.println("moveJ: " + moveJ.row + ", " + moveJ.col + "\n");
+                    int rowDiff = Math.abs(moveI.getRow() - moveJ.getRow());
+                    int colDiff = Math.abs(moveI.getCol() - moveJ.getCol());
+
+                    if (rowDiff == 2 && colDiff == 2) {
+
+                        int rowShift = 0, colShift = 0;
+
+                        if (moveI.getRow() > moveJ.getRow())
+                            rowShift = -1;
+                        else if (moveI.getRow() < moveJ.getRow())
+                            rowShift = 1;
+
+                        if (moveI.getCol() > moveJ.getCol())
+                            colShift = -1;
+                        else if (moveI.getCol() < moveJ.getCol())
+                            colShift = 1;
+
+                        if (Math.abs(rowShift) == 1 && Math.abs(colShift) == 1) {
+
+                            //check if the middle piece is opponents piece
+                            int middleRow = rowShift + moveI.getRow();
+                            int middleCol = colShift + moveI.getCol();
+                            if (board[middleRow][middleCol] == opPiece || board[middleRow][middleCol] == opkPiece) {
+                                moves.add(new Move[]{moveI, moveJ});
+                                System.out.println("\nmoveI: " + moveI.row + ", " + moveI.col);
+                                System.out.println("moveJ: " + moveJ.row + ", " + moveJ.col + "\n");
+                            }
+                        }
                     }
 
                 }
@@ -282,8 +327,8 @@ public class CheckersLogic {
         //TODO
         //make efficient
         //checks for tie
-        for (int i = 0; i < 64; i++) {
-            for (int j = 0; j < 64; j++) {
+        for (int i = 0; i < 64; i++){
+            for (int j = 0; j < 64; j++){
                 if (validMove(new Move(i / 8, i % 8), new Move(j / 8, j % 8), false))
                     return outcome.IN_PROGRESS;
             }
@@ -317,7 +362,7 @@ public class CheckersLogic {
             return id;
         }
 
-        public boolean equals(Move move) {
+        public boolean equals(Move move){
             if (move.getRow() == row && move.getCol() == col)
                 return true;
             return false;
