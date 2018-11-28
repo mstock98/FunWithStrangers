@@ -119,8 +119,6 @@ public class CheckersLogic {
         square selected = board[selectedMove.getRow()][selectedMove.getCol()];
         square destination = board[destinationMove.getRow()][destinationMove.getCol()];
 
-        checkForJump();
-
         if (selected == piece || selected == kPiece) {
             //if the destination piece is open...
             if (destination == square.OPEN) {
@@ -128,6 +126,44 @@ public class CheckersLogic {
                 //Check if jumps and if over opponent piece
                 int rowDiff = Math.abs(selectedMove.getRow() - destinationMove.getRow());
                 int colDiff = Math.abs(selectedMove.getCol() - destinationMove.getCol());
+
+                //force jump
+                ArrayList<Move[]> moves = checkForJump();
+                for (int i = 0; i < moves.size(); i++){
+                    if (moves.get(i)[0].equals(selectedMove) && moves.get(i)[1].equals(destinationMove)){
+                        if (initiateMove) {
+                            int rowShift = 0, colShift = 0;
+
+                            if (selectedMove.getRow() > destinationMove.getRow())
+                                rowShift = -1;
+                            else if (selectedMove.getRow() < destinationMove.getRow())
+                                rowShift = 1;
+
+                            if (selectedMove.getCol() > destinationMove.getCol())
+                                colShift = -1;
+                            else if (selectedMove.getCol() < destinationMove.getCol())
+                                colShift = 1;
+                            //check if the middle piece is opponents piece
+                            int middleRow = rowShift + selectedMove.getRow();
+                            int middleCol = colShift + selectedMove.getCol();
+                            board[middleRow][middleCol] = square.OPEN;
+
+                            if (board[selectedMove.getRow()][selectedMove.getCol()] == kPiece) {
+                                board[selectedMove.getRow()][selectedMove.getCol()] = square.OPEN;
+                                board[destinationMove.getRow()][destinationMove.getCol()] = kPiece;
+                            } else {
+                                board[selectedMove.getRow()][selectedMove.getCol()] = square.OPEN;
+                                board[destinationMove.getRow()][destinationMove.getCol()] = piece;
+                            }
+                            makeKing(destinationMove);
+                            lastMoveJump = true;
+                        }
+                        return true;
+                    }
+                }
+                if (moves.size() != 0)
+                    return false;
+
                 if (rowDiff == 1 && colDiff == 1 && !lastMoveJump) {
                     //if only moving the piece without jumping...
 
@@ -201,10 +237,10 @@ public class CheckersLogic {
 
         for (int i = 0; i < 64; i++){
             for (int j = 0; j < 64; j++){
-                Move moveI = new Move(i / 8, i % 8);
-                Move moveJ = new Move(j / 8, j % 8);
+                if ((board[i / 8][i % 8] == piece || board[i / 8][i % 8] == kPiece) && board[j / 8][j % 8] == square.OPEN) {
 
-                if (board[moveJ.getRow()][moveJ.getCol()] == square.OPEN) {
+                    Move moveI = new Move(i / 8, i % 8);
+                    Move moveJ = new Move(j / 8, j % 8);
 
                     int rowDiff = Math.abs(moveI.getRow() - moveJ.getRow());
                     int colDiff = Math.abs(moveI.getCol() - moveJ.getCol());
@@ -230,7 +266,7 @@ public class CheckersLogic {
                             int middleCol = colShift + moveI.getCol();
                             if (board[middleRow][middleCol] == opPiece || board[middleRow][middleCol] == opkPiece) {
                                 moves.add(new Move[]{moveI, moveJ});
-                                System.out.println("moveI: " + moveI.row + ", " + moveI.col);
+                                System.out.println("\nmoveI: " + moveI.row + ", " + moveI.col);
                                 System.out.println("moveJ: " + moveJ.row + ", " + moveJ.col + "\n");
                             }
                         }
@@ -323,6 +359,12 @@ public class CheckersLogic {
 
         public int getId() {
             return id;
+        }
+
+        public boolean equals(Move move){
+            if (move.getRow() == row && move.getCol() == col)
+                return true;
+            return false;
         }
 
     }
