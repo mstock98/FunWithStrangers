@@ -1,5 +1,7 @@
 package shaftware.funwithstrangers;
 
+import java.util.ArrayList;
+
 public class CheckersLogic {
 
     private square[][] board = new square[8][8];
@@ -116,6 +118,9 @@ public class CheckersLogic {
         //if the selected piece is the players...
         square selected = board[selectedMove.getRow()][selectedMove.getCol()];
         square destination = board[destinationMove.getRow()][destinationMove.getCol()];
+
+        checkForJump();
+
         if (selected == piece || selected == kPiece) {
             //if the destination piece is open...
             if (destination == square.OPEN) {
@@ -189,6 +194,52 @@ public class CheckersLogic {
             }
         }
         return false;
+    }
+
+    private ArrayList<Move[]> checkForJump(){
+        ArrayList<Move[]> moves = new ArrayList<>();
+
+        for (int i = 0; i < 64; i++){
+            for (int j = 0; j < 64; j++){
+                Move moveI = new Move(i / 8, i % 8);
+                Move moveJ = new Move(j / 8, j % 8);
+
+                if (board[moveJ.getRow()][moveJ.getCol()] == square.OPEN) {
+
+                    int rowDiff = Math.abs(moveI.getRow() - moveJ.getRow());
+                    int colDiff = Math.abs(moveI.getCol() - moveJ.getCol());
+
+                    if (rowDiff == 2 && colDiff == 2) {
+
+                        int rowShift = 0, colShift = 0;
+
+                        if (moveI.getRow() > moveJ.getRow())
+                            rowShift = -1;
+                        else if (moveI.getRow() < moveJ.getRow())
+                            rowShift = 1;
+
+                        if (moveI.getCol() > moveJ.getCol())
+                            colShift = -1;
+                        else if (moveI.getCol() < moveJ.getCol())
+                            colShift = 1;
+
+                        if (Math.abs(rowShift) == 1 && Math.abs(colShift) == 1) {
+
+                            //check if the middle piece is opponents piece
+                            int middleRow = rowShift + moveI.getRow();
+                            int middleCol = colShift + moveI.getCol();
+                            if (board[middleRow][middleCol] == opPiece || board[middleRow][middleCol] == opkPiece) {
+                                moves.add(new Move[]{moveI, moveJ});
+                                System.out.println("moveI: " + moveI.row + ", " + moveI.col);
+                                System.out.println("moveJ: " + moveJ.row + ", " + moveJ.col + "\n");
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return moves;
     }
 
     private void makeKing(Move move) {
