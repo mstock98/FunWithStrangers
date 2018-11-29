@@ -247,10 +247,14 @@ public class UltimateTTTLogicTest {
 
         board.pickSpot(3, 4);
 
-        // Assert that there are no disabled cells
+        // Assert that unclaimed grids are enabled and claimed grids are disabled
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                assertNotEquals(Piece.DISABLED, board.getBoardPiece(i, j));
+                if (board.largeBoard[i / 3][j / 3].checkWinner() == Winner.IN_PROGRESS) {
+                    assertNotEquals(Piece.DISABLED, board.getBoardPiece(i, j));
+                } else {
+                    assertNotEquals(Piece.OPEN, board.getBoardPiece(i, j));
+                }
             }
         }
     }

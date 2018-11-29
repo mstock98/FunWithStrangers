@@ -114,7 +114,11 @@ public class UltimateTTTLogic extends TttLogicBase {
             } else {
                 for (int i = 0; i < 3; i++) {
                     for (int j = 0; j < 3; j++) {
-                        enableGrid(i, j);
+                        if (largeBoard[i][j].checkWinner() == Winner.IN_PROGRESS) {
+                            enableGrid(i, j);
+                        } else {
+                            disableGrid(i, j);
+                        }
                     }
                 }
             }

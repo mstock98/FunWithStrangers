@@ -33,7 +33,13 @@ public class UltimateTTTConsole {
     }
 
     private void drawBoard() {
+        System.out.print("   0 1 2    3 4 5    6 7 8");
+        System.out.print("\n");
+        System.out.print("\n");
+
         for (int i = 0; i < 9; i++) {
+            System.out.print(i + "  ");
+
             for (int j = 0; j < 9; j++) {
                 if (game.getBoardPiece(i, j) == Piece.O) {
                     System.out.print("O ");
@@ -44,8 +50,17 @@ public class UltimateTTTConsole {
                 } else {
                     System.out.print("D ");
                 }
+
+                if ((j + 1) % 3 == 0) {
+                    System.out.print(" | ");
+                }
             }
+
             System.out.print("\n");
+            if ((i + 1) % 3 == 0) {
+                System.out.print("   -------------------------");
+                System.out.print("\n");
+            }
         }
     }
 }
