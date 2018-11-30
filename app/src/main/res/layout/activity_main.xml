@@ -12,10 +12,11 @@
         android:layout_height="0dp"
         android:layout_marginStart="70dp"
         android:layout_marginEnd="70dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="25dp"
         android:text="Hang Man"
         app:layout_constraintBottom_toTopOf="@+id/chessButton"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.428"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -24,7 +25,7 @@
         android:layout_height="58dp"
         android:layout_marginStart="70dp"
         android:layout_marginEnd="70dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="25dp"
         android:text="Tic Tac Toe"
         app:layout_constraintBottom_toTopOf="@+id/hangManButton"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,7 +37,7 @@
         android:layout_height="58dp"
         android:layout_marginStart="70dp"
         android:layout_marginEnd="70dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="25dp"
         android:text="Chess"
         app:layout_constraintBottom_toTopOf="@+id/checkersButton"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,10 +49,11 @@
         android:layout_height="58dp"
         android:layout_marginStart="70dp"
         android:layout_marginEnd="70dp"
-        android:layout_marginBottom="128dp"
+        android:layout_marginBottom="25dp"
         android:text="checkers"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.428"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -86,5 +88,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/checkersButton" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="248dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginEnd="70dp"
+        android:layout_marginBottom="25dp"
+        android:text="Button"
+        app:layout_constraintBottom_toTopOf="@+id/ticTacToeButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
