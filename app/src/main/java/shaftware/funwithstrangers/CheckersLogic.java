@@ -266,8 +266,8 @@ public class CheckersLogic {
                             int middleCol = colShift + moveI.getCol();
                             if (board[middleRow][middleCol] == opPiece || board[middleRow][middleCol] == opkPiece) {
                                 moves.add(new Move[]{moveI, moveJ});
-                                System.out.println("\nmoveI: " + moveI.row + ", " + moveI.col);
-                                System.out.println("moveJ: " + moveJ.row + ", " + moveJ.col + "\n");
+                                //System.out.println("\nmoveI: " + moveI.row + ", " + moveI.col);
+                                //System.out.println("moveJ: " + moveJ.row + ", " + moveJ.col + "\n");
                             }
                         }
                     }

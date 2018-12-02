@@ -23,6 +23,16 @@ public class CheckersUnitTest {
     }
 
     @Test
+    public void checkOrdinals(){
+        outcome o = outcome.BLACK;
+        square s = square.BLACK;
+
+        boolean result = (s.ordinal() == o.ordinal());
+
+        assertEquals(true, result);
+    }
+
+    @Test
     public void doubleJumpMoveTest(){
         square[][] board = new square[8][8];
         for (int i = 0; i < 64; i++){
