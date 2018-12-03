@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import shaftware.funwithstrangers.CheckersLogic.Move;
+import shaftware.funwithstrangers.CheckersLogic.square;
+import shaftware.funwithstrangers.CheckersAi.difficulty;
 
 public class Checkers extends AppCompatActivity {
 
@@ -41,16 +43,24 @@ public class Checkers extends AppCompatActivity {
     CheckersLogic.square[] board;
 
     CheckersLogic game;
+    CheckersAi ai;
+
+    square playerPiece;
+
     Move selectedMove, destinationMove;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkers);
+    }
+
+    protected void onStart(){
+        super.onStart();
+
         //TODO
         //Configure
-        game = new CheckersLogic(CheckersLogic.square.WHITE, true);
-
+        configure(true, true, difficulty.IMPOSSIBLE);
 
         createBoard();
         initializeButtons();
@@ -60,6 +70,23 @@ public class Checkers extends AppCompatActivity {
         updateGameView();
 
 
+    }
+
+    private void configure(boolean playerFirst, boolean activeAi, difficulty aiDiff){
+        square aiPiece;
+        if (playerFirst) {
+            playerPiece = square.WHITE;
+            aiPiece = square.BLACK;
+        }
+        else {
+            playerPiece = square.BLACK;
+            aiPiece = square.WHITE;
+        }
+
+        game = new CheckersLogic(playerPiece, playerFirst);
+        if (activeAi){
+            ai = new CheckersAi(aiPiece, aiDiff, !playerFirst);
+        }
     }
 
     private void createBoard() {

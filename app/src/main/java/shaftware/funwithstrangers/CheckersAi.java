@@ -1,7 +1,10 @@
 package shaftware.funwithstrangers;
 
 import java.util.ArrayList;
+import java.util.Random;
 
+import static java.lang.Math.max;
+import static java.lang.Math.min;
 import shaftware.funwithstrangers.CheckersLogic.square;
 import shaftware.funwithstrangers.CheckersLogic.Move;
 import shaftware.funwithstrangers.CheckersLogic.outcome;
@@ -35,34 +38,82 @@ public class CheckersAi {
         if (takeFirstTurn) {
             CheckersAiTurnFirst();
         } else if (diff == difficulty.HARD || diff == difficulty.IMPOSSIBLE) {
-            findBestMove(game.getBoard());
+            findBestMove();
         } else if (diff == difficulty.EASY) {
             while (!randomMove()) ;
         }
     }
 
     //TODO
-    private boolean randomMove() {
-        return true;
+    public boolean randomMove() {
+        Random random = new Random();
+
+        ArrayList<Move[]> moves = findLegalMoves();
+
+        int index = random.nextInt(moves.size());
+
+        if(game.validMove(moves.get(index)[0], moves.get(index)[1], true))
+            return true;
+
+        return false;
     }
 
     //TODO
-    private void findBestMove(square[][] board) {
-        ArrayList<Move[]> bestMove = new ArrayList<>();
+    private void findBestMove() {
+        Move[] bestMove = null;
         int bestScore = Integer.MIN_VALUE;
 
         ArrayList<Move[]> legalMoves = findLegalMoves();
 
+        square[][] board = game.getBoard();
+
         for (Move[] move : legalMoves){
             game.validMove(move[0], move[1], true);
-            int moveVal = minimax(0, false);
+            int moveVal = minimax(board, 0, false);
+            if (moveVal > bestScore) {
+                bestScore = moveVal;
+                bestMove = move;
+            }
+            game.setBoard(board);
         }
+
+        game.validMove(bestMove[0], bestMove[1], true);
+
     }
 
-    private int minimax(int depth, boolean isMax){
+    private int minimax(square[][] board, int depth, boolean isMax){
         int score = checkWinner();
 
-        return 0; //TEMP
+        if (score == 10 || score == -10)
+            return score;
+        if (game.checkWinner() != outcome.IN_PROGRESS)
+            return 0;
+
+        square[][] tempBoard = board;
+
+        if (isMax){
+            int best = Integer.MIN_VALUE;
+
+            ArrayList<Move[]> legalMoves = findLegalMoves();
+
+            for (Move[] move : legalMoves){
+                game.validMove(move[0], move[1], true);
+                best = max(best, minimax(tempBoard, depth++, !isMax));
+                game.setBoard(board);
+            }
+            return best;
+        } else{
+            int best = Integer.MAX_VALUE;
+
+            ArrayList<Move[]> legalMoves = findLegalMoves();
+
+            for (Move[] move : legalMoves){
+                game.validMove(move[0], move[1], true);
+                best = min(best, minimax(tempBoard, depth++, !isMax));
+                game.setBoard(board);
+            }
+            return best;
+        }
     }
 
     private int checkWinner(){
@@ -96,5 +147,6 @@ public class CheckersAi {
 
     //TODO
     private void CheckersAiTurnFirst() {
+        findBestMove();
     }
 }
