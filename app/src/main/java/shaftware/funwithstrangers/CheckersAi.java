@@ -3,11 +3,12 @@ package shaftware.funwithstrangers;
 import java.util.ArrayList;
 import java.util.Random;
 
-import static java.lang.Math.max;
-import static java.lang.Math.min;
-import shaftware.funwithstrangers.CheckersLogic.square;
 import shaftware.funwithstrangers.CheckersLogic.Move;
 import shaftware.funwithstrangers.CheckersLogic.outcome;
+import shaftware.funwithstrangers.CheckersLogic.square;
+
+import static java.lang.Math.max;
+import static java.lang.Math.min;
 
 public class CheckersAi {
 
@@ -35,27 +36,32 @@ public class CheckersAi {
     }
 
     public void CheckersAiTurn() {
-        if (takeFirstTurn) {
+        if (takeFirstTurn && diff != difficulty.EASY) {
             CheckersAiTurnFirst();
         } else if (diff == difficulty.HARD || diff == difficulty.IMPOSSIBLE) {
             findBestMove();
         } else if (diff == difficulty.EASY) {
-            while (!randomMove()) ;
+            randomMove();
         }
     }
 
     //TODO
-    public boolean randomMove() {
+    public void randomMove() {
         Random random = new Random();
 
         ArrayList<Move[]> moves = findLegalMoves();
-
+        System.out.println(moves.size());
+        if (moves.size() < 1)
+            return;
         int index = random.nextInt(moves.size());
 
-        if(game.validMove(moves.get(index)[0], moves.get(index)[1], true))
-            return true;
-
-        return false;
+        do {
+            game.validMove(moves.get(index)[0], moves.get(index)[1], true);
+            moves = findLegalMoves();
+            if (moves.size() < 1)
+                return;
+            index = random.nextInt(moves.size());
+        } while (!game.checkEndTurn(moves.get(index)[1]));
     }
 
     //TODO
@@ -67,7 +73,7 @@ public class CheckersAi {
 
         square[][] board = game.getBoard();
 
-        for (Move[] move : legalMoves){
+        for (Move[] move : legalMoves) {
             game.validMove(move[0], move[1], true);
             int moveVal = minimax(board, 0, false);
             if (moveVal > bestScore) {
@@ -81,7 +87,7 @@ public class CheckersAi {
 
     }
 
-    private int minimax(square[][] board, int depth, boolean isMax){
+    private int minimax(square[][] board, int depth, boolean isMax) {
         int score = checkWinner();
 
         if (score == 10 || score == -10)
@@ -91,23 +97,23 @@ public class CheckersAi {
 
         square[][] tempBoard = board;
 
-        if (isMax){
+        if (isMax) {
             int best = Integer.MIN_VALUE;
 
             ArrayList<Move[]> legalMoves = findLegalMoves();
 
-            for (Move[] move : legalMoves){
+            for (Move[] move : legalMoves) {
                 game.validMove(move[0], move[1], true);
                 best = max(best, minimax(tempBoard, depth++, !isMax));
                 game.setBoard(board);
             }
             return best;
-        } else{
+        } else {
             int best = Integer.MAX_VALUE;
 
             ArrayList<Move[]> legalMoves = findLegalMoves();
 
-            for (Move[] move : legalMoves){
+            for (Move[] move : legalMoves) {
                 game.validMove(move[0], move[1], true);
                 best = min(best, minimax(tempBoard, depth++, !isMax));
                 game.setBoard(board);
@@ -116,7 +122,7 @@ public class CheckersAi {
         }
     }
 
-    private int checkWinner(){
+    private int checkWinner() {
         outcome result = game.checkWinner();
 
         if (result.ordinal() == piece.ordinal())

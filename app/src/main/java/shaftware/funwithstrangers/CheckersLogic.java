@@ -109,7 +109,7 @@ public class CheckersLogic {
     public boolean validMove(Move selectedMove, Move destinationMove, boolean initiateMove) {
         if (selectedMove == null || destinationMove == null)
             return false;
-        //checks to see if the coordinates are even on the board. Should never reach here
+
         if (!validCoordinates(selectedMove.getRow(), selectedMove.getCol()))
             return false;
         if (!validCoordinates(destinationMove.getRow(), destinationMove.getCol()))
@@ -156,7 +156,8 @@ public class CheckersLogic {
                                 board[destinationMove.getRow()][destinationMove.getCol()] = piece;
                             }
                             makeKing(destinationMove);
-                            lastMoveJump = true;
+                            if (initiateMove)
+                                lastMoveJump = true;
                         }
                         return true;
                     }
@@ -179,7 +180,8 @@ public class CheckersLogic {
                             board[destinationMove.getRow()][destinationMove.getCol()] = piece;
                         }
                         makeKing(destinationMove);
-                        lastMoveJump = false;
+                        if (initiateMove)
+                            lastMoveJump = false;
                     }
                     return true;
                 } else if (rowDiff == 2 && colDiff == 2) {
@@ -223,7 +225,8 @@ public class CheckersLogic {
                             board[destinationMove.getRow()][destinationMove.getCol()] = piece;
                         }
                         makeKing(destinationMove);
-                        lastMoveJump = true;
+                        if (initiateMove)
+                            lastMoveJump = true;
                     }
                     return true;
                 }
@@ -319,9 +322,9 @@ public class CheckersLogic {
                 }
             }
         }
-        if (black == 0 && white != 0)
+        if (black == 0)
             return outcome.WHITE;
-        else if (white == 0 && black != 0)
+        else if (white == 0)
             return outcome.BLACK;
 
         //TODO
