@@ -13,55 +13,50 @@ import static java.lang.Math.min;
 public class CheckersAi {
 
     CheckersLogic game;
-    square piece;
-    square opPiece;
 
     enum difficulty {EASY, HARD, IMPOSSIBLE}
 
     difficulty diff;
 
-    private boolean takeFirstTurn;
+    int DEPTH_LIMIT = 1;
 
     public CheckersAi(square piece, difficulty diff, boolean takeFirstTurn) {
-        this.piece = piece;
-        if (piece == square.WHITE) {
-            opPiece = square.BLACK;
-        } else if (piece == square.BLACK) {
-            opPiece = square.WHITE;
-        }
         this.diff = diff;
-        this.takeFirstTurn = takeFirstTurn;
 
         game = new CheckersLogic(piece, true);
     }
 
     public void CheckersAiTurn() {
-        if (takeFirstTurn && diff != difficulty.EASY) {
-            CheckersAiTurnFirst();
-        } else if (diff == difficulty.HARD || diff == difficulty.IMPOSSIBLE) {
+        if (diff == difficulty.HARD || diff == difficulty.IMPOSSIBLE) {
             findBestMove();
         } else if (diff == difficulty.EASY) {
             randomMove();
         }
     }
 
-    //TODO
     public void randomMove() {
         Random random = new Random();
 
-        ArrayList<Move[]> moves = findLegalMoves();
-        System.out.println(moves.size());
-        if (moves.size() < 1)
-            return;
-        int index = random.nextInt(moves.size());
+        ArrayList<Move[]> moves;
+        int index;
 
         do {
-            game.validMove(moves.get(index)[0], moves.get(index)[1], true);
             moves = findLegalMoves();
             if (moves.size() < 1)
                 return;
             index = random.nextInt(moves.size());
+            game.validMove(moves.get(index)[0], moves.get(index)[1], true);
         } while (!game.checkEndTurn(moves.get(index)[1]));
+    }
+
+    private square[][] copyBoard(square[][] board) {
+        square[][] newBoard = new square[8][8];
+
+        for (int i = 0; i < 64; i++) {
+            newBoard[i / 8][i % 8] = board[i / 8][i % 8];
+        }
+
+        return newBoard;
     }
 
     //TODO
@@ -71,66 +66,98 @@ public class CheckersAi {
 
         ArrayList<Move[]> legalMoves = findLegalMoves();
 
-        square[][] board = game.getBoard();
+        square[][] backupBoard = copyBoard(game.getBoard());
 
         for (Move[] move : legalMoves) {
             game.validMove(move[0], move[1], true);
-            int moveVal = minimax(board, 0, false);
+            int moveVal = minimax(0, false);
             if (moveVal > bestScore) {
                 bestScore = moveVal;
                 bestMove = move;
             }
-            game.setBoard(board);
+            game.setBoard(backupBoard);
         }
 
         game.validMove(bestMove[0], bestMove[1], true);
 
     }
 
-    private int minimax(square[][] board, int depth, boolean isMax) {
-        int score = checkWinner();
+    private int minimax(int depth, boolean isMax) {
+        int score = checkWinner(copyBoard(game.getBoard()), depth > DEPTH_LIMIT);
+        System.out.println("Depth = " + depth + " | Score = " + score);
 
-        if (score == 10 || score == -10)
+        if (score != 0)
             return score;
-        if (game.checkWinner() != outcome.IN_PROGRESS)
+        else if (game.checkWinner() != outcome.IN_PROGRESS)
             return 0;
 
-        square[][] tempBoard = board;
+        square[][] backupBoard = copyBoard(game.getBoard());
 
         if (isMax) {
             int best = Integer.MIN_VALUE;
-
             ArrayList<Move[]> legalMoves = findLegalMoves();
-
             for (Move[] move : legalMoves) {
                 game.validMove(move[0], move[1], true);
-                best = max(best, minimax(tempBoard, depth++, !isMax));
-                game.setBoard(board);
+                if (game.checkEndTurn(move[1]))
+                    best = max(best, minimax(depth++, !isMax));
+                else
+                    best = max(best, minimax(depth++, isMax));
+                game.setBoard(backupBoard);
             }
             return best;
         } else {
             int best = Integer.MAX_VALUE;
-
+            game.swapPiece();
             ArrayList<Move[]> legalMoves = findLegalMoves();
-
+            game.swapPiece();
             for (Move[] move : legalMoves) {
+                game.swapPiece();
                 game.validMove(move[0], move[1], true);
-                best = min(best, minimax(tempBoard, depth++, !isMax));
-                game.setBoard(board);
+                game.swapPiece();
+                if (game.checkEndTurn(move[1]))
+                    best = min(best, minimax(depth++, !isMax));
+                else
+                    best = min(best, minimax(depth++, isMax));
+                game.setBoard(backupBoard);
             }
             return best;
         }
     }
 
-    private int checkWinner() {
-        outcome result = game.checkWinner();
+    private int checkWinner(square[][] board, boolean maxDepthReached) {
+        int black = 0, white = 0;
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (board[i][j] == square.BLACK || board[i][j] == square.BKING) {
+                    black++;
+                } else if (board[i][j] == square.WHITE || board[i][j] == square.WKING) {
+                    white++;
+                }
+            }
+        }
+        if (black == 0) {
+            if (game.getPiece() == square.BLACK)
+                return -10;
+            else
+                return 10;
+        } else if (white == 0) {
+            if (game.getPiece() == square.WHITE)
+                return -10;
+            else
+                return 10;
+        }
 
-        if (result.ordinal() == piece.ordinal())
-            return 10;
-        else if (result.ordinal() == opPiece.ordinal())
-            return -10;
+        if(maxDepthReached == true){
+            if (game.getPiece() == square.BLACK && black > white)
+                return 2;
+            else if (game.getPiece() == square.WHITE && white > black)
+                return 2;
+            else
+                return -2;
+        }
 
         return 0;
+
     }
 
     private ArrayList<Move[]> findLegalMoves() {
@@ -146,13 +173,7 @@ public class CheckersAi {
                 }
             }
         }
-
+        System.out.println("Legal Moves: " + legalMoves.size());
         return legalMoves;
-    }
-
-
-    //TODO
-    private void CheckersAiTurnFirst() {
-        findBestMove();
     }
 }

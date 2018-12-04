@@ -2,11 +2,14 @@ package shaftware.funwithstrangers;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import java.util.concurrent.TimeUnit;
 
 import shaftware.funwithstrangers.CheckersAi.difficulty;
 import shaftware.funwithstrangers.CheckersLogic.Move;
@@ -61,7 +64,7 @@ public class Checkers extends AppCompatActivity {
 
         //TODO
         //Configure
-        configure(true, false, difficulty.EASY);
+        configure(true, true, difficulty.IMPOSSIBLE);
 
         createBoard();
         initializeButtons();
@@ -196,21 +199,20 @@ public class Checkers extends AppCompatActivity {
         }
 
 
-        //TODO
         //if valid move...
         if (selectedMove != null && destinationMove != null && game.validMove(selectedMove, destinationMove, true)) {
 
             //if turn can end... i.e. no more available moves that have to be made
             if (game.checkEndTurn(destinationMove)) {
                 game.setTurn(false);
-                //TODO
                 if (activeAi) {
                     checkWinner();
                     updateGameView();
 
+                    //TODO add delay for easy ai
+
                     ai.game.setBoard(game.getBoard());
                     ai.CheckersAiTurn();
-                    System.out.println("aiturn");
                     game.setBoard(ai.game.getBoard());
                 } else{
                     game.swapPiece();
@@ -220,9 +222,8 @@ public class Checkers extends AppCompatActivity {
 
             //checks and handles winning situations
             checkWinner();
-
-            //syncBoards();
             updateGameView();
+
         }
 
 
@@ -244,10 +245,6 @@ public class Checkers extends AppCompatActivity {
         //TODO
         //Do something if someone has won
         outcome outcome = game.checkWinner();
-        game.swapPiece();
-        System.out.println(outcome);
-        outcome = game.checkWinner();
-        game.swapPiece();
 
         if (outcome == outcome.IN_PROGRESS)
             return;

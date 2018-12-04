@@ -34,6 +34,7 @@ public class CheckersLogic {
 
     public void setBoard(square[][] board) {
         this.board = board;
+        lastMoveJump = false;
     }
 
     public square getPiece() {
@@ -53,7 +54,6 @@ public class CheckersLogic {
     }
 
     //Method only used for testing purposes
-    @Deprecated
     public void swapPiece() {
         if (piece == square.BLACK) {
             piece = square.WHITE;
@@ -87,8 +87,11 @@ public class CheckersLogic {
         }
     }
 
+    public boolean checkEndTurn(Move selectedMove){
+        return checkEndTurn(selectedMove, this.lastMoveJump);
+    }
     //checks whether there are any more valid moves available e.g. another jump that could be made
-    public boolean checkEndTurn(Move selectedMove) {
+    private boolean checkEndTurn(Move selectedMove, boolean lastMoveJump) {
         if (!lastMoveJump)
             return true;
         if (validMove(selectedMove, new Move(selectedMove.getRow() + 2, selectedMove.getCol() + 2), false)) {
@@ -99,11 +102,10 @@ public class CheckersLogic {
             return false;
         } else if (validMove(selectedMove, new Move(selectedMove.getRow() - 2, selectedMove.getCol() - 2), false)) {
             return false;
-        }
-        return true;
+        } else
+            return true;
     }
 
-    //TODO
 //checks to see if the new move is valid
 //checks everything: jumps, whether the opposing piece is jumped over, etc
     public boolean validMove(Move selectedMove, Move destinationMove, boolean initiateMove) {
@@ -122,15 +124,14 @@ public class CheckersLogic {
         if (selected == piece || selected == kPiece) {
             //if the destination piece is open...
             if (destination == square.OPEN) {
-                //TODO
                 //Check if jumps and if over opponent piece
                 int rowDiff = Math.abs(selectedMove.getRow() - destinationMove.getRow());
                 int colDiff = Math.abs(selectedMove.getCol() - destinationMove.getCol());
 
                 //force jump
                 ArrayList<Move[]> moves = checkForJump();
-                for (int i = 0; i < moves.size(); i++){
-                    if (moves.get(i)[0].equals(selectedMove) && moves.get(i)[1].equals(destinationMove)){
+                for (int i = 0; i < moves.size(); i++) {
+                    if (moves.get(i)[0].equals(selectedMove) && moves.get(i)[1].equals(destinationMove)) {
                         if (initiateMove) {
                             int rowShift = 0, colShift = 0;
 
@@ -156,8 +157,12 @@ public class CheckersLogic {
                                 board[destinationMove.getRow()][destinationMove.getCol()] = piece;
                             }
                             makeKing(destinationMove);
-                            if (initiateMove)
-                                lastMoveJump = true;
+                            if (initiateMove) {
+                                if (checkEndTurn(destinationMove, true))
+                                    lastMoveJump = false;
+                                else
+                                    lastMoveJump = true;
+                            }
                         }
                         return true;
                     }
@@ -225,8 +230,12 @@ public class CheckersLogic {
                             board[destinationMove.getRow()][destinationMove.getCol()] = piece;
                         }
                         makeKing(destinationMove);
-                        if (initiateMove)
-                            lastMoveJump = true;
+                        if (initiateMove) {
+                            if (checkEndTurn(destinationMove, true))
+                                lastMoveJump = false;
+                            else
+                                lastMoveJump = true;
+                        }
                     }
                     return true;
                 }
@@ -235,11 +244,11 @@ public class CheckersLogic {
         return false;
     }
 
-    private ArrayList<Move[]> checkForJump(){
+    private ArrayList<Move[]> checkForJump() {
         ArrayList<Move[]> moves = new ArrayList<>();
 
-        for (int i = 0; i < 64; i++){
-            for (int j = 0; j < 64; j++){
+        for (int i = 0; i < 64; i++) {
+            for (int j = 0; j < 64; j++) {
                 if ((board[i / 8][i % 8] == piece || board[i / 8][i % 8] == kPiece) && board[j / 8][j % 8] == square.OPEN) {
 
                     Move moveI = new Move(i / 8, i % 8);
@@ -327,11 +336,10 @@ public class CheckersLogic {
         else if (white == 0)
             return outcome.BLACK;
 
-        //TODO
         //make efficient
         //checks for tie
-        for (int i = 0; i < 64; i++){
-            for (int j = 0; j < 64; j++){
+        for (int i = 0; i < 64; i++) {
+            for (int j = 0; j < 64; j++) {
                 if (validMove(new Move(i / 8, i % 8), new Move(j / 8, j % 8), false))
                     return outcome.IN_PROGRESS;
             }
@@ -365,7 +373,7 @@ public class CheckersLogic {
             return id;
         }
 
-        public boolean equals(Move move){
+        public boolean equals(Move move) {
             if (move.getRow() == row && move.getCol() == col)
                 return true;
             return false;
