@@ -331,9 +331,9 @@ public class CheckersLogic {
                 }
             }
         }
-        if (black == 0)
+        if (black == 0 && white > 0)
             return outcome.WHITE;
-        else if (white == 0)
+        else if (white == 0 && black > 0)
             return outcome.BLACK;
 
         //make efficient
