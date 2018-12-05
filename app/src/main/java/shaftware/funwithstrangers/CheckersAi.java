@@ -82,7 +82,7 @@ public class CheckersAi {
 
     }
 
-    private int minimax(int depth, boolean isMax) {
+    protected int minimax(int depth, boolean isMax) {
         int score = checkWinner(copyBoard(game.getBoard()), depth > DEPTH_LIMIT);
         System.out.println("Depth = " + depth + " | Score = " + score);
 
@@ -113,8 +113,9 @@ public class CheckersAi {
             for (Move[] move : legalMoves) {
                 game.swapPiece();
                 game.validMove(move[0], move[1], true);
+                boolean result = game.checkEndTurn(move[1]);
                 game.swapPiece();
-                if (game.checkEndTurn(move[1]))
+                if (result)
                     best = min(best, minimax(depth++, !isMax));
                 else
                     best = min(best, minimax(depth++, isMax));
@@ -124,7 +125,8 @@ public class CheckersAi {
         }
     }
 
-    private int checkWinner(square[][] board, boolean maxDepthReached) {
+
+    protected int checkWinner(square[][] board, boolean maxDepthReached) {
         int black = 0, white = 0;
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -135,12 +137,12 @@ public class CheckersAi {
                 }
             }
         }
-        if (black == 0) {
+        if (black == 0 && white > 0) {
             if (game.getPiece() == square.BLACK)
                 return -10;
             else
                 return 10;
-        } else if (white == 0) {
+        } else if (white == 0 && black > 0) {
             if (game.getPiece() == square.WHITE)
                 return -10;
             else
@@ -160,7 +162,7 @@ public class CheckersAi {
 
     }
 
-    private ArrayList<Move[]> findLegalMoves() {
+    protected ArrayList<Move[]> findLegalMoves() {
         ArrayList<Move[]> legalMoves = new ArrayList<>();
 
         for (int i = 0; i < 64; i++) {
