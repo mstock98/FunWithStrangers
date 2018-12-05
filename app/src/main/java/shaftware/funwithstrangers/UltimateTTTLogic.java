@@ -12,11 +12,10 @@ public class UltimateTTTLogic extends TttLogicBase {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 largeBoard[i][j] = new SmallTTTLogic();
-                disableGrid(i,j);
             }
         }
 
-        enableGrid(1,1);
+        clearBoard();
     }
 
     public SmallTTTLogic[][] getBoard() { return largeBoard; }
@@ -78,11 +77,9 @@ public class UltimateTTTLogic extends TttLogicBase {
     public void clearBoard() {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                largeBoard[i / 3][j / 3].setBoardPiece(Piece.DISABLED, i % 3, j % 3);
+                largeBoard[i / 3][j / 3].setBoardPiece(Piece.OPEN, i % 3, j % 3);
             }
         }
-
-        enableGrid(1, 1);
     }
 
     public Piece getBoardPiece(int row, int col) {
