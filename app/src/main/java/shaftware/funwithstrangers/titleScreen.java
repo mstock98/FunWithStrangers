@@ -54,7 +54,7 @@ public class titleScreen extends AppCompatActivity {
                         //switch to chess activity, goes no where
                         break;
                     case HANGMAN:
-                        //switch to HangMan activity, goes no where
+                        next = Hangman.class;
                         break;
                 }
                 Intent myIntent = new Intent(titleScreen.this, next);

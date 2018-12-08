@@ -72,6 +72,7 @@ public class opponentSearch extends AppCompatActivity {
                     break;
             case HANGMAN:
                     gameTitle.setText("Hang Man");
+                    nextScreen = Hangman.class;
                     break;
         }
 
