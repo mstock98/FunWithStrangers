@@ -56,7 +56,8 @@
         <activity
             android:name=".titleScreen"
             android:screenOrientation="portrait" />
-        <activity android:name=".Checkers"></activity>
+        <activity android:name=".Checkers" />
+        <activity android:name=".Hangman"></activity>
     </application>
 
 </manifest>

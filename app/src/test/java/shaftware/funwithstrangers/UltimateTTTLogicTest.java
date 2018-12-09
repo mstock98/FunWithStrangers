@@ -46,13 +46,7 @@ public class UltimateTTTLogicTest {
 
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                if (((i > 2) && (i < 6)) && ((j > 2) && (j < 6))) {
-                    // Check to see that the middle grid is enabled
-                    assertEquals(Piece.OPEN, board.getBoardPiece(i, j));
-                } else {
-                    // Check to see that every other grid is disabled
-                    assertEquals(Piece.DISABLED, board.getBoardPiece(i, j));
-                }
+                assertEquals(Piece.OPEN, board.getBoardPiece(i, j));
             }
         }
     }
@@ -275,7 +269,12 @@ public class UltimateTTTLogicTest {
     @Test
     public void shouldGetIntBoard() {
         UltimateTTTLogic board = new UltimateTTTLogic(Piece.X);
-        board.disableGrid(1,1);
+
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                board.disableGrid(i, j);
+            }
+        }
 
         board.setBoardPiece(Piece.X, 4, 0);
         board.setBoardPiece(Piece.X, 4, 8);
