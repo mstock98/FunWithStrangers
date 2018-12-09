@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
     //define buttons
+    Button UTTTButton;
     Button ticTacToeButton;
     Button chessButton;
     Button checkersButton;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
 
 
         //instantiate buttons based on the buttons specified in our layout
+        UTTTButton = findViewById(R.id.UTTTButton);
         ticTacToeButton =  findViewById(R.id.ticTacToeButton);
         chessButton = findViewById(R.id.chessButton);
         hangManButton = findViewById(R.id.hangManButton);
@@ -45,6 +47,14 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
                             42069);
                 }
 
+            }
+        });
+
+        UTTTButton.setOnClickListener(new OnClickListener() {
+            public void onClick(View arg0) {
+                Globals g = (Globals)getApplication();
+                g.setMode(Globals.Mode.ULTIMATETICTACTOE);
+                switchToTitleScreen();
             }
         });
 
