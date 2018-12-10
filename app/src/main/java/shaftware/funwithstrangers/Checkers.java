@@ -64,7 +64,7 @@ public class Checkers extends AppCompatActivity {
 
         //TODO
         //Configure
-        configure(true, true, difficulty.IMPOSSIBLE);
+        configure(true, true, difficulty.EASY);
 
         createBoard();
         initializeButtons();
