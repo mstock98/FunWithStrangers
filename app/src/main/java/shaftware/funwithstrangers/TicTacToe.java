@@ -1,34 +1,34 @@
 package shaftware.funwithstrangers;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.ImageButton;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
+        import android.graphics.Color;
+        import android.os.Bundle;
+        import android.support.annotation.NonNull;
+        import android.support.v7.app.AppCompatActivity;
+        import android.view.View;
+        import android.view.View.OnClickListener;
+        import android.widget.ImageButton;
+        import android.widget.RelativeLayout;
+        import android.widget.Toast;
 
-import com.google.android.gms.nearby.Nearby;
-import com.google.android.gms.nearby.connection.AdvertisingOptions;
-import com.google.android.gms.nearby.connection.ConnectionInfo;
-import com.google.android.gms.nearby.connection.ConnectionLifecycleCallback;
-import com.google.android.gms.nearby.connection.ConnectionResolution;
-import com.google.android.gms.nearby.connection.ConnectionsStatusCodes;
-import com.google.android.gms.nearby.connection.Payload;
-import com.google.android.gms.nearby.connection.PayloadCallback;
-import com.google.android.gms.nearby.connection.PayloadTransferUpdate;
-import com.google.android.gms.nearby.connection.Strategy;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+        import com.google.android.gms.nearby.Nearby;
+        import com.google.android.gms.nearby.connection.AdvertisingOptions;
+        import com.google.android.gms.nearby.connection.ConnectionInfo;
+        import com.google.android.gms.nearby.connection.ConnectionLifecycleCallback;
+        import com.google.android.gms.nearby.connection.ConnectionResolution;
+        import com.google.android.gms.nearby.connection.ConnectionsStatusCodes;
+        import com.google.android.gms.nearby.connection.Payload;
+        import com.google.android.gms.nearby.connection.PayloadCallback;
+        import com.google.android.gms.nearby.connection.PayloadTransferUpdate;
+        import com.google.android.gms.nearby.connection.Strategy;
+        import com.google.android.gms.tasks.OnFailureListener;
+        import com.google.android.gms.tasks.OnSuccessListener;
 
-import java.util.Random;
+        import java.util.Random;
 
-import static shaftware.funwithstrangers.TttLogicBase.Piece;
-import static shaftware.funwithstrangers.TttLogicBase.Winner;
-import static shaftware.funwithstrangers.TttAi.Difficulty;
+        import static shaftware.funwithstrangers.TttLogicBase.Piece;
+        import static shaftware.funwithstrangers.TttLogicBase.Winner;
+        import static shaftware.funwithstrangers.TttAi.Difficulty;
 
 public class TicTacToe extends AppCompatActivity {
 
@@ -280,7 +280,7 @@ public class TicTacToe extends AppCompatActivity {
                     //Disable player from doing anything if someone has won, if no one has won, its this players turn
                     if (!checkWinner())
                         TttGame.swapTurn();
-                        getWindow().getDecorView().setBackgroundColor(Color.GREEN);
+                    getWindow().getDecorView().setBackgroundColor(Color.GREEN);
                 }
             }else{
                 if(b.length == 1){
@@ -414,4 +414,4 @@ public class TicTacToe extends AppCompatActivity {
         Nearby.getConnectionsClient(this).stopAllEndpoints();
     }
 
-    }
+}
