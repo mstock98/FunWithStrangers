@@ -51,6 +51,18 @@ public class CheckersAiUnitTest {
     }
 
     @Test
+    public void EasyAiPlayEasyAi(){
+        CheckersAi ai = new CheckersAi(square.WHITE, difficulty.EASY, false);
+        do{
+            ai.randomMove();
+            ai.game.swapPiece();
+            ai.randomMove();
+            ai.game.swapPiece();
+        } while (ai.game.checkWinner() == CheckersLogic.outcome.IN_PROGRESS);
+        System.out.println(ai.game.checkWinner());
+    }
+
+    @Test
     public void minimaxTest(){
         CheckersAi ai = new CheckersAi(square.WHITE, difficulty.IMPOSSIBLE, true);
         square[][] board = ai.game.getBoard();

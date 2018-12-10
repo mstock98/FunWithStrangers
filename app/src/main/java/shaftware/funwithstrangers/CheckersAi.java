@@ -18,7 +18,7 @@ public class CheckersAi {
 
     difficulty diff;
 
-    int DEPTH_LIMIT = 1;
+    int DEPTH_LIMIT = 0;
 
     public CheckersAi(square piece, difficulty diff, boolean takeFirstTurn) {
         this.diff = diff;
@@ -96,12 +96,9 @@ public class CheckersAi {
         if (isMax) {
             int best = Integer.MIN_VALUE;
             ArrayList<Move[]> legalMoves = findLegalMoves();
-            for (Move[] move : legalMoves) {
-                game.validMove(move[0], move[1], true);
-                if (game.checkEndTurn(move[1]))
-                    best = max(best, minimax(depth++, !isMax));
-                else
-                    best = max(best, minimax(depth++, isMax));
+            for (Move[] moves : legalMoves) {
+                MaxTakeTurn(moves);
+                best = max(best, minimax(depth++, !isMax));
                 game.setBoard(backupBoard);
             }
             return best;
@@ -110,21 +107,34 @@ public class CheckersAi {
             game.swapPiece();
             ArrayList<Move[]> legalMoves = findLegalMoves();
             game.swapPiece();
-            for (Move[] move : legalMoves) {
-                game.swapPiece();
-                game.validMove(move[0], move[1], true);
-                boolean result = game.checkEndTurn(move[1]);
-                game.swapPiece();
-                if (result)
-                    best = min(best, minimax(depth++, !isMax));
-                else
-                    best = min(best, minimax(depth++, isMax));
+            for (Move[] moves : legalMoves) {
+                MinTakeTurn(moves);
+                best = min(best, minimax(depth++, !isMax));
                 game.setBoard(backupBoard);
             }
             return best;
         }
     }
 
+    private void MaxTakeTurn(Move[] initMoves) {
+        //TODO
+        game.validMove(initMoves[0], initMoves[1], true);
+        ArrayList<Move[]> legalMoves = findLegalMoves();
+        for (Move[] moves : legalMoves){
+            game.validMove(moves[0], moves[1], true);
+        }
+    }
+
+    private void MinTakeTurn(Move[] initMoves) {
+        //TODO
+        game.swapPiece();
+        game.validMove(initMoves[0], initMoves[1], true);
+        ArrayList<Move[]> legalMoves = findLegalMoves();
+        for (Move[] moves : legalMoves){
+            game.validMove(moves[0], moves[1], true);
+        }
+        game.swapPiece();
+    }
 
     protected int checkWinner(square[][] board, boolean maxDepthReached) {
         int black = 0, white = 0;
@@ -149,7 +159,7 @@ public class CheckersAi {
                 return 10;
         }
 
-        if(maxDepthReached == true){
+        if (maxDepthReached == true) {
             if (game.getPiece() == square.BLACK && black > white)
                 return 2;
             else if (game.getPiece() == square.WHITE && white > black)
@@ -175,7 +185,7 @@ public class CheckersAi {
                 }
             }
         }
-        System.out.println("Legal Moves: " + legalMoves.size());
+        //System.out.println("Legal Moves: " + legalMoves.size());
         return legalMoves;
     }
 }
