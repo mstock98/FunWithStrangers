@@ -40,6 +40,108 @@
 
     <!--Table Row stores the first 10 letter buttons-->
     <TableRow
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="196dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" >
+
+        <TextView
+            android:id="@+id/t0"
+            android:layout_width="38dp"
+            android:layout_height="60dp"
+            android:textAlignment="center"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:visibility="gone"
+            android:textSize="36sp" />
+
+        <TextView
+            android:id="@+id/t1"
+            android:layout_width="38dp"
+            android:layout_height="60dp"
+            android:textAlignment="center"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:visibility="gone"
+            android:textSize="36sp" />
+
+        <TextView
+            android:id="@+id/t2"
+            android:layout_width="38dp"
+            android:layout_height="60dp"
+            android:textAlignment="center"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:visibility="gone"
+            android:textSize="36sp" />
+
+        <TextView
+            android:id="@+id/t3"
+            android:layout_width="38dp"
+            android:layout_height="60dp"
+            android:textAlignment="center"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:visibility="gone"
+            android:textSize="36sp" />
+
+        <TextView
+            android:id="@+id/t4"
+            android:layout_width="38dp"
+            android:layout_height="60dp"
+            android:textAlignment="center"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:visibility="gone"
+            android:textSize="36sp" />
+
+        <TextView
+            android:id="@+id/t5"
+            android:layout_width="38dp"
+            android:layout_height="60dp"
+            android:textAlignment="center"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:visibility="gone"
+            android:textSize="36sp" />
+
+        <TextView
+            android:id="@+id/t6"
+            android:layout_width="38dp"
+            android:layout_height="60dp"
+            android:textAlignment="center"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:visibility="gone"
+            android:textSize="36sp" />
+
+        <TextView
+            android:id="@+id/t7"
+            android:layout_width="38dp"
+            android:layout_height="60dp"
+            android:textAlignment="center"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:visibility="gone"
+            android:textSize="36sp" />
+
+        <TextView
+            android:id="@+id/t8"
+            android:layout_width="38dp"
+            android:layout_height="60dp"
+            android:textAlignment="center"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:visibility="gone"
+            android:textSize="36sp" />
+
+        <TextView
+            android:id="@+id/t9"
+            android:layout_width="38dp"
+            android:layout_height="60dp"
+            android:textAlignment="center"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:visibility="gone"
+            android:textSize="36sp" />
+    </TableRow>
+
+    <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -123,6 +225,7 @@
     </TableRow>
 
     <TableRow
+        android:id="@+id/tableRow2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -205,6 +308,7 @@
     </TableRow>
 
     <TableRow
+        android:id="@+id/tableRow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -265,5 +369,103 @@
             android:text="Guess"
             android:visibility="gone" />
     </TableRow>
+
+    <ImageView
+        android:id="@+id/postImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/post"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/headImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/head"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/bodyImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/body"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/larmImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/l_arm"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/rarmImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/r_arm"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/llegImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/l_leg"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/rlegImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/r_leg"
+        android:visibility="gone" />
 
 </android.support.constraint.ConstraintLayout>

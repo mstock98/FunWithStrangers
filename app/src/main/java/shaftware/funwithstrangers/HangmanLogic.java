@@ -5,8 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class HangmanLogic {
-    private char[] word = new char[10];
-    private boolean turn;
+    private char[] word;
     private String[] words = new String[41173];
     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
@@ -14,6 +13,9 @@ public class HangmanLogic {
      * creates an array of white-listed words
      */
     public HangmanLogic(InputStream inputStream){
+
+        word = "ass".toCharArray();
+
         try{
             int i = inputStream.read();
             int j = 0;
@@ -37,7 +39,7 @@ public class HangmanLogic {
     public boolean wordAuth(String attempt){
         boolean t = false;
         for(int i = 0; i < words.length-2; i++){
-            if(attempt.equals(words[i].trim())){
+            if(attempt.toLowerCase().equals(words[i].trim().toLowerCase())){
                 t = true;
                 break;
             }
@@ -46,19 +48,18 @@ public class HangmanLogic {
     }
 
     public char[] letterGuessed(char letter){
-        char[] temp = new char[10];
-        for(int i : word){
-            if(letter == word[i]) {
-                temp[i] = letter;
-            }
+        char[] temp = word.clone();
+        for(int i = 0; i < temp.length; i++){
+            if(letter != word[i])
+                temp[i] = '!';
         }
         return temp;
     }
 
-    public int wordGuessed(char[] word){
+    public int wordGuessed(char[] attempt){
         int j = 0;
-        for(int i : word){
-            if(word[i] == word[i]) {
+        for(int i = 0; i < word.length; i++){
+            if(attempt[i] == word[i]) {
                 j++;
             }
         }
@@ -69,11 +70,17 @@ public class HangmanLogic {
         }
     }
 
-    public int checkDead(int revealed){
-        if(revealed == 6){
-            return 1;
+    public boolean eventLogic(char[] temp){
+        int j = 0;
+        for(int i = 0; i < temp.length; i++){
+            if(temp[i] == '!'){
+                j++;
+            }
+        }
+        if(j == temp.length){
+            return false;
         } else {
-            return 0;
+            return true;
         }
     }
 }
