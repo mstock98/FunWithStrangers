@@ -1,7 +1,6 @@
 package shaftware.funwithstrangers;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -10,7 +9,6 @@ import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
     //define buttons
@@ -28,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
 
         //instantiate buttons based on the buttons specified in our layout
         ticTacToeButton =  findViewById(R.id.ticTacToeButton);
-        chessButton = findViewById(R.id.chessButton);
+        chessButton = findViewById(R.id.checkersButton);
         hangManButton = findViewById(R.id.hangManButton);
         checkersButton = findViewById(R.id.checkersButton);
         onlineButton = findViewById(R.id.onlineButton);

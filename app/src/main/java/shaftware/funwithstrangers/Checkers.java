@@ -1,15 +1,20 @@
 package shaftware.funwithstrangers;
 
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.util.concurrent.TimeUnit;
+
+import shaftware.funwithstrangers.CheckersAi.difficulty;
 import shaftware.funwithstrangers.CheckersLogic.Move;
+import shaftware.funwithstrangers.CheckersLogic.outcome;
+import shaftware.funwithstrangers.CheckersLogic.square;
 
 public class Checkers extends AppCompatActivity {
 
@@ -41,25 +46,51 @@ public class Checkers extends AppCompatActivity {
     CheckersLogic.square[] board;
 
     CheckersLogic game;
+    CheckersAi ai;
+    boolean activeAi = false;
+
+    square playerPiece;
+
     Move selectedMove, destinationMove;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkers);
+    }
+
+    protected void onStart(){
+        super.onStart();
+
         //TODO
         //Configure
-        game = new CheckersLogic(CheckersLogic.square.WHITE, true);
-
+        configure(true, true, difficulty.IMPOSSIBLE);
 
         createBoard();
         initializeButtons();
         initializeBoard();
 
-        syncBoards();
         updateGameView();
 
 
+    }
+
+    private void configure(boolean playerFirst, boolean activeAi, difficulty aiDiff){
+        square aiPiece;
+        if (playerFirst) {
+            playerPiece = square.WHITE;
+            aiPiece = square.BLACK;
+        }
+        else {
+            playerPiece = square.BLACK;
+            aiPiece = square.WHITE;
+        }
+
+        game = new CheckersLogic(playerPiece, playerFirst);
+        if (activeAi){
+            ai = new CheckersAi(aiPiece, aiDiff, !playerFirst);
+            this.activeAi = true;
+        }
     }
 
     private void createBoard() {
@@ -88,7 +119,6 @@ public class Checkers extends AppCompatActivity {
         }
     }
 
-    //TODO
     //Syncs UIs single dimension board with logic's multidimensional board
     private void syncBoards() {
         for (int i = 0; i < board.length; i++) {
@@ -109,9 +139,9 @@ public class Checkers extends AppCompatActivity {
         }
     }
 
-    //TODO
-    //Set pieces to their correct color
     private void updateGameView() {
+        syncBoards();
+
         for (int i = 0; i < board.length; i++) {
             CheckersLogic.square square = board[i];
             buttons[i].setColorFilter(Color.TRANSPARENT);
@@ -169,22 +199,31 @@ public class Checkers extends AppCompatActivity {
         }
 
 
-        //TODO
         //if valid move...
         if (selectedMove != null && destinationMove != null && game.validMove(selectedMove, destinationMove, true)) {
 
-            //if turn can end... e.i. no more available moves that have to be made
+            //if turn can end... i.e. no more available moves that have to be made
             if (game.checkEndTurn(destinationMove)) {
-                //game.setTurn(false);
-                //TODO
-                game.swapPiece();
+                game.setTurn(false);
+                if (activeAi) {
+                    checkWinner();
+                    updateGameView();
+
+                    //TODO add delay for easy ai
+
+                    ai.game.setBoard(game.getBoard());
+                    ai.CheckersAiTurn();
+                    game.setBoard(ai.game.getBoard());
+                } else{
+                    game.swapPiece();
+                }
+                game.setTurn(true);
             }
 
             //checks and handles winning situations
             checkWinner();
-
-            syncBoards();
             updateGameView();
+
         }
 
 
@@ -205,8 +244,9 @@ public class Checkers extends AppCompatActivity {
     private void checkWinner() {
         //TODO
         //Do something if someone has won
-        CheckersLogic.outcome outcome = game.checkWinner();
-        if (outcome == CheckersLogic.outcome.IN_PROGRESS)
+        outcome outcome = game.checkWinner();
+
+        if (outcome == outcome.IN_PROGRESS)
             return;
 
         if (outcome == outcome.BLACK) {
@@ -217,5 +257,6 @@ public class Checkers extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Tie!", Toast.LENGTH_LONG).show();
         }
 
+        game.setTurn(false);
     }
 }

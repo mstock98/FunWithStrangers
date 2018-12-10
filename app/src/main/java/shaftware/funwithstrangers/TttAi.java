@@ -77,9 +77,7 @@ public class TttAi {
 
         int score = checkWinner(board);
 
-        if (score == 10)
-            return score;
-        if(score == -10)
+        if (score != 0)
             return score;
         if (game.checkWinner() != Winner.IN_PROGRESS)
             return 0;
