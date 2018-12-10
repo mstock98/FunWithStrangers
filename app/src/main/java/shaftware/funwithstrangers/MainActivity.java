@@ -28,9 +28,9 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
         //instantiate buttons based on the buttons specified in our layout
         UTTTButton = findViewById(R.id.UTTTButton);
         ticTacToeButton =  findViewById(R.id.ticTacToeButton);
-        chessButton = findViewById(R.id.checkersButton);
         hangManButton = findViewById(R.id.hangManButton);
         checkersButton = findViewById(R.id.checkersButton);
+        chessButton = findViewById(R.id.checkersButton);
         onlineButton = findViewById(R.id.onlineButton);
 
 

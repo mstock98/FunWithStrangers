@@ -1,1087 +1,1044 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:layout_editor_absoluteY="25dp">
 
     <TableLayout
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:id="@+id/gridI"
+        android:layout_width="97dp"
+        android:layout_height="97dp"
         android:background="@drawable/board"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        tools:layout_editor_absoluteX="279dp"
+        tools:layout_editor_absoluteY="8dp">
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TableLayout
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:background="@drawable/board"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+            <ImageButton
+                android:id="@+id/ttt00"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
 
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+            <ImageButton
+                android:id="@+id/ttt01"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
 
-                    <ImageButton
-                        android:id="@+id/ttt000"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt001"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt002"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageButton
-                        android:id="@+id/ttt010"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt011"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt012"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageButton
-                        android:id="@+id/ttt020"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt021"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt022"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-                </TableRow>
-
-            </TableLayout>
-
-            <TableLayout
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:background="@drawable/board"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageButton
-                        android:id="@+id/ttt100"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt101"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt102"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageButton
-                        android:id="@+id/ttt110"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt111"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt112"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageButton
-                        android:id="@+id/ttt120"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt121"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt122"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-                </TableRow>
-
-            </TableLayout>
-
-            <TableLayout
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:background="@drawable/board"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageButton
-                        android:id="@+id/ttt200"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt201"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt202"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageButton
-                        android:id="@+id/ttt210"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt211"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt212"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageButton
-                        android:id="@+id/ttt220"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt221"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt222"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-                </TableRow>
-
-            </TableLayout>
+            <ImageButton
+                android:id="@+id/ttt02"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TableLayout
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:background="@drawable/board"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+            <ImageButton
+                android:id="@+id/ttt20"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
 
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+            <ImageButton
+                android:id="@+id/ttt21"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
 
-                    <ImageButton
-                        android:id="@+id/ttt300"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt301"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt302"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageButton
-                        android:id="@+id/ttt310"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt311"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt312"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageButton
-                        android:id="@+id/ttt320"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt321"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt322"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-                </TableRow>
-
-            </TableLayout>
-
-            <TableLayout
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:background="@drawable/board"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageButton
-                        android:id="@+id/ttt400"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt401"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt402"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageButton
-                        android:id="@+id/ttt410"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt411"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt412"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageButton
-                        android:id="@+id/ttt420"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt421"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt422"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-                </TableRow>
-
-            </TableLayout>
-
-            <TableLayout
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:background="@drawable/board"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageButton
-                        android:id="@+id/ttt500"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt501"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt502"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageButton
-                        android:id="@+id/ttt510"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt511"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt512"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageButton
-                        android:id="@+id/ttt520"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt521"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt522"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-                </TableRow>
-
-            </TableLayout>
+            <ImageButton
+                android:id="@+id/ttt22"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TableLayout
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:background="@drawable/board"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+            <ImageButton
+                android:id="@+id/ttt10"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
 
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+            <ImageButton
+                android:id="@+id/ttt11"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
 
-                    <ImageButton
-                        android:id="@+id/ttt600"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt601"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt602"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageButton
-                        android:id="@+id/ttt610"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt611"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt612"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageButton
-                        android:id="@+id/ttt620"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt621"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt622"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-                </TableRow>
-
-            </TableLayout>
-
-            <TableLayout
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:background="@drawable/board"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageButton
-                        android:id="@+id/ttt700"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt701"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt702"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageButton
-                        android:id="@+id/ttt710"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt711"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt712"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageButton
-                        android:id="@+id/ttt720"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt721"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt722"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-                </TableRow>
-
-            </TableLayout>
-
-            <TableLayout
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:background="@drawable/board"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageButton
-                        android:id="@+id/ttt800"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt801"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt802"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageButton
-                        android:id="@+id/ttt810"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt811"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt812"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageButton
-                        android:id="@+id/ttt820"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt821"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-
-                    <ImageButton
-                        android:id="@+id/ttt822"
-                        style="@style/Widget.AppCompat.ImageButton"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/b"
-                        android:visibility="visible" />
-                </TableRow>
-
-            </TableLayout>
+            <ImageButton
+                android:id="@+id/ttt12"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
         </TableRow>
 
     </TableLayout>
+
+    <TableLayout
+        android:id="@+id/gridH"
+        android:layout_width="97dp"
+        android:layout_height="97dp"
+        android:background="@drawable/board"
+        tools:layout_editor_absoluteX="144dp"
+        tools:layout_editor_absoluteY="8dp">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/ttt00"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/ttt01"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/ttt02"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/ttt10"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/ttt11"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/ttt12"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/ttt20"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/ttt21"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/ttt22"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+        </TableRow>
+
+    </TableLayout>
+
+    <TableLayout
+        android:id="@+id/gridG"
+        android:layout_width="97dp"
+        android:layout_height="97dp"
+        android:background="@drawable/board"
+        tools:layout_editor_absoluteX="24dp"
+        tools:layout_editor_absoluteY="8dp">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/ttt00"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/ttt01"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/ttt02"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/ttt10"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/ttt11"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/ttt12"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/ttt20"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/ttt21"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/ttt22"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+        </TableRow>
+
+    </TableLayout>
+
+    <TableLayout
+        android:id="@+id/gridA"
+        android:layout_width="97dp"
+        android:layout_height="97dp"
+        android:background="@drawable/board"
+        tools:layout_editor_absoluteX="24dp"
+        tools:layout_editor_absoluteY="162dp">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/ttt00"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/ttt01"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/ttt02"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/ttt10"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/ttt11"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/ttt12"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/ttt20"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/ttt21"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/ttt22"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+        </TableRow>
+
+    </TableLayout>
+
+    <TableLayout
+        android:id="@+id/gridB"
+        android:layout_width="97dp"
+        android:layout_height="97dp"
+        android:background="@drawable/board"
+        tools:layout_editor_absoluteX="144dp"
+        tools:layout_editor_absoluteY="162dp">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/ttt00"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/ttt01"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/ttt02"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/ttt10"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/ttt11"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/ttt12"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/ttt20"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/ttt21"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/ttt22"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+        </TableRow>
+
+    </TableLayout>
+
+    <TableLayout
+        android:id="@+id/gridC"
+        android:layout_width="97dp"
+        android:layout_height="97dp"
+        android:background="@drawable/board"
+        tools:layout_editor_absoluteX="264dp"
+        tools:layout_editor_absoluteY="369dp">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/ttt00"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/ttt01"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/ttt02"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/ttt10"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/ttt11"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/ttt12"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/ttt20"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/ttt21"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/ttt22"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+        </TableRow>
+
+    </TableLayout>
+
+    <TableLayout
+        android:id="@+id/gridD"
+        android:layout_width="97dp"
+        android:layout_height="97dp"
+        android:background="@drawable/board"
+        tools:layout_editor_absoluteX="24dp"
+        tools:layout_editor_absoluteY="369dp">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/ttt00"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/ttt01"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/ttt02"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/ttt10"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/ttt11"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/ttt12"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/ttt20"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/ttt21"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/ttt22"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+        </TableRow>
+
+    </TableLayout>
+
+    <TableLayout
+        android:id="@+id/gridE"
+        android:layout_width="97dp"
+        android:layout_height="97dp"
+        android:background="@drawable/board"
+        tools:layout_editor_absoluteX="144dp"
+        tools:layout_editor_absoluteY="369dp">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/ttt00"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/ttt01"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/ttt02"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/ttt10"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/ttt11"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/ttt12"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/ttt20"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/ttt21"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/ttt22"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+        </TableRow>
+
+    </TableLayout>
+
+    <TableLayout
+        android:id="@+id/gridF"
+        android:layout_width="97dp"
+        android:layout_height="97dp"
+        android:background="@drawable/board"
+        tools:layout_editor_absoluteX="264dp"
+        tools:layout_editor_absoluteY="162dp">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/ttt00"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/ttt01"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/ttt02"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/ttt10"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/ttt11"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/ttt12"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/ttt20"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/ttt21"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/ttt22"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/b"
+                android:visibility="visible" />
+        </TableRow>
+
+    </TableLayout>
+
 </android.support.constraint.ConstraintLayout>
