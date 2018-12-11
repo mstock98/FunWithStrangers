@@ -8,8 +8,7 @@ import android.content.Intent;
         import android.view.View;
         import android.view.View.OnClickListener;
         import android.widget.ImageButton;
-        import android.widget.RelativeLayout;
-        import android.widget.Toast;
+import android.widget.Toast;
 
         import com.google.android.gms.nearby.Nearby;
         import com.google.android.gms.nearby.connection.AdvertisingOptions;
@@ -252,7 +251,7 @@ public class TicTacToe extends AppCompatActivity {
                 buttons[i].setImageResource(R.drawable.o);
             }
             if (piece == Piece.OPEN) {
-                buttons[i].setImageResource(R.drawable.b);
+                buttons[i].setImageResource(R.drawable.blank);
             }
         }
     }

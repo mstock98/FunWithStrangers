@@ -4,48 +4,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:layout_editor_absoluteY="25dp">
+    tools:layout_editor_absoluteY="81dp">
 
     <TableLayout
-        android:id="@+id/gridI"
+        android:id="@+id/grid2"
         android:layout_width="97dp"
         android:layout_height="97dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/board"
-        tools:layout_editor_absoluteX="279dp"
-        tools:layout_editor_absoluteY="8dp">
+        app:layout_constraintStart_toEndOf="@+id/grid1"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <ImageButton
-                android:id="@+id/ttt00"
+                android:id="@+id/c200"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt01"
+                android:id="@+id/c201"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt02"
+                android:id="@+id/c202"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
         </TableRow>
 
@@ -54,33 +56,33 @@
             android:layout_height="match_parent">
 
             <ImageButton
-                android:id="@+id/ttt20"
+                android:id="@+id/c210"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt21"
+                android:id="@+id/c211"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt22"
+                android:id="@+id/c212"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
         </TableRow>
 
@@ -89,78 +91,80 @@
             android:layout_height="match_parent">
 
             <ImageButton
-                android:id="@+id/ttt10"
+                android:id="@+id/c220"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt11"
+                android:id="@+id/c221"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt12"
+                android:id="@+id/c222"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
         </TableRow>
 
     </TableLayout>
 
     <TableLayout
-        android:id="@+id/gridH"
+        android:id="@+id/grid1"
         android:layout_width="97dp"
         android:layout_height="97dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/board"
-        tools:layout_editor_absoluteX="144dp"
-        tools:layout_editor_absoluteY="8dp">
+        app:layout_constraintStart_toEndOf="@+id/grid0"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <ImageButton
-                android:id="@+id/ttt00"
+                android:id="@+id/c100"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt01"
+                android:id="@+id/c101"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt02"
+                android:id="@+id/c102"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
         </TableRow>
 
@@ -169,33 +173,33 @@
             android:layout_height="match_parent">
 
             <ImageButton
-                android:id="@+id/ttt10"
+                android:id="@+id/c110"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt11"
+                android:id="@+id/c111"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt12"
+                android:id="@+id/c112"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
         </TableRow>
 
@@ -204,78 +208,80 @@
             android:layout_height="match_parent">
 
             <ImageButton
-                android:id="@+id/ttt20"
+                android:id="@+id/c120"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt21"
+                android:id="@+id/c121"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt22"
+                android:id="@+id/c122"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
         </TableRow>
 
     </TableLayout>
 
     <TableLayout
-        android:id="@+id/gridG"
+        android:id="@+id/grid0"
         android:layout_width="97dp"
         android:layout_height="97dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/board"
-        tools:layout_editor_absoluteX="24dp"
-        tools:layout_editor_absoluteY="8dp">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <ImageButton
-                android:id="@+id/ttt00"
+                android:id="@+id/c000"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt01"
+                android:id="@+id/c001"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt02"
+                android:id="@+id/c002"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
         </TableRow>
 
@@ -284,33 +290,33 @@
             android:layout_height="match_parent">
 
             <ImageButton
-                android:id="@+id/ttt10"
+                android:id="@+id/c010"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt11"
+                android:id="@+id/c011"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt12"
+                android:id="@+id/c012"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
         </TableRow>
 
@@ -319,78 +325,80 @@
             android:layout_height="match_parent">
 
             <ImageButton
-                android:id="@+id/ttt20"
+                android:id="@+id/c020"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt21"
+                android:id="@+id/c021"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt22"
+                android:id="@+id/c022"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
         </TableRow>
 
     </TableLayout>
 
     <TableLayout
-        android:id="@+id/gridA"
+        android:id="@+id/grid3"
         android:layout_width="97dp"
         android:layout_height="97dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/board"
-        tools:layout_editor_absoluteX="24dp"
-        tools:layout_editor_absoluteY="162dp">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/grid0">
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <ImageButton
-                android:id="@+id/ttt00"
+                android:id="@+id/c300"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt01"
+                android:id="@+id/c301"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt02"
+                android:id="@+id/c302"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
         </TableRow>
 
@@ -399,33 +407,33 @@
             android:layout_height="match_parent">
 
             <ImageButton
-                android:id="@+id/ttt10"
+                android:id="@+id/c310"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt11"
+                android:id="@+id/c311"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt12"
+                android:id="@+id/c312"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
         </TableRow>
 
@@ -434,78 +442,80 @@
             android:layout_height="match_parent">
 
             <ImageButton
-                android:id="@+id/ttt20"
+                android:id="@+id/c320"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt21"
+                android:id="@+id/c321"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt22"
+                android:id="@+id/c322"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
         </TableRow>
 
     </TableLayout>
 
     <TableLayout
-        android:id="@+id/gridB"
+        android:id="@+id/grid4"
         android:layout_width="97dp"
         android:layout_height="97dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/board"
-        tools:layout_editor_absoluteX="144dp"
-        tools:layout_editor_absoluteY="162dp">
+        app:layout_constraintStart_toEndOf="@+id/grid3"
+        app:layout_constraintTop_toBottomOf="@+id/grid1">
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <ImageButton
-                android:id="@+id/ttt00"
+                android:id="@+id/c400"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt01"
+                android:id="@+id/c401"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt02"
+                android:id="@+id/c402"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
         </TableRow>
 
@@ -514,33 +524,33 @@
             android:layout_height="match_parent">
 
             <ImageButton
-                android:id="@+id/ttt10"
+                android:id="@+id/c410"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt11"
+                android:id="@+id/c411"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt12"
+                android:id="@+id/c412"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
         </TableRow>
 
@@ -549,78 +559,80 @@
             android:layout_height="match_parent">
 
             <ImageButton
-                android:id="@+id/ttt20"
+                android:id="@+id/c420"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt21"
+                android:id="@+id/c421"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt22"
+                android:id="@+id/c422"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
         </TableRow>
 
     </TableLayout>
 
     <TableLayout
-        android:id="@+id/gridC"
+        android:id="@+id/grid8"
         android:layout_width="97dp"
         android:layout_height="97dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/board"
-        tools:layout_editor_absoluteX="264dp"
-        tools:layout_editor_absoluteY="369dp">
+        app:layout_constraintStart_toEndOf="@+id/grid7"
+        app:layout_constraintTop_toBottomOf="@+id/grid5">
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <ImageButton
-                android:id="@+id/ttt00"
+                android:id="@+id/c800"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt01"
+                android:id="@+id/c801"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt02"
+                android:id="@+id/c802"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
         </TableRow>
 
@@ -629,33 +641,33 @@
             android:layout_height="match_parent">
 
             <ImageButton
-                android:id="@+id/ttt10"
+                android:id="@+id/c810"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt11"
+                android:id="@+id/c811"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt12"
+                android:id="@+id/c812"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
         </TableRow>
 
@@ -664,78 +676,80 @@
             android:layout_height="match_parent">
 
             <ImageButton
-                android:id="@+id/ttt20"
+                android:id="@+id/c820"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt21"
+                android:id="@+id/c821"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt22"
+                android:id="@+id/c822"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
         </TableRow>
 
     </TableLayout>
 
     <TableLayout
-        android:id="@+id/gridD"
+        android:id="@+id/grid6"
         android:layout_width="97dp"
         android:layout_height="97dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/board"
-        tools:layout_editor_absoluteX="24dp"
-        tools:layout_editor_absoluteY="369dp">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/grid3">
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <ImageButton
-                android:id="@+id/ttt00"
+                android:id="@+id/c600"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt01"
+                android:id="@+id/c601"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt02"
+                android:id="@+id/c602"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
         </TableRow>
 
@@ -744,33 +758,33 @@
             android:layout_height="match_parent">
 
             <ImageButton
-                android:id="@+id/ttt10"
+                android:id="@+id/c610"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt11"
+                android:id="@+id/c611"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt12"
+                android:id="@+id/c612"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
         </TableRow>
 
@@ -779,78 +793,80 @@
             android:layout_height="match_parent">
 
             <ImageButton
-                android:id="@+id/ttt20"
+                android:id="@+id/c620"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt21"
+                android:id="@+id/c621"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt22"
+                android:id="@+id/c622"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
         </TableRow>
 
     </TableLayout>
 
     <TableLayout
-        android:id="@+id/gridE"
+        android:id="@+id/grid7"
         android:layout_width="97dp"
         android:layout_height="97dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/board"
-        tools:layout_editor_absoluteX="144dp"
-        tools:layout_editor_absoluteY="369dp">
+        app:layout_constraintStart_toEndOf="@+id/grid6"
+        app:layout_constraintTop_toBottomOf="@+id/grid4">
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <ImageButton
-                android:id="@+id/ttt00"
+                android:id="@+id/c700"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt01"
+                android:id="@+id/c701"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt02"
+                android:id="@+id/c702"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
         </TableRow>
 
@@ -859,33 +875,33 @@
             android:layout_height="match_parent">
 
             <ImageButton
-                android:id="@+id/ttt10"
+                android:id="@+id/c710"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt11"
+                android:id="@+id/c711"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt12"
+                android:id="@+id/c712"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
         </TableRow>
 
@@ -894,78 +910,80 @@
             android:layout_height="match_parent">
 
             <ImageButton
-                android:id="@+id/ttt20"
+                android:id="@+id/c720"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt21"
+                android:id="@+id/c721"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt22"
+                android:id="@+id/c722"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
         </TableRow>
 
     </TableLayout>
 
     <TableLayout
-        android:id="@+id/gridF"
+        android:id="@+id/grid5"
         android:layout_width="97dp"
         android:layout_height="97dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/board"
-        tools:layout_editor_absoluteX="264dp"
-        tools:layout_editor_absoluteY="162dp">
+        app:layout_constraintStart_toEndOf="@+id/grid4"
+        app:layout_constraintTop_toBottomOf="@+id/grid2">
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <ImageButton
-                android:id="@+id/ttt00"
+                android:id="@+id/c500"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt01"
+                android:id="@+id/c501"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt02"
+                android:id="@+id/c502"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
         </TableRow>
 
@@ -974,33 +992,33 @@
             android:layout_height="match_parent">
 
             <ImageButton
-                android:id="@+id/ttt10"
+                android:id="@+id/c510"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt11"
+                android:id="@+id/c511"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt12"
+                android:id="@+id/c512"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
         </TableRow>
 
@@ -1009,33 +1027,33 @@
             android:layout_height="match_parent">
 
             <ImageButton
-                android:id="@+id/ttt20"
+                android:id="@+id/c520"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt21"
+                android:id="@+id/c521"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
-                android:id="@+id/ttt22"
+                android:id="@+id/c522"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
         </TableRow>
 

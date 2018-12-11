@@ -27,7 +27,7 @@
                 android:layout_height="100dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
@@ -37,7 +37,7 @@
                 android:layout_height="100dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
@@ -47,7 +47,7 @@
                 android:layout_height="100dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
         </TableRow>
 
@@ -62,7 +62,7 @@
                 android:layout_height="100dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
@@ -72,7 +72,7 @@
                 android:layout_height="100dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
@@ -82,7 +82,7 @@
                 android:layout_height="100dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
         </TableRow>
 
@@ -97,7 +97,7 @@
                 android:layout_height="100dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
@@ -107,7 +107,7 @@
                 android:layout_height="100dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
 
             <ImageButton
@@ -117,7 +117,7 @@
                 android:layout_height="100dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:src="@drawable/b"
+                android:src="@drawable/blank"
                 android:visibility="visible" />
         </TableRow>
 
