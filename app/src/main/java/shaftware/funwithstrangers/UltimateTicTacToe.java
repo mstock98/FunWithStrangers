@@ -426,6 +426,7 @@ public class UltimateTicTacToe extends AppCompatActivity {
 
                 if (validSpot) {
                     UTTTGame.swapPiece();
+                    updateGameView(UTTTGame, row, col);
                 }
             }
 
