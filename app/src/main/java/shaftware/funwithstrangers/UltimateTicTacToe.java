@@ -59,7 +59,6 @@ public class UltimateTicTacToe extends AppCompatActivity {
             {"c610", "c611", "c612", "c710", "c711", "c712", "c810", "c811", "c812"},
             {"c620", "c621", "c622", "c720", "c721", "c722", "c820", "c821", "c822"}};
 
-    UltimateTTTLogic UltimateTTTGame = null;
     boolean playerFirst; // who goes first, true is me, false is the other person
     boolean begin; // can we start playing
     Piece playerPIECE;
@@ -76,8 +75,8 @@ public class UltimateTicTacToe extends AppCompatActivity {
         UTTTGame = new UltimateTTTLogic(Piece.X);
 
         //Creates on click listeners and everything for the TTT grid buttons
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
                 int resID = getResources().getIdentifier(buttonsID[i][j], "id", getPackageName());
                 buttons[i][j] = findViewById(resID);
                 buttons[i][j].setOnClickListener(new View.OnClickListener() {
@@ -87,6 +86,8 @@ public class UltimateTicTacToe extends AppCompatActivity {
                 });
             }
         }
+
+        updateGameView(UTTTGame);
     }
 
     //Interface between button pressed and TttLogic
@@ -169,6 +170,10 @@ public class UltimateTicTacToe extends AppCompatActivity {
                         row = 2;
                         col = 4;
                         break;
+                    case R.id.c122:
+                        row = 2;
+                        col = 5;
+                        break;
                     case R.id.c200:
                         row = 0;
                         col = 6;
@@ -199,11 +204,11 @@ public class UltimateTicTacToe extends AppCompatActivity {
                         break;
                     case R.id.c221:
                         row = 2;
-                        col = 5;
+                        col = 7;
                         break;
                     case R.id.c222:
                         row = 2;
-                        col = 7;
+                        col = 8;
                         break;
                     case R.id.c300:
                         row = 3;
@@ -267,15 +272,15 @@ public class UltimateTicTacToe extends AppCompatActivity {
                         break;
                     case R.id.c420:
                         row = 5;
-                        col = 0;
+                        col = 3;
                         break;
                     case R.id.c421:
                         row = 5;
-                        col = 1;
+                        col = 4;
                         break;
                     case R.id.c422:
                         row = 5;
-                        col = 2;
+                        col = 5;
                         break;
                     case R.id.c500:
                         row = 3;
@@ -426,8 +431,10 @@ public class UltimateTicTacToe extends AppCompatActivity {
 
                 if (validSpot) {
                     UTTTGame.swapPiece();
-                    updateGameView(UTTTGame, row, col);
+                    updateGameView(UTTTGame);
                 }
+
+                checkWinner();
             }
 
 
@@ -481,8 +488,29 @@ public class UltimateTicTacToe extends AppCompatActivity {
         }
     }
 
+    //Refreshes every button's image to correspond with the gameboard
+    private void updateGameView(UltimateTTTLogic game) {
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                Piece piece = game.getBoardPiece(i, j);
+                if (piece == Piece.X) {
+                    buttons[i][j].setImageResource(R.drawable.x);
+                }
+                if (piece == Piece.O) {
+                    buttons[i][j].setImageResource(R.drawable.o);
+                }
+                if (piece == Piece.OPEN) {
+                    buttons[i][j].setImageResource(R.drawable.highlighted_translucent);
+                }
+                if (piece == Piece.DISABLED) {
+                    buttons[i][j].setImageResource(R.drawable.blank);
+                }
+            }
+        }
+    }
+
     private boolean checkWinner() {
-        Winner winner = UltimateTTTGame.checkWinner();
+        Winner winner = UTTTGame.checkWinner();
         if (winner == Winner.O) {
             Toast.makeText(getApplicationContext(), "O Won!", Toast.LENGTH_LONG).show();
             return true;

@@ -25,7 +25,7 @@ public class titleScreen extends AppCompatActivity {
                 id.titleText);
         switch(mode){
             case ULTIMATETICTACTOE:
-                title.setText("Ultimate Tic Tac Toe");
+                title.setText("Ultimate TTT");
                 break;
             case CHECKERS:
                 title.setText("Checkers");
