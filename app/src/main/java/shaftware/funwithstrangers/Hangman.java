@@ -1,5 +1,6 @@
 package shaftware.funwithstrangers;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,8 +23,11 @@ public class Hangman extends AppCompatActivity {
     ImageView rarmImage;
     ImageView llegImage;
     ImageView rlegImage;
+    Button returnButton;
     Button hangmanButton;
     Button hangmanGuess;
+    Button guessButton;
+    EditText guessText;
     EditText hangmanText;
     TextView t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;
     TextView[] texts = {t0, t1, t2, t3, t4, t5, t6, t7, t8, t9};
@@ -86,7 +90,7 @@ public class Hangman extends AppCompatActivity {
             case 5: llegImage.setVisibility(View.VISIBLE);
                     break;
             case 6: rlegImage.setVisibility(View.VISIBLE);
-                    gameOver();
+                    gameOver(false);
                     break;
         }
     }
@@ -97,16 +101,49 @@ public class Hangman extends AppCompatActivity {
                 texts[i].setText(Character.toString(word[i]));
             }
         }
+        int j = 0;
+        for(int i = 0; i < word.length; i++){
+            if(texts[i].getText().charAt(0) == word[i]){
+                j++;
+            }
+        }
+        if(j == word.length){
+            gameOver(true);
+        }
     }
 
-    private void gameOver(){
-        getWindow().getDecorView().setBackgroundColor(Color.RED);
+    private void gameOver(boolean state){
+        for (int i = 0; i < buttons.length; i++) {
+            buttons[i].setVisibility(View.GONE);
+        }
+        for (int i = 0; i < word.length; i++) {
+            texts[i].setVisibility(View.GONE);
+        }
+        hangmanGuess.setVisibility(View.GONE);
+        postImage.setVisibility(View.GONE);
+        headImage.setVisibility(View.GONE);
+        bodyImage.setVisibility(View.GONE);
+        larmImage.setVisibility(View.GONE);
+        rarmImage.setVisibility(View.GONE);
+        llegImage.setVisibility(View.GONE);
+        rlegImage.setVisibility(View.GONE);
+        returnButton.setVisibility(View.VISIBLE);
+        if(state){
+            returnButton.setText("You Win");
+            getWindow().getDecorView().setBackgroundColor(Color.GREEN);
+        } else {
+            returnButton.setText("You Lose");
+            getWindow().getDecorView().setBackgroundColor(Color.RED);
+        }
     }
 
     private void initialize(int state) {
         if(state == 0){
             hangmanButton = findViewById(R.id.hangmanButton);
             hangmanText = findViewById(R.id.hangmanText);
+            returnButton = findViewById(R.id.returnButton);
+            guessButton = findViewById(R.id.guessButton);
+            guessText = findViewById(R.id.guessText);
         } else if(state == 1) {
             hangmanButton.setVisibility(View.GONE);
             hangmanText.setVisibility(View.GONE);
@@ -146,6 +183,54 @@ public class Hangman extends AppCompatActivity {
     }
 
     private void events(){
+        returnButton.setOnClickListener(new OnClickListener() {
+            public void onClick(View arg0) {
+                Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(myIntent);
+            }
+        });
+
+        hangmanGuess.setOnClickListener(new OnClickListener() {
+            public void onClick(View arg0) {
+                for (int i = 0; i < buttons.length; i++) {
+                    buttons[i].setVisibility(View.GONE);
+                }
+                hangmanGuess.setVisibility(View.GONE);
+                postImage.setVisibility(View.GONE);
+                headImage.setVisibility(View.GONE);
+                bodyImage.setVisibility(View.GONE);
+                larmImage.setVisibility(View.GONE);
+                rarmImage.setVisibility(View.GONE);
+                llegImage.setVisibility(View.GONE);
+                rlegImage.setVisibility(View.GONE);
+                guessButton.setVisibility(View.VISIBLE);
+                guessText.setVisibility(View.VISIBLE);
+            }
+        });
+
+        guessButton.setOnClickListener(new OnClickListener() {
+            public void onClick(View arg0) {
+                guessText.setVisibility(View.GONE);
+                guessButton.setVisibility(View.GONE);
+                int j = 0;
+                char[] temp = guessText.getText().toString().toCharArray();
+                if(temp.length == word.length){
+                    for(int i = 0; i < word.length; i++){
+                        if(temp[i] == word[i]){
+                            j++;
+                        }
+                    }
+                    if(j == word.length){
+                        gameOver(true);
+                    } else {
+                        gameOver(false);
+                    }
+                } else {
+                    gameOver(false);
+                }
+            }
+        });
+
         buttons[0].setOnClickListener(new OnClickListener() {
             public void onClick(View arg0) {
                 buttons[0].setVisibility(View.INVISIBLE);
