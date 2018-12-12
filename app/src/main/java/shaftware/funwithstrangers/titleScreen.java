@@ -24,6 +24,9 @@ public class titleScreen extends AppCompatActivity {
         TextView title = findViewById(R.
                 id.titleText);
         switch(mode){
+            case ULTIMATETICTACTOE:
+                title.setText("Ultimate TTT");
+                break;
             case CHECKERS:
                 title.setText("Checkers");
                 break;
@@ -36,6 +39,9 @@ public class titleScreen extends AppCompatActivity {
             case HANGMAN:
                 title.setText("Hang Man");
                 break;
+            default:
+                title.setText(" ");
+                break;
         }
 
         Button hostButton = findViewById(R.id.hostButton);
@@ -44,6 +50,9 @@ public class titleScreen extends AppCompatActivity {
                 Globals.setHost(true);
                 Class next = titleScreen.class;
                 switch(mode){
+                    case ULTIMATETICTACTOE:
+                        next = UltimateTicTacToe.class;
+                        break;
                     case CHECKERS:
                         next = Checkers.class;
                         break;

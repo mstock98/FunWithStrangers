@@ -4,51 +4,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    tools:layout_editor_absoluteY="25dp">
 
     <Button
         android:id="@+id/hangManButton"
         android:layout_width="251dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="70dp"
-        android:layout_marginEnd="70dp"
-        android:layout_marginBottom="30dp"
+        android:layout_height="wrap_content"
         android:text="Hang Man"
-        app:layout_constraintBottom_toTopOf="@+id/checkersButton"
+        app:layout_constraintBottom_toTopOf="@+id/UTTTButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/ticTacToeButton"
         android:layout_width="251dp"
         android:layout_height="58dp"
-        android:layout_marginStart="70dp"
-        android:layout_marginEnd="70dp"
-        android:layout_marginBottom="30dp"
         android:text="Tic Tac Toe"
-        app:layout_constraintBottom_toTopOf="@+id/hangManButton"
+        app:layout_constraintBottom_toTopOf="@+id/UTTTButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hangManButton"
+        app:layout_constraintVertical_bias="0.506" />
 
     <Button
         android:id="@+id/checkersButton"
         android:layout_width="251dp"
         android:layout_height="58dp"
-        android:layout_marginStart="70dp"
-        android:layout_marginEnd="70dp"
-        android:layout_marginBottom="126dp"
-        android:text="Checkers"
+        android:text="checkers"
         app:layout_constraintBottom_toTopOf="@+id/onlineButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/UTTTButton"
+        app:layout_constraintVertical_bias="0.514" />
 
     <TextView
         android:id="@+id/titleText"
         android:layout_width="240dp"
         android:layout_height="50dp"
-        android:layout_marginStart="70dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="70dp"
         android:fontFamily="@font/allerta"
         android:text="Fun With Strangers"
         android:textAlignment="center"
@@ -56,21 +50,30 @@
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:layout_editor_absoluteY="30dp" />
 
     <ToggleButton
         android:id="@+id/onlineButton"
         style="@style/Base.Widget.AppCompat.Button"
         android:layout_width="225dp"
         android:layout_height="62dp"
-        android:layout_marginStart="80dp"
-        android:layout_marginEnd="80dp"
-        android:layout_marginBottom="28dp"
+        android:layout_marginBottom="8dp"
         android:textAlignment="center"
         android:textOff="Offline"
         android:textOn="Online"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/UTTTButton" />
+
+    <Button
+        android:id="@+id/UTTTButton"
+        android:layout_width="248dp"
+        android:layout_height="55dp"
+        android:text="Ultimate Tic Tac Toe"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
