@@ -6,16 +6,13 @@ import java.io.InputStream;
 
 public class HangmanLogic {
     private char[] word;
-    private String[] words = new String[41173];
+    private String[] words = new String[41172];
     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
     /* Constructor
      * creates an array of white-listed words
      */
     public HangmanLogic(InputStream inputStream){
-
-        word = "ass".toCharArray();
-
         try{
             int i = inputStream.read();
             int j = 0;
@@ -33,13 +30,17 @@ public class HangmanLogic {
         }catch(IOException e){
             e.printStackTrace();
         }
+
+        for(int i = 0; i < words.length-2; i++){
+            words[i] = words[i].trim();
+        }
     }
 
     // English Word Authentication method
     public boolean wordAuth(String attempt){
         boolean t = false;
         for(int i = 0; i < words.length-2; i++){
-            if(attempt.toLowerCase().equals(words[i].trim().toLowerCase())){
+            if(attempt.toLowerCase().equals(words[i])){
                 t = true;
                 break;
             }
@@ -56,18 +57,9 @@ public class HangmanLogic {
         return temp;
     }
 
-    public int wordGuessed(char[] attempt){
-        int j = 0;
-        for(int i = 0; i < word.length; i++){
-            if(attempt[i] == word[i]) {
-                j++;
-            }
-        }
-        if(j == word.length){
-            return 1;
-        } else {
-            return 0;
-        }
+    public String getWord(int i){
+        word = words[i].toCharArray();
+        return words[i];
     }
 
     public boolean eventLogic(char[] temp){

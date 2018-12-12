@@ -56,9 +56,15 @@
         <activity
             android:name=".titleScreen"
             android:screenOrientation="portrait" />
-        <activity android:name=".Checkers" />
-        <activity android:name=".Hangman"></activity>
-        <activity android:name=".UltimateTicTacToe"/>
+        <activity android:name=".Checkers"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".Hangman">
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".UltimateTicTacToe"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>

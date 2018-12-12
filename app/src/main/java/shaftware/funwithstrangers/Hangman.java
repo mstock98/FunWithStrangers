@@ -1,16 +1,20 @@
 package shaftware.funwithstrangers;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Random;
 
 public class Hangman extends AppCompatActivity {
 
@@ -47,9 +51,6 @@ public class Hangman extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        word = "ass".toCharArray();
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hangman);
 
@@ -59,12 +60,14 @@ public class Hangman extends AppCompatActivity {
         // UI
         level = 0;
         initialize(0);
+        getWord();
 
         hangmanButton.setOnClickListener(new OnClickListener() {
             public void onClick(View arg0) {
                 boolean t = logic.wordAuth(hangmanText.getEditableText().toString().trim());
                 if(t){
                     initialize(1);
+                    closeKeyboard();
                 } else {
                     Toast.makeText(getApplicationContext(), "Word not accepted", Toast.LENGTH_LONG).show();
                 }
@@ -72,8 +75,18 @@ public class Hangman extends AppCompatActivity {
         });
     }
 
-    public void payloadRecieved(byte[] temp){
-        //word = temp;
+    private void closeKeyboard(){
+        InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(findViewById(android.R.id.content).getRootView().getWindowToken(),0);
+    }
+
+    private void getWord(){
+        if(Globals.getOnline()){
+            //REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEECCCCCCCCCCCIEV PAYLOAd
+        } else {
+            int random = (new Random()).nextInt(41171);
+            word = logic.getWord(random).toCharArray();
+        }
     }
 
     private void addLimb(){
@@ -117,7 +130,7 @@ public class Hangman extends AppCompatActivity {
             buttons[i].setVisibility(View.GONE);
         }
         for (int i = 0; i < word.length; i++) {
-            texts[i].setVisibility(View.GONE);
+            texts[i].setText(Character.toString(word[i]));
         }
         hangmanGuess.setVisibility(View.GONE);
         postImage.setVisibility(View.GONE);
@@ -221,11 +234,14 @@ public class Hangman extends AppCompatActivity {
                         }
                     }
                     if(j == word.length){
+                        closeKeyboard();
                         gameOver(true);
                     } else {
+                        closeKeyboard();
                         gameOver(false);
                     }
                 } else {
+                    closeKeyboard();
                     gameOver(false);
                 }
             }
