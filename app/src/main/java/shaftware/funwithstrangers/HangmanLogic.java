@@ -62,10 +62,6 @@ public class HangmanLogic {
         return words[i];
     }
 
-    public void setWord(char[] w){
-        word = w;
-    }
-
     public boolean eventLogic(char[] temp){
         int j = 0;
         for(int i = 0; i < temp.length; i++){
