@@ -434,7 +434,18 @@ public class UltimateTicTacToe extends AppCompatActivity {
                     updateGameView(UTTTGame);
                 }
 
-                checkWinner();
+                // Dumb AI
+                if (!checkWinner()) {
+                    do {
+                        row = (int) (Math.random() * 9);
+                        col = (int) (Math.random() * 9);
+                    } while (!UTTTGame.pickSpot(row, col));
+
+                    UTTTGame.swapPiece();
+                    updateGameView(UTTTGame);
+                } else {
+                    updateGameView(UTTTGame);
+                }
             }
 
 
@@ -475,20 +486,6 @@ public class UltimateTicTacToe extends AppCompatActivity {
         }
 
     //Refreshes every button's image to correspond with the gameboard
-    private void updateGameView(UltimateTTTLogic game, int row, int col) {
-        Piece piece = game.getBoardPiece(row, col);
-        if (piece == Piece.X) {
-            buttons[row][col].setImageResource(R.drawable.x);
-        }
-        if (piece == Piece.O) {
-            buttons[row][col].setImageResource(R.drawable.o);
-        }
-        if (piece == Piece.OPEN) {
-            buttons[row][col].setImageResource(R.drawable.blank);
-        }
-    }
-
-    //Refreshes every button's image to correspond with the gameboard
     private void updateGameView(UltimateTTTLogic game) {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
@@ -513,9 +510,19 @@ public class UltimateTicTacToe extends AppCompatActivity {
         Winner winner = UTTTGame.checkWinner();
         if (winner == Winner.O) {
             Toast.makeText(getApplicationContext(), "O Won!", Toast.LENGTH_LONG).show();
+            for (int i = 0; i < 9; i++) {
+                for (int j = 0; j < 9; j++) {
+                    UTTTGame.setBoardPiece(Piece.O, i, j);
+                }
+            }
             return true;
         } else if (winner == Winner.X) {
             Toast.makeText(getApplicationContext(), "X Won!", Toast.LENGTH_LONG).show();
+            for (int i = 0; i < 9; i++) {
+                for (int j = 0; j < 9; j++) {
+                    UTTTGame.setBoardPiece(Piece.X, i, j);
+                }
+            }
             return true;
         } else if (winner == Winner.TIE) {
             Toast.makeText(getApplicationContext(), "Tie!", Toast.LENGTH_LONG).show();
