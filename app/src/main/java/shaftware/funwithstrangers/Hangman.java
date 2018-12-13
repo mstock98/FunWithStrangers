@@ -19,7 +19,6 @@ import java.util.Random;
 public class Hangman extends AppCompatActivity {
 
     HangmanLogic logic;
-
     ImageView postImage;
     ImageView headImage;
     ImageView bodyImage;
@@ -49,6 +48,8 @@ public class Hangman extends AppCompatActivity {
     int level;
     char[] word;
 
+    receiver r = new receiver();
+    String Sendword;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,13 +61,29 @@ public class Hangman extends AppCompatActivity {
         // UI
         level = 0;
         initialize(0);
-        getWord();
+        if(!Globals.MultClient.getOnline()){
+            getWord();
+        }else{
+            Globals.MultClient.setContext(getApplicationContext());
+            Globals.MultClient.setCallback(r);
+        }
+
 
         hangmanButton.setOnClickListener(new OnClickListener() {
             public void onClick(View arg0) {
                 boolean t = logic.wordAuth(hangmanText.getEditableText().toString().trim());
                 if(t){
-                    initialize(1);
+                    Sendword = hangmanText.getEditableText().toString().trim();
+                    if(!Globals.MultClient.getOnline()){
+                        initialize(1);
+                    }else{
+                        if(Globals.MultClient.getHost()){
+                            Globals.MultClient.advertise(getApplicationContext());
+                        }else{
+                            Globals.MultClient.connect();
+                        }
+
+                    }
                     closeKeyboard();
                 } else {
                     Toast.makeText(getApplicationContext(), "Word not accepted", Toast.LENGTH_LONG).show();
@@ -81,12 +98,8 @@ public class Hangman extends AppCompatActivity {
     }
 
     private void getWord(){
-        if(Globals.getOnline()){
-            //REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEECCCCCCCCCCCIEV PAYLOAd
-        } else {
             int random = (new Random()).nextInt(41171);
             word = logic.getWord(random).toCharArray();
-        }
     }
 
     private void addLimb(){
@@ -558,5 +571,39 @@ public class Hangman extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void PayloadReceived(byte[] b){
+        word = new char[b.length];
+        for(int i = 0; i < b.length; i++){
+            word[i] = (char)b[i];
+        }
+        logic.setWord(word);
+        initialize(1);
+    }
+
+    public void theyDisconnected(){
+       //in this game it doesn't matter if they leave, you just connect to pass words
+    }
+
+    public void connected(){
+        if(Globals.MultClient.getHost()) {
+            Globals.MultClient.stopAdvert(getApplication());
+        }
+        byte[] b = new byte[Sendword.length()];
+        for(int i = 0; i < b.length; i++){
+            b[i] = (byte)Sendword.charAt(i);
+        }
+        Globals.MultClient.sendPayload(b);
+    }
+
+    public class receiver implements Receiver{
+        public void receive(byte[] b){
+            PayloadReceived(b);
+        }
+        public void onConnection(){
+            connected();
+        }
+        public void onDisconnect(){theyDisconnected();}
     }
 }
