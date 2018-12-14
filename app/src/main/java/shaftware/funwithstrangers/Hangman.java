@@ -173,13 +173,13 @@ public class Hangman extends AppCompatActivity {
             hangmanButton.setVisibility(View.GONE);
             hangmanText.setVisibility(View.GONE);
             hangmanGuess = findViewById(R.id.hangmanGuess);
-            postImage = findViewById(R.id.postImage);;
-            headImage = findViewById(R.id.headImage);;
-            bodyImage = findViewById(R.id.bodyImage);;
-            larmImage = findViewById(R.id.larmImage);;
-            rarmImage = findViewById(R.id.rarmImage);;
-            llegImage = findViewById(R.id.llegImage);;
-            rlegImage = findViewById(R.id.rlegImage);;
+            postImage = findViewById(R.id.postImage);
+            headImage = findViewById(R.id.headImage);
+            bodyImage = findViewById(R.id.bodyImage);
+            larmImage = findViewById(R.id.larmImage);
+            rarmImage = findViewById(R.id.rarmImage);
+            llegImage = findViewById(R.id.llegImage);
+            rlegImage = findViewById(R.id.rlegImage);
             hangmanGuess.setVisibility(View.VISIBLE);
             postImage.setVisibility(View.VISIBLE);
             for (int i = 0; i < buttons.length; i++) {

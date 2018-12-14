@@ -27,11 +27,11 @@ public class CheckersAi {
     }
 
     public void CheckersAiTurn() {
-        if (diff == difficulty.HARD || diff == difficulty.IMPOSSIBLE) {
-            findBestMove();
-        } else if (diff == difficulty.EASY) {
+//        if (diff == difficulty.HARD || diff == difficulty.IMPOSSIBLE) {
+//            findBestMove();
+//        } else if (diff == difficulty.EASY) {
             randomMove();
-        }
+//        }
     }
 
     public void randomMove() {
@@ -59,83 +59,83 @@ public class CheckersAi {
         return newBoard;
     }
 
-    //TODO
-    private void findBestMove() {
-        Move[] bestMove = null;
-        int bestScore = Integer.MIN_VALUE;
-
-        ArrayList<Move[]> legalMoves = findLegalMoves();
-
-        square[][] backupBoard = copyBoard(game.getBoard());
-
-        for (Move[] move : legalMoves) {
-            game.validMove(move[0], move[1], true);
-            int moveVal = minimax(0, false);
-            if (moveVal > bestScore) {
-                bestScore = moveVal;
-                bestMove = move;
-            }
-            game.setBoard(backupBoard);
-        }
-
-        game.validMove(bestMove[0], bestMove[1], true);
-
-    }
-
-    protected int minimax(int depth, boolean isMax) {
-        int score = checkWinner(copyBoard(game.getBoard()), depth > DEPTH_LIMIT);
-        System.out.println("Depth = " + depth + " | Score = " + score);
-
-        if (score != 0)
-            return score;
-        else if (game.checkWinner() != outcome.IN_PROGRESS)
-            return 0;
-
-        square[][] backupBoard = copyBoard(game.getBoard());
-
-        if (isMax) {
-            int best = Integer.MIN_VALUE;
-            ArrayList<Move[]> legalMoves = findLegalMoves();
-            for (Move[] moves : legalMoves) {
-                MaxTakeTurn(moves);
-                best = max(best, minimax(depth++, !isMax));
-                game.setBoard(backupBoard);
-            }
-            return best;
-        } else {
-            int best = Integer.MAX_VALUE;
-            game.swapPiece();
-            ArrayList<Move[]> legalMoves = findLegalMoves();
-            game.swapPiece();
-            for (Move[] moves : legalMoves) {
-                MinTakeTurn(moves);
-                best = min(best, minimax(depth++, !isMax));
-                game.setBoard(backupBoard);
-            }
-            return best;
-        }
-    }
-
-    private void MaxTakeTurn(Move[] initMoves) {
-        //TODO
-        game.validMove(initMoves[0], initMoves[1], true);
-        ArrayList<Move[]> legalMoves = findLegalMoves();
-        for (Move[] moves : legalMoves){
-            game.validMove(moves[0], moves[1], true);
-        }
-    }
-
-    private void MinTakeTurn(Move[] initMoves) {
-        //TODO
-        game.swapPiece();
-        game.validMove(initMoves[0], initMoves[1], true);
-        ArrayList<Move[]> legalMoves = findLegalMoves();
-        for (Move[] moves : legalMoves){
-            game.validMove(moves[0], moves[1], true);
-        }
-        game.swapPiece();
-    }
-
+//    //TODO
+//    private void findBestMove() {
+//        Move[] bestMove = null;
+//        int bestScore = Integer.MIN_VALUE;
+//
+//        ArrayList<Move[]> legalMoves = findLegalMoves();
+//
+//        square[][] backupBoard = copyBoard(game.getBoard());
+//
+//        for (Move[] move : legalMoves) {
+//            game.validMove(move[0], move[1], true);
+//            int moveVal = minimax(0, false);
+//            if (moveVal > bestScore) {
+//                bestScore = moveVal;
+//                bestMove = move;
+//            }
+//            game.setBoard(backupBoard);
+//        }
+//
+//        game.validMove(bestMove[0], bestMove[1], true);
+//
+//    }
+//
+//    protected int minimax(int depth, boolean isMax) {
+//        int score = checkWinner(copyBoard(game.getBoard()), depth > DEPTH_LIMIT);
+//        System.out.println("Depth = " + depth + " | Score = " + score);
+//
+//        if (score != 0)
+//            return score;
+//        else if (game.checkWinner() != outcome.IN_PROGRESS)
+//            return 0;
+//
+//        square[][] backupBoard = copyBoard(game.getBoard());
+//
+//        if (isMax) {
+//            int best = Integer.MIN_VALUE;
+//            ArrayList<Move[]> legalMoves = findLegalMoves();
+//            for (Move[] moves : legalMoves) {
+//                MaxTakeTurn(moves);
+//                best = max(best, minimax(depth++, !isMax));
+//                game.setBoard(backupBoard);
+//            }
+//            return best;
+//        } else {
+//            int best = Integer.MAX_VALUE;
+//            game.swapPiece();
+//            ArrayList<Move[]> legalMoves = findLegalMoves();
+//            game.swapPiece();
+//            for (Move[] moves : legalMoves) {
+//                MinTakeTurn(moves);
+//                best = min(best, minimax(depth++, !isMax));
+//                game.setBoard(backupBoard);
+//            }
+//            return best;
+//        }
+//    }
+//
+//    private void MaxTakeTurn(Move[] initMoves) {
+//        //TODO
+//        game.validMove(initMoves[0], initMoves[1], true);
+//        ArrayList<Move[]> legalMoves = findLegalMoves();
+//        for (Move[] moves : legalMoves){
+//            game.validMove(moves[0], moves[1], true);
+//        }
+//    }
+//
+//    private void MinTakeTurn(Move[] initMoves) {
+//        //TODO
+//        game.swapPiece();
+//        game.validMove(initMoves[0], initMoves[1], true);
+//        ArrayList<Move[]> legalMoves = findLegalMoves();
+//        for (Move[] moves : legalMoves){
+//            game.validMove(moves[0], moves[1], true);
+//        }
+//        game.swapPiece();
+//    }
+//
     protected int checkWinner(square[][] board, boolean maxDepthReached) {
         int black = 0, white = 0;
         for (int i = 0; i < 8; i++) {

@@ -62,16 +62,16 @@ public class CheckersAiUnitTest {
         System.out.println(ai.game.checkWinner());
     }
 
-    @Test
-    public void minimaxTest(){
-        CheckersAi ai = new CheckersAi(square.WHITE, difficulty.IMPOSSIBLE, true);
-        square[][] board = ai.game.getBoard();
-        board[0][0] = square.WHITE;
-        ai.game.setBoard(board);
-
-        int result = ai.minimax(1, false);
-        System.out.println(result);
-
-        assertEquals(2, result);
-    }
+//    @Test
+//    public void minimaxTest(){
+//        CheckersAi ai = new CheckersAi(square.WHITE, difficulty.IMPOSSIBLE, true);
+//        square[][] board = ai.game.getBoard();
+//        board[0][0] = square.WHITE;
+//        ai.game.setBoard(board);
+//
+//        int result = ai.minimax(1, false);
+//        System.out.println(result);
+//
+//        assertEquals(2, result);
+//    }
 }
