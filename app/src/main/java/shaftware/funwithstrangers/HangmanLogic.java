@@ -3,10 +3,11 @@ package shaftware.funwithstrangers;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 public class HangmanLogic {
-    private char[] word;
-    private String[] words = new String[41172];
+    public char[] word;
+    private ArrayList<String> words = new ArrayList();
     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
     /* Constructor
@@ -18,7 +19,7 @@ public class HangmanLogic {
             int j = 0;
             while (i!=-1){
                 if(i=='\n'){
-                    words[j] = byteArrayOutputStream.toString();
+                    words.add(byteArrayOutputStream.toString());
                     byteArrayOutputStream.reset();
                     j++;
                     i = inputStream.read();
@@ -31,16 +32,16 @@ public class HangmanLogic {
             e.printStackTrace();
         }
 
-        for(int i = 0; i < words.length-2; i++){
-            words[i] = words[i].trim();
+        for(int i = 0; i < words.size()-2; i++){
+            words.set(i, words.get(i).trim());
         }
     }
 
     // English Word Authentication method
     public boolean wordAuth(String attempt){
         boolean t = false;
-        for(int i = 0; i < words.length-2; i++){
-            if(attempt.toLowerCase().equals(words[i])){
+        for(int i = 0; i < words.size()-2; i++){
+            if(attempt.toLowerCase().equals(words.get(i))){
                 t = true;
                 break;
             }
@@ -58,8 +59,8 @@ public class HangmanLogic {
     }
 
     public String getWord(int i){
-        word = words[i].toCharArray();
-        return words[i];
+        word = words.get(i).toCharArray();
+        return words.get(i);
     }
 
     public boolean eventLogic(char[] temp){
