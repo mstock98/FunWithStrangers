@@ -37,28 +37,27 @@ public class opponentSearch extends AppCompatActivity {
     ArrayList<String> endpointIds;
     Class nextScreen;
 
+    watcher w = new watcher();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         final Globals.Mode mode;
         Globals g = (Globals)getApplication();
         mode = g.getMode();
 
-        Globals.setHost(false);
+        Globals.MultClient.setHost(false);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_opponent_search);
-
+        Globals.MultClient.setContext(getApplicationContext());
 
         // Locate the button in activity_main.xml
         cancelButton =  findViewById(R.id.cancelSearchButton);
         gameTitle = findViewById(R.id.gameTitle);
 
+        Globals.MultClient.setWatcher(w);
 
-
-
-
-
-      switch(mode){
+      switch(Globals.getMode()){
             case CHECKERS:
                     gameTitle.setText("Checkers");
                     nextScreen = Checkers.class;
@@ -66,9 +65,6 @@ public class opponentSearch extends AppCompatActivity {
             case TICTACTOE:
                     gameTitle.setText("Tic Tac Toe");
                     nextScreen = TicTacToe.class;
-                    break;
-            case CHESS:
-                    gameTitle.setText("Chess");
                     break;
             case HANGMAN:
                     gameTitle.setText("Hang Man");
@@ -84,8 +80,6 @@ public class opponentSearch extends AppCompatActivity {
                 startActivity(myIntent);
             }
         });
-
-
     }
 
     // Local player discovery code
@@ -93,79 +87,13 @@ public class opponentSearch extends AppCompatActivity {
 
     // Defines what to do when a local player is found and what to do when a local player cannot be
     // found anymore
-    private final EndpointDiscoveryCallback mEndpointDiscoveryCallback =
-            new EndpointDiscoveryCallback() {
-                @Override
-                public void onEndpointFound(String endpointId, DiscoveredEndpointInfo discoveredEndpointInfo) {
-                    // We may want to make opponentList a list of key value pairs later
-                    // (key = endpointId, value = discoveredEndpointInfo)
 
-                    // We actually need two lists to store these things, key and value won't work because what we store in the 'selector' array
-                    //that is displayed is the nickname of the endpoint, which can have duplicates, so it can't work as the key
-                    //Instead I will set it up like this:
-                    //One list, endpointIds will hold the ids, and opponentList will hold the nick names, they are tied together through index
-                    //That way when the user clicks on the x position in the list, we can connect to the x endpoint in our endpointIds
-
-                    endpointIds.add(endpointId);
-                    opponentList.add(discoveredEndpointInfo.getEndpointName());
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(opponentSearch.this,
-                            android.R.layout.simple_list_item_1, opponentList);
-
-                    opponentListView.setAdapter(adapter);
-
-                    Toast.makeText(getApplicationContext(), "found endpoint", Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void onEndpointLost(String endpointId) {
-
-                    int pos = 0;
-                    for(int i = 0; i < endpointIds.size(); i++){
-                        if(endpointIds.get(i).equals(endpointId)){
-                            pos = i;
-                        }
-                    }
-                    Toast.makeText(getApplicationContext(), "endpoint lost", Toast.LENGTH_SHORT).show();
-                    opponentList.remove(pos);
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(opponentSearch.this,
-                            android.R.layout.simple_list_item_1, opponentList);
-                    opponentListView.setAdapter(adapter);
-                }
-            };
-
-    private void startDiscovery() {
-        Nearby.getConnectionsClient(this).startDiscovery(
-                Globals.getServiceId(),
-                mEndpointDiscoveryCallback,
-                new DiscoveryOptions(Strategy.P2P_CLUSTER))
-                .addOnSuccessListener(
-                        new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void unusedResult) {
-                                // We're discovering!
-                                Toast.makeText(getApplicationContext(), "discovering", Toast.LENGTH_SHORT).show();
-                            }
-                        })
-                .addOnFailureListener(
-                        new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                // We were unable to start discovering.
-                                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
-    }
     @Override
     protected void onStart(){
         super.onStart();
-
-        Nearby.getConnectionsClient(this).stopDiscovery();
-        Nearby.getConnectionsClient(this).stopAllEndpoints();
-
-        if(Globals.getEndPointID() != ""){
-            Nearby.getConnectionsClient(this).disconnectFromEndpoint(Globals.getEndPointID());
-            Globals.setEndPointID("");
-        }
+        Globals.MultClient.stopDiscovery();
+        Globals.MultClient.setEndPointID("");
+        Globals.MultClient.disconnect(getApplicationContext());
 
         // Locate opponent list
         opponentListView = findViewById(R.id.opponentList);
@@ -176,17 +104,58 @@ public class opponentSearch extends AppCompatActivity {
         final ArrayAdapter<String> opponentArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, opponentList);
         opponentListView.setAdapter(opponentArrayAdapter);
 
+        //event for when list item is clicked
         opponentListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> Aview, View view, int position, long id) {
-                Globals.setEndPointID(endpointIds.get(position));
-                Nearby.getConnectionsClient(opponentSearch.this).stopDiscovery();
+                Globals.MultClient.setEndPointID(endpointIds.get(position));
+               Globals.MultClient.stopDiscovery();
                 Intent myIntent = new Intent(opponentSearch.this, nextScreen);
                 startActivity(myIntent);
             }
         });
+        Globals.MultClient.startDiscovery(getApplicationContext());
+    }
+
+    private class watcher implements Watcher{
+        @Override
+        public void onDiscover(String endpointId, DiscoveredEndpointInfo discoveredEndpointInfo) {
+            // We actually need two lists to store these things, key and value won't work because what we store in the 'selector' array
+            //that is displayed is the nickname of the endpoint, which can have duplicates, so it can't work as the key
+            //Instead I will set it up like this:
+            //One list, endpointIds will hold the ids, and opponentList will hold the nick names, they are tied together through index
+            //That way when the user clicks on the x position in the list, we can connect to the x endpoint in our endpointIds
+
+            endpointIds.add(endpointId);
+            opponentList.add(discoveredEndpointInfo.getEndpointName());
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(opponentSearch.this,
+                    android.R.layout.simple_list_item_1, opponentList);
+
+            opponentListView.setAdapter(adapter);
+            Toast.makeText(getApplicationContext(), "found endpoint", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onLost(String endpointId) {
+            int pos = 0;
+            for(int i = 0; i < endpointIds.size(); i++){
+                if(endpointIds.get(i).equals(endpointId)){
+                    pos = i;
+                }
+            }
+            Toast.makeText(getApplicationContext(), "endpoint lost", Toast.LENGTH_SHORT).show();
+            opponentList.remove(pos);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(opponentSearch.this,
+                    android.R.layout.simple_list_item_1, opponentList);
+            opponentListView.setAdapter(adapter);
+        }
 
 
-        startDiscovery();
+    }
+
+    @Override
+    protected void onStop(){
+        super.onStop();
+       Globals.MultClient.stopDiscovery();
     }
 }

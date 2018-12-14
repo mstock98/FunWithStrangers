@@ -27,7 +27,7 @@ public class UltimateTTTConsole {
                 y = scan.nextInt();
             } while (!consoleDriver.game.pickSpot(x ,y));
 
-            consoleDriver.game.swapPiece();
+            //consoleDriver.game.swapPiece();
             consoleDriver.drawBoard();
         }
     }

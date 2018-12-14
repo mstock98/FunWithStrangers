@@ -1,35 +1,18 @@
 package shaftware.funwithstrangers;
-
 import android.content.Intent;
-        import android.graphics.Color;
-        import android.os.Bundle;
-        import android.support.annotation.NonNull;
-        import android.support.v7.app.AppCompatActivity;
-        import android.view.View;
-        import android.view.View.OnClickListener;
-        import android.widget.ImageButton;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.ImageButton;
 import android.widget.Toast;
+import java.util.Random;
+import static shaftware.funwithstrangers.TttLogicBase.Piece;
+import static shaftware.funwithstrangers.TttLogicBase.Winner;
+import static shaftware.funwithstrangers.TttAi.Difficulty;
 
-        import com.google.android.gms.nearby.Nearby;
-        import com.google.android.gms.nearby.connection.AdvertisingOptions;
-        import com.google.android.gms.nearby.connection.ConnectionInfo;
-        import com.google.android.gms.nearby.connection.ConnectionLifecycleCallback;
-        import com.google.android.gms.nearby.connection.ConnectionResolution;
-        import com.google.android.gms.nearby.connection.ConnectionsStatusCodes;
-        import com.google.android.gms.nearby.connection.Payload;
-        import com.google.android.gms.nearby.connection.PayloadCallback;
-        import com.google.android.gms.nearby.connection.PayloadTransferUpdate;
-        import com.google.android.gms.nearby.connection.Strategy;
-        import com.google.android.gms.tasks.OnFailureListener;
-        import com.google.android.gms.tasks.OnSuccessListener;
-
-        import java.util.Random;
-
-        import static shaftware.funwithstrangers.TttLogicBase.Piece;
-        import static shaftware.funwithstrangers.TttLogicBase.Winner;
-        import static shaftware.funwithstrangers.TttAi.Difficulty;
-
-public class TicTacToe extends AppCompatActivity {
+public class TicTacToe extends AppCompatActivity{
 
     ImageButton ttt00, ttt01, ttt02,
             ttt10, ttt11, ttt12,
@@ -42,17 +25,14 @@ public class TicTacToe extends AppCompatActivity {
     boolean playerFirst; // who goes first, true is me, false is the other person
     boolean begin; // can we start playing
     Piece playerPIECE;
+
+    receiver r = new receiver();
+
     @Override
-
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tic_tac_toe);
-    }
-
-    @Override
-    protected void onStart(){
-        super.onStart();
+        Globals.MultClient.setContext(getApplicationContext());
 
         //Creates on click listeners and everything for the TTT grid buttons
         for (int i = 0; i < buttons.length; i++) {
@@ -64,52 +44,36 @@ public class TicTacToe extends AppCompatActivity {
                 }
             });
         }
+
         //Initializing the TttGame
         //Who is x and who goes first must be decided at the constructor
+        //we are online, prepare for online game
+        if(Globals.MultClient.getOnline()){
+            //connects multiplayer to receiver class in this game
+            Globals.MultClient.setCallback(r);
 
-
-        if(Globals.getOnline()){
-            if(Globals.getHost()){
+            if(Globals.MultClient.getHost()){
+                System.out.println(" zoo");
+                //we are the host
                 playerFirst = (new Random()).nextBoolean();
                 if(playerFirst){
                     playerPIECE = Piece.X;
                 }else{
-
                     playerPIECE = Piece.O;
                 }
-                startAdvertising();
-
+                Globals.MultClient.advertise(getApplication());
             }else{
-                Nearby.getConnectionsClient(TicTacToe.this).requestConnection("swag", Globals.getEndPointID(), mConnectionLifecycleCallback)
-                        .addOnSuccessListener(
-                                new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void unusedResult) {
-                                        // We successfully requested a connection. Now both sides
-                                        // must accept before the connection is established.
-                                    }
-                                })
-                        .addOnFailureListener(
-                                new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        // Nearby Connections failed to request the connection.
-                                    }
-                                });
+                //we are not the host
+                Globals.MultClient.connect();
             }
-
             TttGame = new TttLogic(playerPIECE, playerFirst);
             TttGame.clearBoard();
             updateGameView(TttGame);
         }
 
 
-
-
-
-
         //if we are offline, prepare for AI game
-        if(!Globals.getOnline()){
+        if(!Globals.MultClient.getOnline()){
             begin = true;
             Piece aiPIECE;
             playerFirst = (new Random()).nextBoolean(); // not chosen in the UI, randomly decided
@@ -139,11 +103,11 @@ public class TicTacToe extends AppCompatActivity {
             }
         }
 
+
     }
 
     //Interface between button pressed and TttLogic
-    private void tttPressed(View v) {
-
+    private void tttPressed(View v){
         int row = -1, col = -1;
 
         if (TttGame.isTurn()) {
@@ -187,10 +151,9 @@ public class TicTacToe extends AppCompatActivity {
                     break;
             }
             if(begin){
-
                 //Game does not accept an invalid input and will wait for player to enter in something that is valid
                 boolean validSpot = TttGame.pickSpot(row, col);// choose a location
-                if(Globals.getConnected()){
+                if(Globals.MultClient.getConnected()){
                     if (validSpot) {
                         Toast toast = Toast.makeText(getApplicationContext(), "boop", Toast.LENGTH_SHORT);
                         toast.show();
@@ -202,9 +165,11 @@ public class TicTacToe extends AppCompatActivity {
                     }
                 }else{
                     if (validSpot) {
+
                         TttGame.swapTurn();
                         ai.game.receiveBoard(TttGame.getBoard());
                         updateGameView(TttGame);
+
 
                         //If someone has won stop the AI from playing
                         if (!checkWinner()) {
@@ -256,161 +221,90 @@ public class TicTacToe extends AppCompatActivity {
         }
     }
 
-    // Local player advertisement code
-    // See: https://developers.google.com/nearby/connections/android/discover-devices
-    // We may want to make a separate class for this later
-
-    private final PayloadCallback mPayloadCallback = new PayloadCallback() {
-        @Override
-        public void onPayloadReceived(@NonNull String s, @NonNull Payload payload) {
-            Toast toast1 = Toast.makeText(getApplicationContext(),"got something", Toast.LENGTH_SHORT);
-            toast1.show();
-            byte[] b = payload.asBytes();
-            if(begin){
-                if(payload.getType() == Payload.Type.BYTES && b.length == 9){
-
-                    Piece[][] board = new Piece[3][3];
-                    for (int i = 0; i < 9; i++){
-                        //board[i/2][i%2] = payload.asBytes()[i];
-                        board[i/3][i%3] = Piece.values()[payload.asBytes()[i]];
-                    }
-                    TttGame.receiveBoard(board);
-                    updateGameView(TttGame);
-                    //Disable player from doing anything if someone has won, if no one has won, its this players turn
-                    if (!checkWinner())
-                        TttGame.swapTurn();
-                    getWindow().getDecorView().setBackgroundColor(Color.GREEN);
-                }
-            }else{
-                if(b.length == 1){
-                    if(b[0] == 1){
-                        playerFirst = true;
-                        TttGame.swapTurn(); // Host says we are to go first
-                    }
-                }
-                if(playerFirst){
-                    getWindow().getDecorView().setBackgroundColor(Color.GREEN);
-                    playerPIECE = Piece.X;
-                }else{
-                    getWindow().getDecorView().setBackgroundColor(Color.RED);
-                    playerPIECE = Piece.O;
-                }
-                begin = true;
-                TttGame = new TttLogic(playerPIECE, playerFirst);
-                TttGame.clearBoard();
-                updateGameView(TttGame);
-            }
-
-        }
-
-        @Override
-        public void onPayloadTransferUpdate(@NonNull String s, @NonNull PayloadTransferUpdate payloadTransferUpdate) {
-            //don't need to track byte progress
-        }
-    };
-
-    private final ConnectionLifecycleCallback mConnectionLifecycleCallback =
-            new ConnectionLifecycleCallback() {
-
-                @Override
-                public void onConnectionInitiated(
-                        String endpointId, ConnectionInfo connectionInfo) {
-                    // Automatically accept the connection on both sides.
-                    if(Globals.getHost()){
-                        Nearby.getConnectionsClient(getApplicationContext()).stopAdvertising();
-                        Globals.setEndPointID(endpointId);
-                    }
-                    Nearby.getConnectionsClient(getApplicationContext()).acceptConnection(endpointId, mPayloadCallback);
-                }
-
-                @Override
-                public void onConnectionResult(String endpointId, ConnectionResolution result) {
-                    switch (result.getStatus().getStatusCode()) {
-                        case ConnectionsStatusCodes.STATUS_OK:
-                            // We're connected! Can now start sending and receiving data.
-                            Globals.setConnected(true);
-                            if(Globals.getHost()){
-                                byte[] b = new byte[1];
-                                if(playerFirst){
-                                    b[0] = 0;
-                                    getWindow().getDecorView().setBackgroundColor(Color.GREEN);
-                                }else{
-                                    b[0] = 1;
-                                    getWindow().getDecorView().setBackgroundColor(Color.RED);
-                                }
-                                Payload p = Payload.fromBytes(b);
-                                Nearby.getConnectionsClient(getApplicationContext()).sendPayload(Globals.getEndPointID(), p);
-                                begin = true;
-                            }
-                            Toast toast = Toast.makeText(getApplicationContext(), "Connection Established", Toast.LENGTH_SHORT);
-                            toast.show();
-                            break;
-                        case ConnectionsStatusCodes.STATUS_CONNECTION_REJECTED:
-                            // The connection was rejected by one or both sides.
-                            Toast toast1 = Toast.makeText(getApplicationContext(), "Rejected Connection", Toast.LENGTH_SHORT);
-                            toast1.show();
-                            break;
-                        case ConnectionsStatusCodes.STATUS_ERROR:
-                            // The connection broke before it was able to be accepted.
-                            Toast toast2 = Toast.makeText(getApplicationContext(), "Broken Connection", Toast.LENGTH_SHORT);
-                            toast2.show();
-                            break;
-                    }
-                }
-
-                @Override
-                public void onDisconnected(String endpointId) {
-                    Globals.setConnected(false);
-                    Intent myIntent = new Intent(getApplicationContext(), titleScreen.class);
-                    startActivity(myIntent);
-                }
-            };
-
-    private void startAdvertising() {
-        Nearby.getConnectionsClient(this).startAdvertising(
-                Globals.getUsern(),
-                Globals.getServiceId(),
-                mConnectionLifecycleCallback,
-                new AdvertisingOptions(Strategy.P2P_CLUSTER))
-                .addOnSuccessListener(
-                        new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void unusedResult) {
-                                Toast toast = Toast.makeText(getApplicationContext(), "Successful Advert", Toast.LENGTH_SHORT);
-                                toast.show();
-                            }
-                        })
-                .addOnFailureListener(
-                        new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT);
-                                toast.show();
-                            }
-                        });
-    }
-
     private void sendBoard(){
-
         int[][] board = TttGame.getIntBoard();
         byte[] b = new byte[9];
         for (int i = 0; i < 9; i++){
             b[i] = (byte)board[i/3][i%3];
         }
-        Payload p = Payload.fromBytes(b);
-        Nearby.getConnectionsClient(getApplicationContext()).sendPayload(Globals.getEndPointID(), p);
+        Globals.MultClient.sendPayload(b);
     }
+
+    public void connected(){
+        if(Globals.MultClient.getHost()) {
+            Globals.MultClient.stopAdvert(getApplication());
+            byte[] b = new byte[1];
+            if (Globals.MultClient.getGoesFirst()) {
+                b[0] = 0;
+                getWindow().getDecorView().setBackgroundColor(Color.GREEN);
+                TttGame.swapTurn();
+            } else {
+                b[0] = 1;
+                getWindow().getDecorView().setBackgroundColor(Color.RED);
+            }
+            Globals.MultClient.sendPayload(b);
+            begin = true;
+        }
+    }
+
+    public void PayloadReceived(byte[] b){
+        if(begin){
+            if(b.length == 9){
+                Piece[][] board = new Piece[3][3];
+                for (int i = 0; i < 9; i++){
+                    board[i/3][i%3] = Piece.values()[b[i]];
+                }
+                TttGame.receiveBoard(board);
+                updateGameView(TttGame);
+                //Disable player from doing anything if someone has won, if no one has won, its this players turn
+                if (!checkWinner())
+                    TttGame.swapTurn();
+                getWindow().getDecorView().setBackgroundColor(Color.GREEN);
+            }
+        }else{
+            //initial payload with game settings
+            if(b.length == 1){
+                if(b[0] == 1){
+                    playerFirst = true;
+                    TttGame.swapTurn(); // Host says we are to go first
+                }
+            }
+            if(playerFirst){
+                getWindow().getDecorView().setBackgroundColor(Color.GREEN);
+                playerPIECE = Piece.X;
+            }else{
+                getWindow().getDecorView().setBackgroundColor(Color.RED);
+                playerPIECE = Piece.O;
+            }
+            begin = true;
+            TttGame = new TttLogic(playerPIECE, playerFirst);
+            TttGame.clearBoard();
+            updateGameView(TttGame);
+        }
+    }
+
+    public void theyDisconnected(){
+        Intent myIntent = new Intent(getApplicationContext(), titleScreen.class);
+        startActivity(myIntent);
+    }
+
 
     @Override
     protected void onStop(){
         super.onStop();
-        Nearby.getConnectionsClient(this).stopAdvertising();
-
-        if(Globals.getEndPointID() != ""){
-            Nearby.getConnectionsClient(this).disconnectFromEndpoint(Globals.getEndPointID());
-            Globals.setEndPointID("");
+        if(Globals.MultClient.getOnline()) {
+            Globals.MultClient.stopAdvert(getApplicationContext());
+            Globals.MultClient.disconnect(getApplicationContext());
         }
-        Nearby.getConnectionsClient(this).stopAllEndpoints();
     }
 
+    public class receiver implements Receiver{
+        public void receive(byte[] b){
+            PayloadReceived(b);
+        }
+        public void onConnection(){
+            connected();
+        }
+        public void onDisconnect(){theyDisconnected();}
+    }
 }
