@@ -27,17 +27,6 @@ public class MultiplayerClient {
       return connected;
    }
 
-
-    private boolean goesFirst;
-
-    public void setGoesFirst(boolean gF) {
-        goesFirst = gF;
-    }
-
-    public boolean getGoesFirst(){
-        return goesFirst;
-    }
-
     private boolean host;
 
     public boolean getHost(){
@@ -95,7 +84,7 @@ public class MultiplayerClient {
                             @Override
                             public void onSuccess(Void unusedResult) {
                                 // We're discovering!
-                                Toast.makeText(c, "discovering", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(c, "discovering", Toast.LENGTH_SHORT).show();
                             }
                         })
                 .addOnFailureListener(
@@ -103,7 +92,7 @@ public class MultiplayerClient {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 // We were unable to start discovering.
-                                Toast.makeText(c, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(c, e.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });
     }
@@ -129,8 +118,24 @@ public class MultiplayerClient {
     }
 
     public void advertise(final Context c){
+        int code = 0;
+        switch(Globals.getMode()){
+            case CHECKERS:
+                code = 1;
+                break;
+            case TICTACTOE:
+                code = 2;
+                break;
+            case ULTIMATETICTACTOE:
+                code = 3;
+                break;
+            case HANGMAN:
+                code = 4;
+                break;
+        }
+
       Nearby.getConnectionsClient(c).startAdvertising(
-              Usern,
+              Usern + code,
               "shaftware.funwithstrangers", // serviceId
               mConnectionLifecycleCallback,
               new AdvertisingOptions(Strategy.P2P_CLUSTER))
@@ -138,16 +143,16 @@ public class MultiplayerClient {
                       new OnSuccessListener<Void>() {
                          @Override
                          public void onSuccess(Void unusedResult) {
-                            Toast toast = Toast.makeText(c, "Successful Advert", Toast.LENGTH_SHORT);
-                            toast.show();
+                            //Toast toast = Toast.makeText(c, "Successful Advert", Toast.LENGTH_SHORT);
+                            //toast.show();
                          }
                       })
               .addOnFailureListener(
                       new OnFailureListener() {
                          @Override
                          public void onFailure(@NonNull Exception e) {
-                            Toast toast = Toast.makeText(c, e.getMessage(), Toast.LENGTH_SHORT);
-                            toast.show();
+//                            Toast toast = Toast.makeText(c, e.getMessage(), Toast.LENGTH_SHORT);
+//                            toast.show();
                          }
                       });
     }
@@ -230,8 +235,8 @@ public class MultiplayerClient {
     private final PayloadCallback mPayloadCallback = new PayloadCallback() {
         @Override
         public void onPayloadReceived(@NonNull String s, @NonNull Payload payload) {
-            Toast toast1 = Toast.makeText(C,"got something", Toast.LENGTH_SHORT);
-            toast1.show();
+            //Toast toast1 = Toast.makeText(C,"got something", Toast.LENGTH_SHORT);
+           // toast1.show();
             byte[] b = payload.asBytes();
             receiver.receive(b);
         }

@@ -41,10 +41,6 @@ public class opponentSearch extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        final Globals.Mode mode;
-        Globals g = (Globals)getApplication();
-        mode = g.getMode();
-
         Globals.MultClient.setHost(false);
 
         super.onCreate(savedInstanceState);
@@ -70,6 +66,10 @@ public class opponentSearch extends AppCompatActivity {
                     gameTitle.setText("Hangman");
                     nextScreen = Hangman.class;
                     break;
+            case ULTIMATETICTACTOE:
+                    gameTitle.setText("Ultimate Tic Tac Toe");
+                    nextScreen = UltimateTicTacToe.class;
+                    break;
         }
 
         cancelButton.setOnClickListener(new OnClickListener() {
@@ -80,13 +80,10 @@ public class opponentSearch extends AppCompatActivity {
                 startActivity(myIntent);
             }
         });
+        Globals.MultClient.stopDiscovery();
+        Globals.MultClient.setEndPointID("");
+        Globals.MultClient.disconnect(getApplicationContext());
     }
-
-    // Local player discovery code
-    // See: https://developers.google.com/nearby/connections/android/discover-devices
-
-    // Defines what to do when a local player is found and what to do when a local player cannot be
-    // found anymore
 
     @Override
     protected void onStart(){
@@ -126,13 +123,39 @@ public class opponentSearch extends AppCompatActivity {
             //One list, endpointIds will hold the ids, and opponentList will hold the nick names, they are tied together through index
             //That way when the user clicks on the x position in the list, we can connect to the x endpoint in our endpointIds
 
-            endpointIds.add(endpointId);
-            opponentList.add(discoveredEndpointInfo.getEndpointName());
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(opponentSearch.this,
-                    android.R.layout.simple_list_item_1, opponentList);
 
-            opponentListView.setAdapter(adapter);
-            Toast.makeText(getApplicationContext(), "found endpoint", Toast.LENGTH_SHORT).show();
+            String s = discoveredEndpointInfo.getEndpointName();
+
+            String trimmed = "";
+            for(int i = 0; i < s.length() - 1; i++){
+                trimmed = trimmed + s.charAt(i);
+            }
+            System.out.println(s.charAt(s.length()-1)+" zoo");
+            Globals.Mode m = null;
+            switch(s.charAt(s.length()-1)){
+                case '1':
+                    m = Globals.Mode.CHECKERS;
+                    break;
+                case '2':
+                    m = Globals.Mode.TICTACTOE;
+                    break;
+                case '3':
+                    m = Globals.Mode.ULTIMATETICTACTOE;
+                    break;
+                case '4':
+                    m = Globals.Mode.HANGMAN;
+                    break;
+            }
+
+            if(m == Globals.getMode()){
+                endpointIds.add(endpointId);
+                opponentList.add(trimmed);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(opponentSearch.this,
+                        android.R.layout.simple_list_item_1, opponentList);
+
+                opponentListView.setAdapter(adapter);
+                //Toast.makeText(getApplicationContext(), "found endpoint", Toast.LENGTH_SHORT).show();
+            }
         }
 
         @Override
@@ -143,7 +166,7 @@ public class opponentSearch extends AppCompatActivity {
                     pos = i;
                 }
             }
-            Toast.makeText(getApplicationContext(), "endpoint lost", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), "endpoint lost", Toast.LENGTH_SHORT).show();
             opponentList.remove(pos);
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(opponentSearch.this,
                     android.R.layout.simple_list_item_1, opponentList);

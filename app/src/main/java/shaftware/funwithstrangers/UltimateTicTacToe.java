@@ -1,10 +1,14 @@
 package shaftware.funwithstrangers;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
+import java.util.Random;
 
 import static shaftware.funwithstrangers.TttLogicBase.Piece;
 import static shaftware.funwithstrangers.TttLogicBase.Winner;
@@ -63,16 +67,49 @@ public class UltimateTicTacToe extends AppCompatActivity {
     boolean begin; // can we start playing
     Piece playerPIECE;
 
+    receiver r = new receiver();
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ultimate_tic_tac_toe);
+        if(Globals.MultClient.getOnline()){
+            Globals.MultClient.setContext(getApplicationContext());
+            Globals.MultClient.setCallback(r);
+        }
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        UTTTGame = new UltimateTTTLogic(Piece.X);
+
+
+        if(Globals.MultClient.getOnline()) {
+            //connects multiplayer to receiver class in this game
+            if (Globals.MultClient.getHost()) {
+                playerFirst = (new Random()).nextBoolean();
+                if (playerFirst) {
+                    playerPIECE = Piece.X;
+                } else {
+                    playerPIECE = Piece.O;
+                }
+                UTTTGame = new UltimateTTTLogic(playerPIECE);
+                Globals.MultClient.advertise(getApplication());
+            } else {
+                //we are not the host
+                Globals.MultClient.connect();
+            }
+        }else{
+            playerFirst = (new Random()).nextBoolean();
+            if (playerFirst) {
+                playerPIECE = Piece.X;
+            } else {
+                playerPIECE = Piece.O;
+            }
+
+        }
+
+
 
         //Creates on click listeners and everything for the TTT grid buttons
         for (int i = 0; i < 9; i++) {
@@ -86,18 +123,30 @@ public class UltimateTicTacToe extends AppCompatActivity {
                 });
             }
         }
+        if(!Globals.MultClient.getOnline()) {
+            UTTTGame = new UltimateTTTLogic(playerPIECE);
+            UTTTGame.clearBoard();
+            updateGameView(UTTTGame);
+            if(!playerFirst){
+                int row, col;
+                do {
+                    row = (int) (Math.random() * 9);
+                    col = (int) (Math.random() * 9);
+                } while (!UTTTGame.pickSpot(row, col));
+                UTTTGame.swapPiece();
+                updateGameView(UTTTGame);
+            }
 
-        updateGameView(UTTTGame);
+        }
+
     }
 
     //Interface between button pressed and TttLogic
     private void tttPressed(View v) {
 
-
         int row = -1, col = -1;
 
         boolean validSpot;
-
 
         if (true /*UTTTGame.isTurn()*/) {
             //Button locations
@@ -427,63 +476,39 @@ public class UltimateTicTacToe extends AppCompatActivity {
                     col = 8;
                     break;
             }
-            validSpot = UTTTGame.pickSpot(row, col);
-
-
-                // Dumb AI
-                if (!checkWinner()) {
-                    do {
-                        row = (int) (Math.random() * 9);
-                        col = (int) (Math.random() * 9);
-                    } while (!UTTTGame.pickSpot(row, col));
-
+            if(Globals.MultClient.getOnline() && begin){
+                if(UTTTGame.isTurn()){
+                    validSpot = UTTTGame.pickSpot(row, col);
+                    if (validSpot) {
+                        UTTTGame.swapTurn();
+                        updateGameView(UTTTGame);
+                        sendBoard();
+                        getWindow().getDecorView().setBackgroundColor(Color.RED);
+                        if(checkWinner()){
+                            updateGameView(UTTTGame);
+                        }
+                    }
+                }
+            }else if(!Globals.MultClient.getOnline()){
+                validSpot = UTTTGame.pickSpot(row, col);
+                if (validSpot) {
                     UTTTGame.swapPiece();
                     updateGameView(UTTTGame);
-                } else {
-                    updateGameView(UTTTGame);
+
+                    // Dumb AI
+                    if (!checkWinner()) {
+                        do {
+                            row = (int) (Math.random() * 9);
+                            col = (int) (Math.random() * 9);
+                        } while (!UTTTGame.pickSpot(row, col));
+                        UTTTGame.swapPiece();
+                        updateGameView(UTTTGame);
+                    } else {
+                        updateGameView(UTTTGame);
+                    }
                 }
-
-            if (validSpot) {
-                UTTTGame.swapPiece();
-                updateGameView(UTTTGame);
-
             }
-
-            checkWinner();
         }
-
-
-
-            /*if(begin){
-                //Game does not accept an invalid input and will wait for player to enter in something that is valid
-                boolean validSpot = TttGame.pickSpot(row, col);// choose a location
-                if(Globals.getConnected()){
-                    if (validSpot) {
-                        Toast toast = Toast.makeText(getApplicationContext(), "boop", Toast.LENGTH_SHORT);
-                        toast.show();
-                        TttGame.swapTurn();
-                        getWindow().getDecorView().setBackgroundColor(Color.RED);
-                        updateGameView(TttGame);
-                        checkWinner();
-                        sendBoard();
-                    }
-                }else{
-                    if (validSpot) {
-                        TttGame.swapTurn();
-                        ai.game.receiveBoard(TttGame.getBoard());
-                        updateGameView(TttGame);
-                        //If someone has won stop the AI from playing
-                        if (!checkWinner()) {
-                            ai.TttAiTurn();
-                            TttGame.receiveBoard(ai.game.getBoard());
-                            updateGameView(TttGame);
-                        }
-                        //Disable player from doing anything if someone has won
-                        if (!checkWinner())
-                            TttGame.swapTurn();
-                    }
-                }
-            }*/
     }
 
     //Refreshes every button's image to correspond with the gameboard
@@ -516,6 +541,7 @@ public class UltimateTicTacToe extends AppCompatActivity {
                     UTTTGame.setBoardPiece(Piece.O, i, j);
                 }
             }
+            getWindow().getDecorView().setBackgroundColor(Color.WHITE);
             return true;
         } else if (winner == Winner.X) {
             Toast.makeText(getApplicationContext(), "X Won!", Toast.LENGTH_LONG).show();
@@ -524,11 +550,101 @@ public class UltimateTicTacToe extends AppCompatActivity {
                     UTTTGame.setBoardPiece(Piece.X, i, j);
                 }
             }
+            getWindow().getDecorView().setBackgroundColor(Color.WHITE);
             return true;
         } else if (winner == Winner.TIE) {
             Toast.makeText(getApplicationContext(), "Tie!", Toast.LENGTH_LONG).show();
+            getWindow().getDecorView().setBackgroundColor(Color.WHITE);
             return true;
         }
         return false;
+    }
+
+    public void theyDisconnected(){
+        Intent myIntent = new Intent(getApplicationContext(), titleScreen.class);
+        startActivity(myIntent);
+    }
+
+    private void sendBoard(){
+        int[][] board = UTTTGame.getIntBoard();
+        byte[] b = new byte[81];
+        for (int i = 0; i < 81; i++){
+            b[i] = (byte)board[i/9][i%9];
+        }
+        Globals.MultClient.sendPayload(b);
+    }
+
+    public void connected(){
+        if(Globals.MultClient.getHost()) {
+            Globals.MultClient.stopAdvert(getApplication());
+            byte[] b = new byte[1];
+            if (playerFirst) {
+                b[0] = 0;
+                getWindow().getDecorView().setBackgroundColor(Color.GREEN);
+                UTTTGame.swapTurn();
+            } else {
+                b[0] = 1;
+                getWindow().getDecorView().setBackgroundColor(Color.RED);
+            }
+            Globals.MultClient.sendPayload(b);
+            begin = true;
+        }
+    }
+
+    public void PayloadReceived(byte[] b){
+        if(begin){
+            if(b.length == 81){
+                int[][] board = new int[9][9];
+                for (int i = 0; i < 81; i++){
+                    board[i/9][i%9] = b[i];
+                }
+                UTTTGame.receiveBoard(board);
+                updateGameView(UTTTGame);
+                //Disable player from doing anything if someone has won, if no one has won, its this players turn
+                if (!checkWinner()){
+                    UTTTGame.swapTurn();
+                    getWindow().getDecorView().setBackgroundColor(Color.GREEN);
+                }else{
+                    updateGameView(UTTTGame);
+                }
+
+            }
+        }else{
+            //initial payload with game settings
+            if(b.length == 1){
+                if(b[0] == 1){
+                    playerFirst = true;
+                    getWindow().getDecorView().setBackgroundColor(Color.GREEN);
+                    playerPIECE = Piece.X;
+                }else{
+                    getWindow().getDecorView().setBackgroundColor(Color.RED);
+                    playerPIECE = Piece.O;
+                }
+            }
+            begin = true;
+            UTTTGame = new UltimateTTTLogic(playerPIECE);
+            if(playerFirst) UTTTGame.swapTurn();
+            UTTTGame.clearBoard();
+            updateGameView(UTTTGame);
+        }
+    }
+
+    @Override
+    protected void onStop(){
+        super.onStop();
+        if(Globals.MultClient.getOnline()) {
+            Globals.MultClient.stopAdvert(getApplicationContext());
+            Globals.MultClient.disconnect(getApplicationContext());
+        }
+    }
+
+    public class receiver implements Receiver{
+        public void receive(byte[] b){
+            PayloadReceived(b);
+        }
+        public void onConnection(){
+            connected();
+        }
+        public void onDisconnect(){theyDisconnected();}
     }
 }

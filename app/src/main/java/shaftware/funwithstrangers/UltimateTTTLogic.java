@@ -27,9 +27,6 @@ public class UltimateTTTLogic extends TttLogicBase {
             MYTURN = true;
     }
 
-    public boolean isTurn() {
-        return MYTURN;
-    }
 
     public Winner checkWinner() {
         //Rows
@@ -188,6 +185,10 @@ public class UltimateTTTLogic extends TttLogicBase {
                 setBoardPiece(Piece.values()[incomingBoard[i][j]], i, j);
             }
         }
+    }
+
+    public boolean isTurn(){
+        return MYTURN;
     }
 
     //Method only used for in progress builds and testing purposes.

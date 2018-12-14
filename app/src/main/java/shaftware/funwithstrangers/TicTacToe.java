@@ -32,8 +32,10 @@ public class TicTacToe extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tic_tac_toe);
-        Globals.MultClient.setContext(getApplicationContext());
-
+        if(Globals.MultClient.getOnline()){
+            Globals.MultClient.setContext(getApplicationContext());
+            Globals.MultClient.setCallback(r);
+        }
         //Creates on click listeners and everything for the TTT grid buttons
         for (int i = 0; i < buttons.length; i++) {
             int resID = getResources().getIdentifier(buttonsID[i], "id", getPackageName());
@@ -50,10 +52,7 @@ public class TicTacToe extends AppCompatActivity{
         //we are online, prepare for online game
         if(Globals.MultClient.getOnline()){
             //connects multiplayer to receiver class in this game
-            Globals.MultClient.setCallback(r);
-
             if(Globals.MultClient.getHost()){
-                System.out.println(" zoo");
                 //we are the host
                 playerFirst = (new Random()).nextBoolean();
                 if(playerFirst){
@@ -67,6 +66,7 @@ public class TicTacToe extends AppCompatActivity{
                 Globals.MultClient.connect();
             }
             TttGame = new TttLogic(playerPIECE, playerFirst);
+            if(playerFirst) TttGame.swapTurn();
             TttGame.clearBoard();
             updateGameView(TttGame);
         }
@@ -155,12 +155,12 @@ public class TicTacToe extends AppCompatActivity{
                 boolean validSpot = TttGame.pickSpot(row, col);// choose a location
                 if(Globals.MultClient.getConnected()){
                     if (validSpot) {
-                        Toast toast = Toast.makeText(getApplicationContext(), "boop", Toast.LENGTH_SHORT);
-                        toast.show();
+//                        Toast toast = Toast.makeText(getApplicationContext(), "boop", Toast.LENGTH_SHORT);
+//                        toast.show();
                         TttGame.swapTurn();
                         getWindow().getDecorView().setBackgroundColor(Color.RED);
-                        updateGameView(TttGame);
                         checkWinner();
+                        updateGameView(TttGame);
                         sendBoard();
                     }
                 }else{
@@ -169,7 +169,6 @@ public class TicTacToe extends AppCompatActivity{
                         TttGame.swapTurn();
                         ai.game.receiveBoard(TttGame.getBoard());
                         updateGameView(TttGame);
-
 
                         //If someone has won stop the AI from playing
                         if (!checkWinner()) {
@@ -193,12 +192,33 @@ public class TicTacToe extends AppCompatActivity{
     private boolean checkWinner() {
         Winner winner = TttGame.checkWinner();
         if (winner == Winner.O) {
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    TttGame.setBoardPiece(Piece.O, i, j);
+
+                }
+            }
+            getWindow().getDecorView().setBackgroundColor(Color.WHITE);
             Toast.makeText(getApplicationContext(), "O Won!", Toast.LENGTH_LONG).show();
             return true;
         } else if (winner == Winner.X) {
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    TttGame.setBoardPiece(Piece.X, i, j);
+
+                }
+            }
+            getWindow().getDecorView().setBackgroundColor(Color.WHITE);
             Toast.makeText(getApplicationContext(), "X Won!", Toast.LENGTH_LONG).show();
             return true;
         } else if (winner == Winner.TIE) {
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    TttGame.setBoardPiece(Piece.OPEN, i, j);
+
+                }
+            }
+            getWindow().getDecorView().setBackgroundColor(Color.WHITE);
             Toast.makeText(getApplicationContext(), "Tie!", Toast.LENGTH_LONG).show();
             return true;
         }
@@ -234,7 +254,7 @@ public class TicTacToe extends AppCompatActivity{
         if(Globals.MultClient.getHost()) {
             Globals.MultClient.stopAdvert(getApplication());
             byte[] b = new byte[1];
-            if (Globals.MultClient.getGoesFirst()) {
+            if (playerFirst) {
                 b[0] = 0;
                 getWindow().getDecorView().setBackgroundColor(Color.GREEN);
                 TttGame.swapTurn();
@@ -257,9 +277,12 @@ public class TicTacToe extends AppCompatActivity{
                 TttGame.receiveBoard(board);
                 updateGameView(TttGame);
                 //Disable player from doing anything if someone has won, if no one has won, its this players turn
-                if (!checkWinner())
+                if (!checkWinner()){
                     TttGame.swapTurn();
-                getWindow().getDecorView().setBackgroundColor(Color.GREEN);
+                    getWindow().getDecorView().setBackgroundColor(Color.GREEN);
+                }
+
+
             }
         }else{
             //initial payload with game settings
@@ -267,14 +290,12 @@ public class TicTacToe extends AppCompatActivity{
                 if(b[0] == 1){
                     playerFirst = true;
                     TttGame.swapTurn(); // Host says we are to go first
+                    getWindow().getDecorView().setBackgroundColor(Color.GREEN);
+                    playerPIECE = Piece.X;
+                }else{
+                    getWindow().getDecorView().setBackgroundColor(Color.RED);
+                    playerPIECE = Piece.O;
                 }
-            }
-            if(playerFirst){
-                getWindow().getDecorView().setBackgroundColor(Color.GREEN);
-                playerPIECE = Piece.X;
-            }else{
-                getWindow().getDecorView().setBackgroundColor(Color.RED);
-                playerPIECE = Piece.O;
             }
             begin = true;
             TttGame = new TttLogic(playerPIECE, playerFirst);

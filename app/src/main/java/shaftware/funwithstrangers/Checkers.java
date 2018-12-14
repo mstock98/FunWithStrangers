@@ -76,8 +76,6 @@ public class Checkers extends AppCompatActivity {
             if(Globals.MultClient.getHost()){
                 playerFirst = new Random().nextBoolean();
                 configure(false, difficulty.EASY);
-                String tmp = Globals.MultClient.getUsern();
-                Globals.MultClient.setUsern(tmp + "4"); //4 is the code for checkers
                 Globals.MultClient.advertise(getApplication());
             }else{
                 Globals.MultClient.connect();
