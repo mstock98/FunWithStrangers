@@ -34,7 +34,7 @@ public class titleScreen extends AppCompatActivity {
                 title.setText("Tic Tac Toe");
                 break;
             case HANGMAN:
-                title.setText("Hang Man");
+                title.setText("Hangman");
                 break;
         }
 

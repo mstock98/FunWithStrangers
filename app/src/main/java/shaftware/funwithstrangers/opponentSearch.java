@@ -67,7 +67,7 @@ public class opponentSearch extends AppCompatActivity {
                     nextScreen = TicTacToe.class;
                     break;
             case HANGMAN:
-                    gameTitle.setText("Hang Man");
+                    gameTitle.setText("Hangman");
                     nextScreen = Hangman.class;
                     break;
         }

@@ -82,7 +82,6 @@ public class Hangman extends AppCompatActivity {
                         }else{
                             Globals.MultClient.connect();
                         }
-
                     }
                     closeKeyboard();
                 } else {
