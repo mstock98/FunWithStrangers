@@ -99,359 +99,347 @@ public class UltimateTicTacToe extends AppCompatActivity {
         boolean validSpot;
 
 
-            if (true /*UTTTGame.isTurn()*/) {
-                //Button locations
-                switch (v.getId()) {
-                    case R.id.c000:
-                        row = 0;
-                        col = 0;
-                        break;
-                    case R.id.c001:
-                        row = 0;
-                        col = 1;
-                        break;
-                    case R.id.c002:
-                        row = 0;
-                        col = 2;
-                        break;
-                    case R.id.c010:
-                        row = 1;
-                        col = 0;
-                        break;
-                    case R.id.c011:
-                        row = 1;
-                        col = 1;
-                        break;
-                    case R.id.c012:
-                        row = 1;
-                        col = 2;
-                        break;
-                    case R.id.c020:
-                        row = 2;
-                        col = 0;
-                        break;
-                    case R.id.c021:
-                        row = 2;
-                        col = 1;
-                        break;
-                    case R.id.c022:
-                        row = 2;
-                        col = 2;
-                        break;
-                    case R.id.c100:
-                        row = 0;
-                        col = 3;
-                        break;
-                    case R.id.c101:
-                        row = 0;
-                        col = 4;
-                        break;
-                    case R.id.c102:
-                        row = 0;
-                        col = 5;
-                        break;
-                    case R.id.c110:
-                        row = 1;
-                        col = 3;
-                        break;
-                    case R.id.c111:
-                        row = 1;
-                        col = 4;
-                        break;
-                    case R.id.c112:
-                        row = 1;
-                        col = 5;
-                        break;
-                    case R.id.c120:
-                        row = 2;
-                        col = 3;
-                        break;
-                    case R.id.c121:
-                        row = 2;
-                        col = 4;
-                        break;
-                    case R.id.c122:
-                        row = 2;
-                        col = 5;
-                        break;
-                    case R.id.c200:
-                        row = 0;
-                        col = 6;
-                        break;
-                    case R.id.c201:
-                        row = 0;
-                        col = 7;
-                        break;
-                    case R.id.c202:
-                        row = 0;
-                        col = 8;
-                        break;
-                    case R.id.c210:
-                        row = 1;
-                        col = 6;
-                        break;
-                    case R.id.c211:
-                        row = 1;
-                        col = 7;
-                        break;
-                    case R.id.c212:
-                        row = 1;
-                        col = 8;
-                        break;
-                    case R.id.c220:
-                        row = 2;
-                        col = 6;
-                        break;
-                    case R.id.c221:
-                        row = 2;
-                        col = 7;
-                        break;
-                    case R.id.c222:
-                        row = 2;
-                        col = 8;
-                        break;
-                    case R.id.c300:
-                        row = 3;
-                        col = 0;
-                        break;
-                    case R.id.c301:
-                        row = 3;
-                        col = 1;
-                        break;
-                    case R.id.c302:
-                        row = 3;
-                        col = 2;
-                        break;
-                    case R.id.c310:
-                        row = 4;
-                        col = 0;
-                        break;
-                    case R.id.c311:
-                        row = 4;
-                        col = 1;
-                        break;
-                    case R.id.c312:
-                        row = 4;
-                        col = 2;
-                        break;
-                    case R.id.c320:
-                        row = 5;
-                        col = 0;
-                        break;
-                    case R.id.c321:
-                        row = 5;
-                        col = 1;
-                        break;
-                    case R.id.c322:
-                        row = 5;
-                        col = 2;
-                        break;
-                    case R.id.c400:
-                        row = 3;
-                        col = 3;
-                        break;
-                    case R.id.c401:
-                        row = 3;
-                        col = 4;
-                        break;
-                    case R.id.c402:
-                        row = 3;
-                        col = 5;
-                        break;
-                    case R.id.c410:
-                        row = 4;
-                        col = 3;
-                        break;
-                    case R.id.c411:
-                        row = 4;
-                        col = 4;
-                        break;
-                    case R.id.c412:
-                        row = 4;
-                        col = 5;
-                        break;
-                    case R.id.c420:
-                        row = 5;
-                        col = 3;
-                        break;
-                    case R.id.c421:
-                        row = 5;
-                        col = 4;
-                        break;
-                    case R.id.c422:
-                        row = 5;
-                        col = 5;
-                        break;
-                    case R.id.c500:
-                        row = 3;
-                        col = 6;
-                        break;
-                    case R.id.c501:
-                        row = 3;
-                        col = 7;
-                        break;
-                    case R.id.c502:
-                        row = 3;
-                        col = 8;
-                        break;
-                    case R.id.c510:
-                        row = 4;
-                        col = 6;
-                        break;
-                    case R.id.c511:
-                        row = 4;
-                        col = 7;
-                        break;
-                    case R.id.c512:
-                        row = 4;
-                        col = 8;
-                        break;
-                    case R.id.c520:
-                        row = 5;
-                        col = 6;
-                        break;
-                    case R.id.c521:
-                        row = 5;
-                        col = 7;
-                        break;
-                    case R.id.c522:
-                        row = 5;
-                        col = 8;
-                        break;
-                    case R.id.c600:
-                        row = 6;
-                        col = 0;
-                        break;
-                    case R.id.c601:
-                        row = 6;
-                        col = 1;
-                        break;
-                    case R.id.c602:
-                        row = 6;
-                        col = 2;
-                        break;
-                    case R.id.c610:
-                        row = 7;
-                        col = 0;
-                        break;
-                    case R.id.c611:
-                        row = 7;
-                        col = 1;
-                        break;
-                    case R.id.c612:
-                        row = 7;
-                        col = 2;
-                        break;
-                    case R.id.c620:
-                        row = 8;
-                        col = 0;
-                        break;
-                    case R.id.c621:
-                        row = 8;
-                        col = 1;
-                        break;
-                    case R.id.c622:
-                        row = 8;
-                        col = 2;
-                        break;
-                    case R.id.c700:
-                        row = 6;
-                        col = 3;
-                        break;
-                    case R.id.c701:
-                        row = 6;
-                        col = 4;
-                        break;
-                    case R.id.c702:
-                        row = 6;
-                        col = 5;
-                        break;
-                    case R.id.c710:
-                        row = 7;
-                        col = 3;
-                        break;
-                    case R.id.c711:
-                        row = 7;
-                        col = 4;
-                        break;
-                    case R.id.c712:
-                        row = 7;
-                        col = 5;
-                        break;
-                    case R.id.c720:
-                        row = 8;
-                        col = 3;
-                        break;
-                    case R.id.c721:
-                        row = 8;
-                        col = 4;
-                        break;
-                    case R.id.c722:
-                        row = 8;
-                        col = 5;
-                        break;
-                    case R.id.c800:
-                        row = 6;
-                        col = 6;
-                        break;
-                    case R.id.c801:
-                        row = 6;
-                        col = 7;
-                        break;
-                    case R.id.c802:
-                        row = 6;
-                        col = 8;
-                        break;
-                    case R.id.c810:
-                        row = 7;
-                        col = 6;
-                        break;
-                    case R.id.c811:
-                        row = 7;
-                        col = 7;
-                        break;
-                    case R.id.c812:
-                        row = 7;
-                        col = 8;
-                        break;
-                    case R.id.c820:
-                        row = 8;
-                        col = 6;
-                        break;
-                    case R.id.c821:
-                        row = 8;
-                        col = 7;
-                        break;
-                    case R.id.c822:
-                        row = 8;
-                        col = 8;
-                        break;
-                }
-                validSpot = UTTTGame.pickSpot(row, col);
-
-                if (validSpot) {
-                    UTTTGame.swapPiece();
-                    updateGameView(UTTTGame);
-                }
-
-                // Dumb AI
-                if (!checkWinner()) {
-                    do {
-                        row = (int) (Math.random() * 9);
-                        col = (int) (Math.random() * 9);
-                    } while (!UTTTGame.pickSpot(row, col));
-
-                    UTTTGame.swapPiece();
-                    updateGameView(UTTTGame);
-                } else {
-                    updateGameView(UTTTGame);
-                }
+        if (true /*UTTTGame.isTurn()*/) {
+            //Button locations
+            switch (v.getId()) {
+                case R.id.c000:
+                    row = 0;
+                    col = 0;
+                    break;
+                case R.id.c001:
+                    row = 0;
+                    col = 1;
+                    break;
+                case R.id.c002:
+                    row = 0;
+                    col = 2;
+                    break;
+                case R.id.c010:
+                    row = 1;
+                    col = 0;
+                    break;
+                case R.id.c011:
+                    row = 1;
+                    col = 1;
+                    break;
+                case R.id.c012:
+                    row = 1;
+                    col = 2;
+                    break;
+                case R.id.c020:
+                    row = 2;
+                    col = 0;
+                    break;
+                case R.id.c021:
+                    row = 2;
+                    col = 1;
+                    break;
+                case R.id.c022:
+                    row = 2;
+                    col = 2;
+                    break;
+                case R.id.c100:
+                    row = 0;
+                    col = 3;
+                    break;
+                case R.id.c101:
+                    row = 0;
+                    col = 4;
+                    break;
+                case R.id.c102:
+                    row = 0;
+                    col = 5;
+                    break;
+                case R.id.c110:
+                    row = 1;
+                    col = 3;
+                    break;
+                case R.id.c111:
+                    row = 1;
+                    col = 4;
+                    break;
+                case R.id.c112:
+                    row = 1;
+                    col = 5;
+                    break;
+                case R.id.c120:
+                    row = 2;
+                    col = 3;
+                    break;
+                case R.id.c121:
+                    row = 2;
+                    col = 4;
+                    break;
+                case R.id.c122:
+                    row = 2;
+                    col = 5;
+                    break;
+                case R.id.c200:
+                    row = 0;
+                    col = 6;
+                    break;
+                case R.id.c201:
+                    row = 0;
+                    col = 7;
+                    break;
+                case R.id.c202:
+                    row = 0;
+                    col = 8;
+                    break;
+                case R.id.c210:
+                    row = 1;
+                    col = 6;
+                    break;
+                case R.id.c211:
+                    row = 1;
+                    col = 7;
+                    break;
+                case R.id.c212:
+                    row = 1;
+                    col = 8;
+                    break;
+                case R.id.c220:
+                    row = 2;
+                    col = 6;
+                    break;
+                case R.id.c221:
+                    row = 2;
+                    col = 7;
+                    break;
+                case R.id.c222:
+                    row = 2;
+                    col = 8;
+                    break;
+                case R.id.c300:
+                    row = 3;
+                    col = 0;
+                    break;
+                case R.id.c301:
+                    row = 3;
+                    col = 1;
+                    break;
+                case R.id.c302:
+                    row = 3;
+                    col = 2;
+                    break;
+                case R.id.c310:
+                    row = 4;
+                    col = 0;
+                    break;
+                case R.id.c311:
+                    row = 4;
+                    col = 1;
+                    break;
+                case R.id.c312:
+                    row = 4;
+                    col = 2;
+                    break;
+                case R.id.c320:
+                    row = 5;
+                    col = 0;
+                    break;
+                case R.id.c321:
+                    row = 5;
+                    col = 1;
+                    break;
+                case R.id.c322:
+                    row = 5;
+                    col = 2;
+                    break;
+                case R.id.c400:
+                    row = 3;
+                    col = 3;
+                    break;
+                case R.id.c401:
+                    row = 3;
+                    col = 4;
+                    break;
+                case R.id.c402:
+                    row = 3;
+                    col = 5;
+                    break;
+                case R.id.c410:
+                    row = 4;
+                    col = 3;
+                    break;
+                case R.id.c411:
+                    row = 4;
+                    col = 4;
+                    break;
+                case R.id.c412:
+                    row = 4;
+                    col = 5;
+                    break;
+                case R.id.c420:
+                    row = 5;
+                    col = 3;
+                    break;
+                case R.id.c421:
+                    row = 5;
+                    col = 4;
+                    break;
+                case R.id.c422:
+                    row = 5;
+                    col = 5;
+                    break;
+                case R.id.c500:
+                    row = 3;
+                    col = 6;
+                    break;
+                case R.id.c501:
+                    row = 3;
+                    col = 7;
+                    break;
+                case R.id.c502:
+                    row = 3;
+                    col = 8;
+                    break;
+                case R.id.c510:
+                    row = 4;
+                    col = 6;
+                    break;
+                case R.id.c511:
+                    row = 4;
+                    col = 7;
+                    break;
+                case R.id.c512:
+                    row = 4;
+                    col = 8;
+                    break;
+                case R.id.c520:
+                    row = 5;
+                    col = 6;
+                    break;
+                case R.id.c521:
+                    row = 5;
+                    col = 7;
+                    break;
+                case R.id.c522:
+                    row = 5;
+                    col = 8;
+                    break;
+                case R.id.c600:
+                    row = 6;
+                    col = 0;
+                    break;
+                case R.id.c601:
+                    row = 6;
+                    col = 1;
+                    break;
+                case R.id.c602:
+                    row = 6;
+                    col = 2;
+                    break;
+                case R.id.c610:
+                    row = 7;
+                    col = 0;
+                    break;
+                case R.id.c611:
+                    row = 7;
+                    col = 1;
+                    break;
+                case R.id.c612:
+                    row = 7;
+                    col = 2;
+                    break;
+                case R.id.c620:
+                    row = 8;
+                    col = 0;
+                    break;
+                case R.id.c621:
+                    row = 8;
+                    col = 1;
+                    break;
+                case R.id.c622:
+                    row = 8;
+                    col = 2;
+                    break;
+                case R.id.c700:
+                    row = 6;
+                    col = 3;
+                    break;
+                case R.id.c701:
+                    row = 6;
+                    col = 4;
+                    break;
+                case R.id.c702:
+                    row = 6;
+                    col = 5;
+                    break;
+                case R.id.c710:
+                    row = 7;
+                    col = 3;
+                    break;
+                case R.id.c711:
+                    row = 7;
+                    col = 4;
+                    break;
+                case R.id.c712:
+                    row = 7;
+                    col = 5;
+                    break;
+                case R.id.c720:
+                    row = 8;
+                    col = 3;
+                    break;
+                case R.id.c721:
+                    row = 8;
+                    col = 4;
+                    break;
+                case R.id.c722:
+                    row = 8;
+                    col = 5;
+                    break;
+                case R.id.c800:
+                    row = 6;
+                    col = 6;
+                    break;
+                case R.id.c801:
+                    row = 6;
+                    col = 7;
+                    break;
+                case R.id.c802:
+                    row = 6;
+                    col = 8;
+                    break;
+                case R.id.c810:
+                    row = 7;
+                    col = 6;
+                    break;
+                case R.id.c811:
+                    row = 7;
+                    col = 7;
+                    break;
+                case R.id.c812:
+                    row = 7;
+                    col = 8;
+                    break;
+                case R.id.c820:
+                    row = 8;
+                    col = 6;
+                    break;
+                case R.id.c821:
+                    row = 8;
+                    col = 7;
+                    break;
+                case R.id.c822:
+                    row = 8;
+                    col = 8;
+                    break;
             }
+            validSpot = UTTTGame.pickSpot(row, col);
+
+            if (validSpot) {
+                UTTTGame.swapPiece();
+                updateGameView(UTTTGame);
+            }
+
+            checkWinner();
+        }
 
 
 
             /*if(begin){
-
                 //Game does not accept an invalid input and will wait for player to enter in something that is valid
                 boolean validSpot = TttGame.pickSpot(row, col);// choose a location
                 if(Globals.getConnected()){
@@ -469,21 +457,33 @@ public class UltimateTicTacToe extends AppCompatActivity {
                         TttGame.swapTurn();
                         ai.game.receiveBoard(TttGame.getBoard());
                         updateGameView(TttGame);
-
                         //If someone has won stop the AI from playing
                         if (!checkWinner()) {
                             ai.TttAiTurn();
                             TttGame.receiveBoard(ai.game.getBoard());
                             updateGameView(TttGame);
                         }
-
                         //Disable player from doing anything if someone has won
                         if (!checkWinner())
                             TttGame.swapTurn();
                     }
                 }
             }*/
+    }
+
+    //Refreshes every button's image to correspond with the gameboard
+    private void updateGameView(UltimateTTTLogic game, int row, int col) {
+        Piece piece = game.getBoardPiece(row, col);
+        if (piece == Piece.X) {
+            buttons[row][col].setImageResource(R.drawable.x);
         }
+        if (piece == Piece.O) {
+            buttons[row][col].setImageResource(R.drawable.o);
+        }
+        if (piece == Piece.OPEN) {
+            buttons[row][col].setImageResource(R.drawable.blank);
+        }
+    }
 
     //Refreshes every button's image to correspond with the gameboard
     private void updateGameView(UltimateTTTLogic game) {
@@ -510,19 +510,9 @@ public class UltimateTicTacToe extends AppCompatActivity {
         Winner winner = UTTTGame.checkWinner();
         if (winner == Winner.O) {
             Toast.makeText(getApplicationContext(), "O Won!", Toast.LENGTH_LONG).show();
-            for (int i = 0; i < 9; i++) {
-                for (int j = 0; j < 9; j++) {
-                    UTTTGame.setBoardPiece(Piece.O, i, j);
-                }
-            }
             return true;
         } else if (winner == Winner.X) {
             Toast.makeText(getApplicationContext(), "X Won!", Toast.LENGTH_LONG).show();
-            for (int i = 0; i < 9; i++) {
-                for (int j = 0; j < 9; j++) {
-                    UTTTGame.setBoardPiece(Piece.X, i, j);
-                }
-            }
             return true;
         } else if (winner == Winner.TIE) {
             Toast.makeText(getApplicationContext(), "Tie!", Toast.LENGTH_LONG).show();

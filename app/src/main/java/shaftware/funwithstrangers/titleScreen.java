@@ -33,21 +33,15 @@ public class titleScreen extends AppCompatActivity {
             case TICTACTOE:
                 title.setText("Tic Tac Toe");
                 break;
-            case CHESS:
-                title.setText("Chess");
-                break;
             case HANGMAN:
                 title.setText("Hang Man");
-                break;
-            default:
-                title.setText(" ");
                 break;
         }
 
         Button hostButton = findViewById(R.id.hostButton);
         hostButton.setOnClickListener(new OnClickListener() {
             public void onClick(View arg0) {
-                Globals.setHost(true);
+               Globals.MultClient.setHost(true);
                 Class next = titleScreen.class;
                 switch(mode){
                     case ULTIMATETICTACTOE:
@@ -58,9 +52,6 @@ public class titleScreen extends AppCompatActivity {
                         break;
                     case TICTACTOE:
                         next = TicTacToe.class;
-                        break;
-                    case CHESS:
-                        //switch to chess activity, goes no where
                         break;
                     case HANGMAN:
                         next = Hangman.class;
@@ -74,7 +65,7 @@ public class titleScreen extends AppCompatActivity {
         Button joinButton = findViewById(R.id.joinButton);
         joinButton.setOnClickListener(new OnClickListener() {
             public void onClick(View arg0) {
-                Globals.setHost(false);
+                Globals.MultClient.setHost(false);
                 //head back to title screen of game
                 Intent myIntent = new Intent(titleScreen.this, opponentSearch.class);
                 startActivity(myIntent);

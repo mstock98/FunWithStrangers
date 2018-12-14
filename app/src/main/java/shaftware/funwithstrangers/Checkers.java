@@ -1,5 +1,6 @@
 package shaftware.funwithstrangers;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,6 +10,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import shaftware.funwithstrangers.CheckersAi.difficulty;
@@ -18,7 +20,6 @@ import shaftware.funwithstrangers.CheckersLogic.square;
 
 public class Checkers extends AppCompatActivity {
 
-    //Fuckin hell dudes look at all of these
     ImageButton c00, c01, c02, c03, c04, c05, c06, c07,
             c10, c11, c12, c13, c14, c15, c16, c17,
             c20, c21, c22, c23, c24, c25, c26, c27,
@@ -49,14 +50,20 @@ public class Checkers extends AppCompatActivity {
     CheckersAi ai;
     boolean activeAi = false;
 
+    boolean firstPayload = true;
     square playerPiece;
 
     Move selectedMove, destinationMove;
-
+    boolean playerFirst;
     @Override
+
+    //TODO the first payload does need a special case because it the app sets the pieces on first payload, it can't rely on turn alone
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkers);
+        receiver r = new receiver();
+        Globals.MultClient.setCallback(r);
+        Globals.MultClient.setContext(getApplication());
     }
 
     protected void onStart(){
@@ -64,18 +71,30 @@ public class Checkers extends AppCompatActivity {
 
         //TODO
         //Configure
-        configure(true, true, difficulty.EASY);
+        playerFirst = false;
+        if(Globals.MultClient.getOnline()){
+            if(Globals.MultClient.getHost()){
+                playerFirst = new Random().nextBoolean();
+                configure(false, difficulty.EASY);
+                String tmp = Globals.MultClient.getUsern();
+                Globals.MultClient.setUsern(tmp + "4"); //4 is the code for checkers
+                Globals.MultClient.advertise(getApplication());
+            }else{
+                Globals.MultClient.connect();
+                configure(false, difficulty.EASY);
+            }
+        }else{
+            playerFirst = new Random().nextBoolean();
+            configure(true, difficulty.EASY);
+        }
 
         createBoard();
         initializeButtons();
         initializeBoard();
-
         updateGameView();
-
-
     }
 
-    private void configure(boolean playerFirst, boolean activeAi, difficulty aiDiff){
+    private void configure(boolean activeAi, difficulty aiDiff){
         square aiPiece;
         if (playerFirst) {
             playerPiece = square.WHITE;
@@ -104,6 +123,21 @@ public class Checkers extends AppCompatActivity {
     private ImageButton getButton(int i){
         int resID = getResources().getIdentifier(buttonsID[i], "id", getPackageName());
         return findViewById(resID);
+    }
+
+    public void connected(){
+        if(Globals.MultClient.getHost()) {
+            Globals.MultClient.stopAdvert(getApplication());
+
+            if (playerFirst) {
+                getWindow().getDecorView().setBackgroundColor(Color.GREEN);
+                game.setTurn(true);
+                sendBoard(1);
+            } else {
+                sendBoard(0); // its not our turn, make it their turn
+                getWindow().getDecorView().setBackgroundColor(Color.RED);
+            }
+        }
     }
 
     private void initializeButtons() {
@@ -201,29 +235,32 @@ public class Checkers extends AppCompatActivity {
 
         //if valid move...
         if (selectedMove != null && destinationMove != null && game.validMove(selectedMove, destinationMove, true)) {
-
             //if turn can end... i.e. no more available moves that have to be made
             if (game.checkEndTurn(destinationMove)) {
                 game.setTurn(false);
-                if (activeAi) {
-                    checkWinner();
-                    updateGameView();
+                if(!Globals.MultClient.getOnline()){
+                    if (activeAi) {
+                        checkWinner();
+                        updateGameView();
 
-                    //TODO add delay for easy ai
+                        //TODO add delay for easy ai
 
-                    ai.game.setBoard(game.getBoard());
-                    ai.CheckersAiTurn();
-                    game.setBoard(ai.game.getBoard());
-                } else{
-                    game.swapPiece();
+                        ai.game.setBoard(game.getBoard());
+                        ai.CheckersAiTurn();
+                        game.setBoard(ai.game.getBoard());
+                    } else{
+                        game.swapPiece();
+                    }
+                    game.setTurn(true);
+                    //checks and handles winning situations
+                }else{
+                    sendBoard(0); // our turn is done
+                    getWindow().getDecorView().setBackgroundColor(Color.RED);
                 }
-                game.setTurn(true);
             }
-
-            //checks and handles winning situations
             checkWinner();
             updateGameView();
-
+            sendBoard(1);
         }
 
 
@@ -234,6 +271,43 @@ public class Checkers extends AppCompatActivity {
             updateGameView();
         }
 
+    }
+
+    private void sendBoard(int turnDone){
+        square[][] board = game.getBoard();
+        byte[] b = new byte[65];
+        for (int i = 0; i < 64; i++){
+            b[i] = (byte)(board[i/8][i%8].ordinal());
+        }
+        b[64] = (byte)turnDone;
+        Globals.MultClient.sendPayload(b);
+    }
+
+    private void PayloadReceived(byte[] b){
+        square[][]board = new square[8][8];
+        if(firstPayload && !Globals.MultClient.getHost()){//initialization of the pieces
+            if(b[64] == 0){
+                playerPiece = square.WHITE;
+                playerFirst = true;
+                configure(false, difficulty.EASY);
+            }else{
+                playerPiece = square.BLACK;
+                playerFirst = false;
+                configure(false, difficulty.EASY);
+                getWindow().getDecorView().setBackgroundColor(Color.RED);
+            }
+            firstPayload = false;
+        }
+        for (int i = 0; i < 64; i++){
+            board[i/8][i%8] = square.values()[b[i]];
+        }
+        game.setBoard(board);
+        if(b[64] == 0){//opponent is saying their turn is over
+            game.setTurn(true);
+            getWindow().getDecorView().setBackgroundColor(Color.GREEN);
+        }
+        updateGameView();
+        checkWinner();
     }
 
     private void highlightSquare(Move move){
@@ -248,7 +322,6 @@ public class Checkers extends AppCompatActivity {
 
         if (outcome == outcome.IN_PROGRESS)
             return;
-
         if (outcome == outcome.BLACK) {
             Toast.makeText(getApplicationContext(), "Black Won!", Toast.LENGTH_LONG).show();
         } else if (outcome == outcome.WHITE) {
@@ -256,7 +329,30 @@ public class Checkers extends AppCompatActivity {
         } else if (outcome == outcome.TIE){
             Toast.makeText(getApplicationContext(), "Tie!", Toast.LENGTH_LONG).show();
         }
-
         game.setTurn(false);
+    }
+
+    @Override
+    protected void onStop(){
+        super.onStop();
+        if(Globals.MultClient.getOnline()) {
+            Globals.MultClient.stopAdvert(getApplicationContext());
+            Globals.MultClient.disconnect(getApplicationContext());
+        }
+    }
+
+    public void theyDisconnected(){
+        Intent myIntent = new Intent(getApplicationContext(), titleScreen.class);
+        startActivity(myIntent);
+    }
+
+    public class receiver implements Receiver{
+        public void receive(byte[] b){
+            PayloadReceived(b);
+        }
+        public void onConnection(){
+            connected();
+        }
+        public void onDisconnect(){theyDisconnected();}
     }
 }

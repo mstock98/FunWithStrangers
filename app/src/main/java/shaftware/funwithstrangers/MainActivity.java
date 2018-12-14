@@ -23,79 +23,86 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
         //instantiate buttons based on the buttons specified in our layout
         UTTTButton = findViewById(R.id.UTTTButton);
         ticTacToeButton =  findViewById(R.id.ticTacToeButton);
+        chessButton = findViewById(R.id.checkersButton);
         hangManButton = findViewById(R.id.hangManButton);
         checkersButton = findViewById(R.id.checkersButton);
-        chessButton = findViewById(R.id.checkersButton);
-        onlineButton = findViewById(R.id.onlineButton);
-
+        onlineButton = findViewById(R.id.Onlinebutton);
+        if(Globals.MultClient.getOnline()){
+            onlineButton.setText("Online");
+        }
 
         onlineButton.setOnClickListener(new OnClickListener() {
             public void onClick(View arg0) {
-                if(Globals.getOnline()){
+                if(Globals.MultClient.getOnline()){
                     onlineButton.setText("Offline");
-                    Globals.setOnline(false);
+                    Globals.MultClient.setOnline(false);
                 }else{
                     ActivityCompat.requestPermissions(MainActivity.this,
                             new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
-                            42069);
+                            42609);
+                    onlineButton.setText("Online");
+                    Globals.MultClient.setOnline(true);
                 }
-
             }
         });
 
         UTTTButton.setOnClickListener(new OnClickListener() {
             public void onClick(View arg0) {
-                Globals g = (Globals)getApplication();
-                g.setMode(Globals.Mode.ULTIMATETICTACTOE);
-                switchToTitleScreen();
+              Globals.setMode(Globals.Mode.ULTIMATETICTACTOE);
+                switchScreen();
             }
         });
 
             // Capture button clicks
         ticTacToeButton.setOnClickListener(new OnClickListener() {
             public void onClick(View arg0) {
-                Globals g = (Globals)getApplication();
-                g.setMode(Globals.Mode.TICTACTOE);
-                switchToTitleScreen();
-            }
-        });
-
-        // Capture button clicks
-        chessButton.setOnClickListener(new OnClickListener() {
-            public void onClick(View arg0) {
-                Globals g = (Globals)getApplication();
-                g.setMode(Globals.Mode.CHESS);
-                switchToTitleScreen();
+               Globals.setMode(Globals.Mode.TICTACTOE);
+                switchScreen();
             }
         });
 
         // Capture button clicks
         hangManButton.setOnClickListener(new OnClickListener() {
             public void onClick(View arg0) {
-                Globals g = (Globals)getApplication();
-                g.setMode(Globals.Mode.HANGMAN);
-                switchToTitleScreen();
+                Globals.setMode(Globals.Mode.HANGMAN);
+                switchScreen();
             }
         });
 
         // Capture button clicks
         checkersButton.setOnClickListener(new OnClickListener() {
             public void onClick(View arg0) {
-                Globals g = (Globals)getApplication();
-                g.setMode(Globals.Mode.CHECKERS);
-                switchToTitleScreen();
+                Globals.setMode(Globals.Mode.CHECKERS);
+                switchScreen();
             }
         });
     }
 
-    private void switchToTitleScreen(){
+    private void switchScreen(){
+        Class nextClass = MainActivity.class;
         // Start NewActivity.class
-        Intent myIntent = new Intent(MainActivity.this, titleScreen.class);
+        if(Globals.MultClient.getOnline()){
+            nextClass = titleScreen.class;
+        }else{
+            switch(Globals.getMode()){
+                case CHECKERS:
+                    nextClass = Checkers.class;
+                    break;
+                case TICTACTOE:
+                    nextClass = TicTacToe.class;
+                    break;
+                case ULTIMATETICTACTOE:
+                    nextClass = UltimateTicTacToe.class;
+                    break;
+                case HANGMAN:
+                    nextClass = Hangman.class;
+                    break;
+            }
+        }
+        Intent myIntent = new Intent(MainActivity.this, nextClass);
         startActivity(myIntent);
     }
 
@@ -103,8 +110,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             onlineButton.setText("Online");
-            Globals.setOnline(true);
+            Globals.MultClient.setOnline(true);
         }
-
     }
 }
