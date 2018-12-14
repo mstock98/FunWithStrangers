@@ -11,8 +11,10 @@
         android:layout_width="97dp"
         android:layout_height="97dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
         android:background="@drawable/board"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/grid1"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -128,8 +130,9 @@
         android:layout_width="97dp"
         android:layout_height="97dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/board"
+        app:layout_constraintEnd_toStartOf="@+id/grid2"
         app:layout_constraintStart_toEndOf="@+id/grid0"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -244,9 +247,10 @@
         android:id="@+id/grid0"
         android:layout_width="97dp"
         android:layout_height="97dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/board"
+        app:layout_constraintEnd_toStartOf="@+id/grid1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -361,9 +365,10 @@
         android:id="@+id/grid3"
         android:layout_width="97dp"
         android:layout_height="97dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:background="@drawable/board"
+        app:layout_constraintEnd_toStartOf="@+id/grid4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/grid0">
 
@@ -481,6 +486,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:background="@drawable/board"
+        app:layout_constraintEnd_toStartOf="@+id/grid5"
         app:layout_constraintStart_toEndOf="@+id/grid3"
         app:layout_constraintTop_toBottomOf="@+id/grid1">
 
@@ -597,7 +603,9 @@
         android:layout_height="97dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
         android:background="@drawable/board"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/grid7"
         app:layout_constraintTop_toBottomOf="@+id/grid5">
 
@@ -712,9 +720,10 @@
         android:id="@+id/grid6"
         android:layout_width="97dp"
         android:layout_height="97dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:background="@drawable/board"
+        app:layout_constraintEnd_toStartOf="@+id/grid7"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/grid3">
 
@@ -832,6 +841,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:background="@drawable/board"
+        app:layout_constraintEnd_toStartOf="@+id/grid8"
         app:layout_constraintStart_toEndOf="@+id/grid6"
         app:layout_constraintTop_toBottomOf="@+id/grid4">
 
@@ -948,7 +958,9 @@
         android:layout_height="97dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
         android:background="@drawable/board"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/grid4"
         app:layout_constraintTop_toBottomOf="@+id/grid2">
 
