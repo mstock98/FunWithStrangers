@@ -16,6 +16,7 @@ public class CheckersLogic {
     private square opkPiece;
     private boolean turn;
     private boolean lastMoveJump = false;
+    Move lastPiece;
 
     public CheckersLogic(square piece, boolean turn) {
         this.piece = piece;
@@ -129,7 +130,7 @@ public class CheckersLogic {
                 int colDiff = Math.abs(selectedMove.getCol() - destinationMove.getCol());
 
                 //force jump
-                ArrayList<Move[]> moves = checkForJump();
+                ArrayList<Move[]> moves = checkForJump(lastPiece);
                 for (int i = 0; i < moves.size(); i++) {
                     if (moves.get(i)[0].equals(selectedMove) && moves.get(i)[1].equals(destinationMove)) {
                         if (initiateMove) {
@@ -160,8 +161,10 @@ public class CheckersLogic {
                             if (initiateMove) {
                                 if (checkEndTurn(destinationMove, true))
                                     lastMoveJump = false;
-                                else
+                                else {
                                     lastMoveJump = true;
+                                    lastPiece = destinationMove;
+                                }
                             }
                         }
                         return true;
@@ -244,7 +247,7 @@ public class CheckersLogic {
         return false;
     }
 
-    private ArrayList<Move[]> checkForJump() {
+    private ArrayList<Move[]> checkForJump(Move lastPiece) {
         ArrayList<Move[]> moves = new ArrayList<>();
 
         for (int i = 0; i < 64; i++) {
@@ -252,6 +255,8 @@ public class CheckersLogic {
                 if ((board[i / 8][i % 8] == piece || board[i / 8][i % 8] == kPiece) && board[j / 8][j % 8] == square.OPEN) {
 
                     Move moveI = new Move(i / 8, i % 8);
+                    if (lastMoveJump)
+                        moveI = lastPiece;
                     Move moveJ = new Move(j / 8, j % 8);
 
                     int rowDiff = Math.abs(moveI.getRow() - moveJ.getRow());
